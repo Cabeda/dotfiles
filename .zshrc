@@ -72,10 +72,6 @@ plugins=(
     zsh-autosuggestions
     )
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -93,8 +89,6 @@ plugins=(
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
 
 # Script that holds alias and tokens
 source ~/env.sh
@@ -102,15 +96,8 @@ source ~/env.sh
 alias python=python3
 alias pip=pip3
 
-
-autoload -U +X compinit && compinit
-autoload -U +X bashcompinit && bashcompinit
-
-
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 
-autoload -U +X compinit && compinit
-autoload -U +X bashcompinit && bashcompinit
 
 export PATH="$HOME/.npm-packages/bin:$PATH"
 
@@ -130,8 +117,11 @@ export GPG_TTY=$(tty)
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-autoload -Uz compinit && compinit -i
 
 eval "$(starship init zsh)"
 
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit -i
