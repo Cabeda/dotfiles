@@ -122,6 +122,15 @@ eval "$(starship init zsh)"
 
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit && compinit -i
+
+# Move next only if `homebrew` is installed
+if command -v brew >/dev/null 2>&1; then
+	# Load rupa's z if installed
+	[ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
+fi
