@@ -3,7 +3,6 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jose.cabeda/.oh-my-zsh"
-export PSQL_EDITOR="code -w"
 
 export LC_CTYPE="en_US.UTF-8"
 
@@ -76,11 +75,11 @@ plugins=(
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='vim'
+ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -134,3 +133,8 @@ if command -v brew >/dev/null 2>&1; then
 	# Load rupa's z if installed
 	[ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
 fi
+
+# Deno
+fpath=(~/.zsh $fpath)
+autoload -Uz compinit
+compinit -u
