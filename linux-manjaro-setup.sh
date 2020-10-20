@@ -14,7 +14,7 @@ sudo pacman -Sy
 sudo pacman -S alacritty bitwarden tldr git \
                 fzf z vlc github-cli docker \
                 pwgen jq yq nodejs postgresql \
-                ripgrep steam
+                ripgrep steam vim
 
 curl https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz --output ~/Downloads/zoom.pkg.tar.xz
 sudo pacman -U ~/Downloads/zoom.pkg.tar.xz
@@ -35,10 +35,10 @@ brew install \
   
 sudo pacman -S base-devel
 
-ln -s .tmux.conf ~/.tmux.conf
-ln -s .vimrc ~/.vimrc
-ln -s .zshrc ~/.zshrc
-ln -s .alacritty.yml ~/.alacritty.yml
+ln -f .tmux.conf ~/.tmux.conf
+ln -f .vimrc ~/.vimrc
+ln -f .zshrc ~/.zshrc
+ln -f .alacritty.yml ~/.alacritty.yml
 
 echo
 echo_ok "Done."
