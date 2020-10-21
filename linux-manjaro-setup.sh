@@ -3,6 +3,9 @@
 # oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+
+
+
 #Install starship
 curl -fsSL https://starship.rs/install.sh | bash
 
@@ -18,6 +21,10 @@ sudo pacman -S alacritty bitwarden tldr git \
 
 curl https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz --output ~/Downloads/zoom.pkg.tar.xz
 sudo pacman -U ~/Downloads/zoom.pkg.tar.xz
+
+#Get zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
 
 # Install snap packages
 sudo pacman -S snapd
