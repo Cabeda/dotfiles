@@ -17,7 +17,7 @@ sudo pacman -Sy
 sudo pacman -S alacritty bitwarden tldr git \
                 fzf z vlc github-cli docker \
                 pwgen jq yq nodejs postgresql \
-                ripgrep steam vim tmux
+                ripgrep steam vim tmux nodejs
 
 curl https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz --output ~/Downloads/zoom.pkg.tar.xz
 sudo pacman -U ~/Downloads/zoom.pkg.tar.xz
@@ -25,6 +25,8 @@ sudo pacman -U ~/Downloads/zoom.pkg.tar.xz
 #Get zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
+# Get z command
+git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
 
 # Install snap packages
 sudo pacman -S snapd
