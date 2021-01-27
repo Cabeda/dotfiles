@@ -26,15 +26,19 @@ source ~/env.sh
 alias python=python3
 alias pip=pip3
 
+# Make sure pyenv version is used
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 
 
 export PATH="$HOME/.npm-packages/bin:$PATH"
 
 ################ Global Mac ALIAS ################
-alias start="curl -Ls https://gist.githubusercontent.com/Cabeda/8f16b830d7e720687f9d9a7afda31883/raw/dev_day_start.sh | bash"
+alias start="bash $PWD/start.sh"
 
-alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq)'
+alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
 alias g="open `git remote -v | awk 'NR==1{print $2}'`"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -67,3 +71,4 @@ fi
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit
 compinit -u
+
