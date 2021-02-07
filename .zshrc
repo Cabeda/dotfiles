@@ -36,7 +36,7 @@ export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 export PATH="$HOME/.npm-packages/bin:$PATH"
 
 ################ Global Mac ALIAS ################
-alias start="bash $PWD/start.sh"
+alias start="bash $(dirname $(readlink $0))/start.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
@@ -56,19 +56,4 @@ eval "$(starship init zsh)"
 
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
-
-autoload -U +X compinit && compinit
-autoload -U +X bashcompinit && bashcompinit
-autoload -Uz compinit && compinit -i
-
-# Move next only if `homebrew` is installed
-if command -v brew >/dev/null 2>&1; then
-	# Load rupa's z if installed
-	[ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
-fi
-
-# Deno
-fpath=(~/.zsh $fpath)
-autoload -Uz compinit
-compinit -u
 

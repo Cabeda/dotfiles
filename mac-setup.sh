@@ -103,8 +103,7 @@ brew cask install \
   chrome-devtools visual-studio-code dbeaver-community \
   keybase notion docker tunnelblick spectacle authy \
   scroll-reverser alt-tab openmtp protonvpn java \
-  intellij-idea-ce libreoffice
-
+  intellij-idea-ce libreoffice swiftdefaultappsprefpane
 # brew imagemagick
 #brew cask install inkscape
 brew install librsvg
