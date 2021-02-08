@@ -15,7 +15,7 @@ ZSH_THEME="avit"
 DISABLE_UPDATE_PROMPT="true"
 ENABLE_CORRECTION="true"
 
-plugins=(zsh-autosuggestions zsh-z)
+plugins=(zsh-autosuggestions)
 
 export LANG=en_US.UTF-8
 
@@ -36,7 +36,7 @@ export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 export PATH="$HOME/.npm-packages/bin:$PATH"
 
 ################ Global Mac ALIAS ################
-alias start="bash $(dirname $(readlink $0))/start.sh"
+alias start="bash $(dirname $(readlink ${(%):-%N}))/start.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
