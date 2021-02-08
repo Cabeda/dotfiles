@@ -77,7 +77,7 @@ brew tap xo/xo
 brew upgrade
 brew install \
   go gpg entr tldr gh speedtest fzf freetype htop pwgen \
-  jq yq libxml2 node python heroku terraform warrensbox/tap/tfswitch \
+  jq yq libxml2 node python heroku terraform warrensbox/tap/tfswitch z\
   postgres sqlite unrar v8 wget pipenv poetry git ripgrep \
   awscli asdf rust starship vault trash \
   
