@@ -54,6 +54,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 eval "$(starship init zsh)"
 
+# Init z command
+. $(brew --prefix)/etc/profile.d/z.sh
+
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
