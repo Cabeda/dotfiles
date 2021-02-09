@@ -47,6 +47,8 @@ alias presto="~/Documents/presto-cli-332-executable.jar"
 
 alias gn="git commit --no-verify"
 
+alias sp="speedtest"
+
 export GPG_TTY=$(tty)
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -60,3 +62,4 @@ eval "$(starship init zsh)"
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
+unsetopt nomatch
