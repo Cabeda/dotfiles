@@ -1,6 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+if [ "$TMUX" = "" ]; then 
+    tmux;
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jose.cabeda/.oh-my-zsh"
 
@@ -15,7 +19,7 @@ ZSH_THEME="avit"
 DISABLE_UPDATE_PROMPT="true"
 ENABLE_CORRECTION="true"
 
-plugins=(zsh-autosuggestions)
+# plugins=(zsh-autosuggestions)
 
 export LANG=en_US.UTF-8
 
@@ -40,7 +44,6 @@ alias start="bash $(dirname $(readlink ${(%):-%N}))/start.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
-alias g="open `git remote -v | awk 'NR==1{print $2}'`"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias presto="~/Documents/presto-cli-332-executable.jar"
