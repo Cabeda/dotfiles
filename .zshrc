@@ -52,6 +52,8 @@ alias gn="git commit --no-verify"
 
 alias sp="speedtest"
 
+alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
+
 export GPG_TTY=$(tty)
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
