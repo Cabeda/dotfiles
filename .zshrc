@@ -19,7 +19,7 @@ ZSH_THEME="avit"
 DISABLE_UPDATE_PROMPT="true"
 ENABLE_CORRECTION="true"
 
-# plugins=(zsh-autosuggestions)
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export LANG=en_US.UTF-8
 
