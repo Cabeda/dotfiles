@@ -113,6 +113,9 @@ brew install imagemagick
 # Install my time-tracker
 pip install time-tracker
 
+# Set one time configs
+git config --global core.pager delta
+
 echo
 echo_ok "Done."
 echo
