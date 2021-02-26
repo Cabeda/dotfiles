@@ -5,6 +5,8 @@ if [ "$TMUX" = "" ]; then
     tmux;
 fi
 
+plugins=(web-search)
+
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jose.cabeda/.oh-my-zsh"
 

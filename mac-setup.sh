@@ -80,10 +80,11 @@ brew install \
   jq yq libxml2 node python heroku terraform warrensbox/tap/tfswitch z\
   postgres sqlite unrar v8 wget pipenv poetry git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions\
+  git-delta
   
   
- brew install bitwarden-cli
- brew install speedtest --force
+brew install bitwarden-cli
+brew install speedtest --force
 
 # Apps
 echo_warn "Installing applications..."
