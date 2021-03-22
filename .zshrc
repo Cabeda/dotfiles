@@ -43,6 +43,7 @@ export PATH="$HOME/.npm-packages/bin:$PATH"
 
 ################ Global Mac ALIAS ################
 alias start="bash $(dirname $(readlink ${(%):-%N}))/start.sh"
+alias write="bash $(dirname $(readlink ${(%):-%N}))/write.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
@@ -54,7 +55,13 @@ alias gn="git commit --no-verify"
 
 alias sp="speedtest"
 
+alias dcd="docker compose down"
+
 alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
+
+function account() {
+  aw -1c "select _id from mongo_general_talkdesk_production_general.accounts where name = '$1'"
+}
 
 export GPG_TTY=$(tty)
 
@@ -73,3 +80,56 @@ bindkey "^[[1;3D" backward-word
 autoload -Uz compinit && compinit
 
 unsetopt nomatch
+
+# - - - - - -
+# - DOCKER  -
+# - - - - - -
+function docker-selector-containers() {
+  docker ps -a --format="{{.ID}}\t\t{{.Names}}" | \
+    fzf -0 -1 --delimiter="\t" --with-nth="-1" | \
+    cut -f1
+}
+function docker-selector-running-containers() {
+  docker ps --format="{{.ID}}\t\t{{.Names}}" | \
+    fzf -0 -1 --delimiter="\t" --with-nth="-1" | \
+    cut -f1
+}
+function docker-selector-images() {
+  docker images --format="{{.ID}}\t\t{{.Repository}}" | \
+    fzf -0 -1 --delimiter="\t" --with-nth="-1" | \
+    cut -f1
+}
+function din() {
+  docker exec -it $(docker-selector-containers) bash
+}
+function dlogs() {
+  docker logs -f $(docker-selector-running-containers)
+}
+function dip() {
+  docker inspect --format '{{ .NetworkSettings.IPAddress }}' $(docker-selector-containers)
+}
+function dre() {
+  docker restart $(docker-selector-containers)
+}
+function drm() {
+  docker rm $(docker-selector-containers)
+}
+function drma() {
+  docker rm $(docker ps -a | grep Exit | cut -d ' ' -f 1)
+}
+function drmi() {
+  docker rmi -f $(docker-selector-images)
+}
+function dsp() {
+  docker stop $(docker-selector-running-containers)
+}
+function dspa() {
+  docker stop $(docker ps -a | grep Up | cut -d ' ' -f 1)
+}
+
+function steal() {
+  git checkout staging
+  git pull
+  git reset --hard $1
+  git push -f origin staging
+}

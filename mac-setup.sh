@@ -114,7 +114,12 @@ brew install imagemagick
 pip install time-tracker
 
 # Set one time configs
-git config --global core.pager delta
+git config --global core.pager "delta --line-numbers --dark"
+git config --global delta.side-by-side true
+gh config set pager 'delta -s'
+
+# Disable boot sound
+sudo nvram SystemAudioVolume=%80
 
 echo
 echo_ok "Done."
