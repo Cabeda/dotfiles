@@ -103,15 +103,17 @@ brew cask install \
   spotify vlc \
   chrome-devtools visual-studio-code dbeaver-community \
   keybase notion docker tunnelblick spectacle authy \
-  scroll-reverser alt-tab openmtp protonvpn java \
+  scroll-reverser alt-tab openmtp protonvpn \
   intellij-idea-ce libreoffice swiftdefaultappsprefpane
 # brew imagemagick
 #brew cask install inkscape
 brew install librsvg
 brew install imagemagick
 
-# Install my time-tracker
-pip install time-tracker
+# Install java through sdkman
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk install java
 
 # Set one time configs
 git config --global core.pager "delta --line-numbers --dark"

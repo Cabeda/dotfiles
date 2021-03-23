@@ -133,3 +133,6 @@ function steal() {
   git reset --hard $1
   git push -f origin staging
 }
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/jose.cabeda/.sdkman"
+[[ -s "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh"
