@@ -59,6 +59,9 @@ alias dcd="docker compose down"
 
 alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
 
+alias cql="~/Documents/cqlsh-astra/bin/cqlsh"
+alias trino="~/Documents/trino-cli-354-executable.jar"
+
 function account() {
   aw -1c "select _id from mongo_general_talkdesk_production_general.accounts where name = '$1'"
 }
@@ -130,9 +133,16 @@ function dspa() {
 function steal() {
   git checkout staging
   git pull
-  git reset --hard $1
+  git reset --hard $(git branch --format='%(refname:short)' | fzf)
   git push -f origin staging
 }
+
+if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
+ export PATH="$HOME/platform-tools:$PATH"
+fi
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/jose.cabeda/.sdkman"
 [[ -s "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh"
+export PATH="/Users/jose.cabeda/.deta/bin:$PATH"
+export PATH="/Users/jose.cabeda/.deta/bin:$PATH"
