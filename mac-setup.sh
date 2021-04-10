@@ -4,7 +4,7 @@
 
 
 # Settings
-node_version="14.9.0"
+node_version="14.16.1"
 ruby_versions="2.7.0"
 python="3.8.1"
 ruby_default="2.7.0"
@@ -77,11 +77,14 @@ brew tap xo/xo
 brew upgrade
 brew install \
   go gpg entr tldr gh speedtest fzf freetype htop pwgen \
-  jq yq libxml2 node python heroku terraform warrensbox/tap/tfswitch z\
+  jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch z\
   postgres sqlite unrar v8 wget pipenv poetry git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions\
   git-delta
   
+# Install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+nvm install $node_version
   
 brew install bitwarden-cli
 brew install speedtest --force
