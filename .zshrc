@@ -47,6 +47,8 @@ alias write="bash $(dirname $(readlink ${(%):-%N}))/write.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
+alias kci="open $(basename "$PWD" | awk '{print "https://kci.talkdeskapp.com/blue/organizations/jenkins/talkdesk%2F"$1"/activity"}')"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias presto="~/Documents/presto-cli-332-executable.jar"
@@ -61,6 +63,7 @@ alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
 
 alias cql="~/Documents/cqlsh-astra/bin/cqlsh"
 alias trino="~/Documents/trino-cli-354-executable.jar"
+alias presto="~/Documents/presto-cli-350-executable.jar"
 
 function account() {
   aw -1c "select _id from mongo_general_talkdesk_production_general.accounts where name = '$1'"
