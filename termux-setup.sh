@@ -12,7 +12,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 
 # Set dotfiles configs to be the ones used by the system
-sudo ln -f .tmux.conf ~/.tmux.conf
-sudo ln -f .vimrc ~/.vimrc
-sudo ln -f .zshrc ~/.zshrc
-sudo ln -f .alacritty.yml ~/.alacritty.yml
+ln -s .tmux.conf ~/.tmux.conf
+ln -s .vimrc ~/.vimrc
+ln -s .zshrc ~/.zshrc
+ln -s .alacritty.yml ~/.alacritty.yml
