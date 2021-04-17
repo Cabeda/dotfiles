@@ -123,6 +123,12 @@ git config --global core.pager "delta --line-numbers --dark"
 git config --global delta.side-by-side true
 gh config set pager 'delta -s'
 
+# Set dotfiles configs to be the ones used by the system
+ln -f .tmux.conf ~/.tmux.conf
+ln -f .vimrc ~/.vimrc
+ln -f .zshrc ~/.zshrc
+ln -f .alacritty.yml ~/.alacritty.yml
+
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
 
