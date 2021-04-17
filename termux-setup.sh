@@ -2,7 +2,7 @@
 
 # A script to set up termux
 
-apt install git entr
+apt install git entr zsh
 
 # Setup git
 
@@ -12,7 +12,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 
 # Set dotfiles configs to be the ones used by the system
-ln -f .tmux.conf ~/.tmux.conf
-ln -f .vimrc ~/.vimrc
-ln -f .zshrc ~/.zshrc
-ln -f .alacritty.yml ~/.alacritty.yml
+sudo ln -f .tmux.conf ~/.tmux.conf
+sudo ln -f .vimrc ~/.vimrc
+sudo ln -f .zshrc ~/.zshrc
+sudo ln -f .alacritty.yml ~/.alacritty.yml
