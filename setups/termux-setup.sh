@@ -19,6 +19,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 
 # Git setup ssh key
-eval $(ssh-agent)
+export SSH_AUTH_SOCK=$HOME/.sshagent
+eval $(ssh-agent -a "$SSH_AUTH_SOCK")
 ssh-add
 ssh-add ~/.ssh/id_rsa
