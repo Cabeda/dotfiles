@@ -138,7 +138,7 @@ function steal() {
 if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
  export PATH="$HOME/platform-tools:$PATH"
 fi
-export PATH="/Users/jose.cabeda/.deta/bin:$PATH"
+export PATH="~/.deta/bin:$PATH"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
