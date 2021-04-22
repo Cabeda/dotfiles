@@ -51,8 +51,6 @@ alias kci="open $(basename "$PWD" | awk '{print "https://kci.talkdeskapp.com/blu
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias presto="~/Documents/presto-cli-332-executable.jar"
-
 alias gn="git commit --no-verify"
 
 alias sp="speedtest"
@@ -65,9 +63,6 @@ alias cql="~/Documents/cqlsh-astra/bin/cqlsh"
 alias trino="~/Documents/trino-cli-354-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
 
-function account() {
-  aw -1c "select _id from mongo_general_talkdesk_production_general.accounts where name = '$1'"
-}
 
 export GPG_TTY=$(tty)
 
