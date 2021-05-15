@@ -1,6 +1,6 @@
 #bin/bash
 
-WIKI_DIR="~/Documents/Git/pensamentos"
+WIKI_DIR="$HOME/Documents/Git/pensamentos"
 CURRENT_PATH=$PWD
 if [ ${1-"mac"} == "windows" ] 
 then
