@@ -1,7 +1,7 @@
 #bin/bash
 
 WIKI_DIR="~/Documents/Git/pensamentos"
-
+CURRENT_PATH=$PWD
 if [ ${1-"mac"} == "windows" ] 
 then
     echo "Starting windows"
@@ -9,5 +9,5 @@ else
     open -a typora ~/Documents/Git/pensamentos
     open -a spotify
     cd ~/Documents/Git/pensamentos
-    bash git_sync.sh
+    bash $CURRENT_PATH/git_sync.sh
 fi
