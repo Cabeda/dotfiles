@@ -16,6 +16,7 @@ else
     open -a firefox https://www.gocomics.com/random/calvinandhobbes
     open -a "authy desktop"
     open -a "bitwarden"
+    open -a typora
 
     echo "Good work and have a nice dev day!"
 fi 

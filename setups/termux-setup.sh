@@ -5,7 +5,7 @@
 apt install git entr zsh openssh
 
 
-# Install ZSH
+# Install oh my ZSH
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
