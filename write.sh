@@ -9,5 +9,5 @@ else
     open -a typora ~/Documents/Git/pensamentos
     open -a spotify
     cd ~/Documents/Git/pensamentos
-    git_sync.sh
+    bash git_sync.sh
 fi
