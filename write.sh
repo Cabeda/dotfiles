@@ -8,6 +8,6 @@ then
 else
     open -a typora $WIKI_DIR
     open -a spotify
-    cd ~/Documents/Git/pensamentos
+    cd $WIKI_DIR
     bash $CURRENT_PATH/git_sync.sh
 fi
