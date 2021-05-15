@@ -10,5 +10,5 @@ else
     open -a typora $WIKI_DIR
     open -a spotify
     cd $WIKI_DIR
-    bash $CURRENT_PATH/git_sync.sh
+    bash $GIT_SYNC_PATH/git_sync.sh
 fi
