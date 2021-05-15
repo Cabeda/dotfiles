@@ -6,8 +6,7 @@ if [ ${1-"mac"} == "windows" ]
 then
     echo "Starting windows"
 else
-    open -a typora ~/Documents/Git/pensamentos
+    open -a typora $WIKI_DIR
     open -a spotify
-    cd ~/Documents/Git/pensamentos
-    bash $CURRENT_PATH/git_sync.sh
+    bash $WIKI_DIR/git_sync.sh
 fi
