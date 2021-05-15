@@ -8,6 +8,6 @@ then
 else
     cd $WIKI_DIR
     open -a typora .
-    git_sync.sh
+    ./git_sync.sh
     open -a spotify
 fi
