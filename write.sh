@@ -2,6 +2,7 @@
 
 WIKI_DIR="$HOME/Documents/Git/pensamentos"
 CURRENT_PATH=$PWD
+
 if [ ${1-"mac"} == "windows" ] 
 then
     echo "Starting windows"
