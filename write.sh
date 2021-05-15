@@ -1,7 +1,7 @@
 #bin/bash
 
 WIKI_DIR="$HOME/Documents/Git/pensamentos"
-CURRENT_PATH=$PWD
+GIT_SYNC_PATH="$HOME/Documents/Git/dotfiles"
 
 if [ ${1-"mac"} == "windows" ] 
 then
