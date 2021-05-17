@@ -16,7 +16,6 @@ else
     open -a firefox https://www.gocomics.com/random/calvinandhobbes
     open -a "authy desktop"
     open -a "bitwarden"
-    ./write.sh
 
     echo "Good work and have a nice dev day!"
 fi 

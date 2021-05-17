@@ -102,7 +102,7 @@ brew install --cask firefox
 brew install --cask slack
 brew install --cask zoomus
 
-brew cask install \
+brew install --cask \
   spotify vlc \
   chrome-devtools visual-studio-code dbeaver-community \
   keybase notion docker tunnelblick spectacle authy \

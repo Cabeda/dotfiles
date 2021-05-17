@@ -64,6 +64,7 @@ alias trino="~/Documents/trino-cli-354-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
 
 
+eval $(ssh-agent)
 export GPG_TTY=$(tty)
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -142,6 +143,7 @@ export PATH="~/.deta/bin:$PATH"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/jose.cabeda/.sdkman"
