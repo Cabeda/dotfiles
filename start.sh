@@ -17,5 +17,7 @@ else
     open -a "authy desktop"
     open -a "bitwarden"
 
+    bash $(dirname $0)/write.sh
+
     echo "Good work and have a nice dev day!"
 fi 

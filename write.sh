@@ -8,7 +8,7 @@ then
     echo "Starting windows"
 else
     open -a typora $WIKI_DIR
-    open -a spotify
+    # open -a spotify
     cd $WIKI_DIR
     bash $GIT_SYNC_PATH/git_sync.sh
 fi

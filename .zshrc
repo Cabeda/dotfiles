@@ -34,7 +34,7 @@ alias pip=pip3
 
 # Make sure pyenv version is used
 export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
 
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 
