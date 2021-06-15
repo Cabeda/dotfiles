@@ -64,9 +64,6 @@ alias trino="~/Documents/trino-cli-354-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
 
 
-eval $(ssh-agent)
-export GPG_TTY=$(tty)
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
