@@ -133,6 +133,15 @@ function steal() {
   git push -f origin staging
 }
 
+function teststg() {
+  git checkout staging
+  git pull
+  branch=$(git branch --format='%(refname:short)' | fzf)
+  git pull origin $branch
+  git push
+  git checkout $branch
+}
+
 if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
  export PATH="$HOME/platform-tools:$PATH"
 fi
