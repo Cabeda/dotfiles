@@ -36,6 +36,9 @@ alias pip=pip3
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 
+# Auto complete pipx
+eval "$(register-python-argcomplete pipx)"
+
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 
 
@@ -155,3 +158,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export SDKMAN_DIR="/Users/jose.cabeda/.sdkman"
 [[ -s "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh"
 
+
+# Created by `pipx` on 2021-06-17 13:28:23
+export PATH="$PATH:/Users/jose.cabeda/.local/bin"
