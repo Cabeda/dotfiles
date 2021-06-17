@@ -47,7 +47,7 @@ alias write="bash $(dirname $(readlink ${(%):-%N}))/write.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
-alias kci="open $(basename "$PWD" | awk '{print "https://kci.talkdeskapp.com/blue/organizations/jenkins/talkdesk%2F"$1"/activity"}')"
+alias kci="open $(basename `git rev-parse --show-toplevel` | awk '{print "https://kci.talkdeskapp.com/blue/organizations/jenkins/talkdesk%2F"$1"/activity"}')"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

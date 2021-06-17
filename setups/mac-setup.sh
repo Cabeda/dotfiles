@@ -78,7 +78,7 @@ brew upgrade
 brew install \
   go gpg entr tldr gh speedtest fzf freetype htop pwgen \
   jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch z\
-  postgres sqlite unrar v8 wget pipenv poetry git ripgrep \
+  postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions\
   git-delta
   
