@@ -9,6 +9,7 @@ plugins=(web-search)
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jose.cabeda/.oh-my-zsh"
+export EDITOR="nano"
 
 export LC_CTYPE="en_US.UTF-8"
 
@@ -27,7 +28,7 @@ export LANG=en_US.UTF-8
 
 
 # Script that holds alias and tokens
-source ~/env.sh
+source ~/env
 
 alias python=python3
 alias pip=pip3
@@ -37,7 +38,7 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 
 # Auto complete pipx
-eval "$(register-python-argcomplete pipx)"
+# eval "$(register-python-argcomplete pipx)"
 
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 
@@ -50,8 +51,6 @@ alias write="bash $(dirname $(readlink ${(%):-%N}))/write.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
-alias kci="open $(basename `git rev-parse --show-toplevel` | awk '{print "https://kci.talkdeskapp.com/blue/organizations/jenkins/talkdesk%2F"$1"/activity"}')"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias gn="git commit --no-verify"
@@ -63,7 +62,7 @@ alias dcd="docker compose down"
 alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
 
 alias cql="~/Documents/cqlsh-astra/bin/cqlsh"
-alias trino="~/Documents/trino-cli-354-executable.jar"
+alias trino="~/Documents/trino-cli-358-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
 
 
@@ -161,3 +160,5 @@ export SDKMAN_DIR="/Users/jose.cabeda/.sdkman"
 
 # Created by `pipx` on 2021-06-17 13:28:23
 export PATH="$PATH:/Users/jose.cabeda/.local/bin"
+
+source /Users/jose.cabeda/.config/broot/launcher/bash/br

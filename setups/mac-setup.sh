@@ -126,6 +126,7 @@ gh config set pager 'delta -s'
 # Set dotfiles configs to be the ones used by the system
 ln -f .tmux.conf ~/.tmux.conf
 ln -f .vimrc ~/.vimrc
+ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
 ln -f .alacritty.yml ~/.alacritty.yml
 
