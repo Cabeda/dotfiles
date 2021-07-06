@@ -17,6 +17,8 @@ else
     open -a "authy desktop"
     open -a "bitwarden"
 
+    bash <(curl -sL https://gist.githubusercontent.com/Cabeda/c6a7c3237b85d518d641f62bd7268389/raw/vacina.sh) 17 12 1994 &
+    
     bash $(dirname $0)/write.sh
 
     echo "Good work and have a nice dev day!"
