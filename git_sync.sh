@@ -11,7 +11,7 @@ git pull
 while true
 do
 echo "Starting git auto"
-{ git ls-files; git ls-files . --exclude-standard --others; } | entr bash -c 'git add . && git diff-index --quiet HEAD || git commit -m "Auto commit" && git pull && git push'
+ls . | entr -d bash -c 'git add . && git diff-index --quiet HEAD || git commit -m "Auto commit" && git pull && git push'
 
 sleep 1 # Allow to exit with ctr + C
 
