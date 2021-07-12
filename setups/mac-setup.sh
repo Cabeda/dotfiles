@@ -80,7 +80,7 @@ brew install \
   jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch z\
   postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions\
-  git-delta
+  git-delta watch
   
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
