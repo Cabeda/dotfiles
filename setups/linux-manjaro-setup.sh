@@ -32,6 +32,7 @@ git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
 sudo pacman -S snapd
 sudo snap install code --classic
 sudo snap install authy --beta
+snap install brave
 
 # Install Python poetry
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
