@@ -32,8 +32,16 @@ source ~/env # Script that holds alias and tokens
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 
-eval "$(zoxide init zsh --cmd cd)"
 eval "$(starship init zsh)"
+
+# CONFIG Zoxide
+
+__zoxide_unset 'z'
+function z() {
+    __zoxide_z "$@"
+}
+
+eval "$(zoxide init zsh)"
 
 # Auto complete pipx
 # eval "$(register-python-argcomplete pipx)"
@@ -59,7 +67,6 @@ alias trino="~/Documents/trino-cli-358-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
 alias python=python3
 alias pip=pip3
-alias z="zoxide"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
