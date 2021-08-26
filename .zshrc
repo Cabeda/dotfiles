@@ -59,6 +59,7 @@ alias trino="~/Documents/trino-cli-358-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
 alias python=python3
 alias pip=pip3
+alias z="zoxide"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -144,3 +145,6 @@ fi
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 # export SDKMAN_DIR="/Users/jose.cabeda/.sdkman"
 # [[ -s "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh"
+
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
