@@ -80,14 +80,13 @@ brew install \
   jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch\
   postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions\
-  git-delta watch zoxide dog m-cli
+  git-delta watch zoxide dog m-cli podman bitwarden-cli
   
+brew install speedtest --force
+
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 nvm install $node_version
-  
-brew install bitwarden-cli
-brew install speedtest --force
 
 # Apps
 echo_warn "Installing applications..."
