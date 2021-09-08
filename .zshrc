@@ -35,8 +35,6 @@ eval "$(pyenv init -)"
 eval "$(starship init zsh)"
 
 # CONFIG Zoxide
-
-__zoxide_unset 'z'
 function z() {
     __zoxide_z "$@"
 }
@@ -67,8 +65,6 @@ alias trino="~/Documents/trino-cli-358-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
 alias python=python3
 alias pip=pip3
-alias docker=podman
-alias docker-compose=podman-compose
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
