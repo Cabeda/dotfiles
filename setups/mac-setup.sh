@@ -100,6 +100,7 @@ brew install --cask alacritty
 brew install --cask firefox
 brew install --cask slack
 brew install --cask zoomus
+brew install --cask raycast
 
 brew install --cask \
   spotify vlc \
