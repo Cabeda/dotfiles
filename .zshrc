@@ -10,7 +10,7 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jose.cabeda/.oh-my-zsh"
 export EDITOR="nano"
-
+export TERM=xterm-256color;
 export LC_CTYPE="en_US.UTF-8"
 
 # Set name of the theme to load --- if set to "random", it will

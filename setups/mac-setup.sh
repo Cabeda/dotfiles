@@ -80,7 +80,7 @@ brew install \
   jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch\
   postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions\
-  git-delta watch zoxide dog m-cli podman bitwarden-cli
+  git-delta watch zoxide dog m-cli podman bitwarden-cli bat
   
 brew install speedtest --force
 
