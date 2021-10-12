@@ -6,10 +6,10 @@
 termux-setup-storage
 
 # Set dotfiles configs to be the ones used by the system
-ln -s tmux.conf "$HOME.tmux.conf"
-ln -s .vimrc "$HOME.vimrc"
-ln -s .zshrc "$HOME.zshrc"
-ln -s .alacritty.yml "$HOME.alacritty.yml"
+ln -s tmux.conf "$HOME/.tmux.conf"
+ln -s .vimrc "$HOME/.vimrc"
+ln -s .zshrc "$HOME/.zshrc"
+ln -s .alacritty.yml "$HOME/.alacritty.yml"
 
 # Install packages
 pkg install git zoxide bat starship tsu
@@ -29,4 +29,4 @@ ssh-add ~/.ssh/id_rsa
 
 source ~/.zshrc
 
-echo "speedtest\n read" >> ~/.shortcuts/speedtest.sh
+echo "speedtest\n read" > ~/.shortcuts/speedtest.sh
