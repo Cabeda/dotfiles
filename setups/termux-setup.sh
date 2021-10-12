@@ -12,9 +12,11 @@ ln -s .zshrc ~/.zshrc
 ln -s .alacritty.yml ~/.alacritty.yml
 
 # Install packages
-pkg install git zoxide bat
-
+pkg install git zoxide bat starship tsu
 apt install entr zsh openssh
+
+curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
+sudo apt-get install speedtest
 
 # Install oh my ZSH
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -26,3 +28,5 @@ ssh-add
 ssh-add ~/.ssh/id_rsa
 
 source ~/.zshrc
+
+echo "speedtest\n read" >> ~/.shortcuts/speedtest.sh
