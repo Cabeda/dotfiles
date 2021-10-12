@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable storage 
+termux-setup-storage
+
 # A script to set up termux
 
 apt install git entr zsh openssh

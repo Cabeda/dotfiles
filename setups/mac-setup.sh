@@ -76,11 +76,11 @@ brew tap xo/xo
 # Homebrew base
 brew upgrade
 brew install \
-  go gpg entr tldr gh speedtest fzf freetype htop pwgen \
+  go gpg entr tealdeer gh speedtest fzf freetype htop pwgen \
   jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch\
   postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions\
-  git-delta watch zoxide dog m-cli podman bitwarden-cli bat
+  git-delta watch zoxide dog m-cli podman bitwarden-cli bat bandswich
   
 brew install speedtest --force
 
@@ -100,14 +100,13 @@ brew install --cask alacritty
 brew install --cask firefox
 brew install --cask slack
 brew install --cask zoomus
-brew install --cask raycast
 
 brew install --cask \
   spotify vlc \
   chrome-devtools visual-studio-code dbeaver-community \
   keybase notion docker tunnelblick spectacle authy \
   scroll-reverser alt-tab openmtp protonvpn \
-  intellij-idea-ce libreoffice swiftdefaultappsprefpane
+  intellij-idea-ce libreoffice swiftdefaultappsprefpane raycast calibre
 # brew imagemagick
 #brew cask install inkscape
 brew install librsvg

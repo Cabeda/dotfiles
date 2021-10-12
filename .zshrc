@@ -9,7 +9,7 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jose.cabeda/.oh-my-zsh"
-export EDITOR="nano"
+export EDITOR="vi"
 export TERM=xterm-256color;
 export LC_CTYPE="en_US.UTF-8"
 
@@ -65,6 +65,7 @@ alias trino="~/Documents/trino-cli-358-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
 alias python=python3
 alias pip=pip3
+alias todo="vim ~/Documents/git/pensamentos/To-Do.md"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
