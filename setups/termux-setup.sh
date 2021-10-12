@@ -1,17 +1,18 @@
 #!/bin/bash
 
+# A script to set up termux
+
 # Enable storage 
 termux-setup-storage
 
-# A script to set up termux
+# Install packages
+pkg install git zoxide
 
-apt install git entr zsh openssh
+apt install entr zsh openssh
 
 
 # Install oh my ZSH
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
 
 # Set dotfiles configs to be the ones used by the system
 ln -s .tmux.conf ~/.tmux.conf
