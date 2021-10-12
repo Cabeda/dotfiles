@@ -6,7 +6,7 @@
 termux-setup-storage
 
 # Install packages
-pkg install git zoxide
+pkg install git zoxide bat
 
 apt install entr zsh openssh
 
@@ -26,3 +26,5 @@ export SSH_AUTH_SOCK=$HOME/.sshagent
 eval $(ssh-agent -a "$SSH_AUTH_SOCK")
 ssh-add
 ssh-add ~/.ssh/id_rsa
+
+source ~/.zshrc
