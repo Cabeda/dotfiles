@@ -6,10 +6,10 @@
 termux-setup-storage
 
 # Set dotfiles configs to be the ones used by the system
-ln -s .tmux.conf ~/.tmux.conf
-ln -s .vimrc ~/.vimrc
-ln -s .zshrc ~/.zshrc
-ln -s .alacritty.yml ~/.alacritty.yml
+ln -s tmux.conf "$HOME.tmux.conf"
+ln -s .vimrc "$HOME.vimrc"
+ln -s .zshrc "$HOME.zshrc"
+ln -s .alacritty.yml "$HOME.alacritty.yml"
 
 # Install packages
 pkg install git zoxide bat starship tsu
