@@ -5,11 +5,13 @@
 # Enable storage 
 termux-setup-storage
 
+GIT_FOLDER="$HOME/git/dotfiles"
+
 # Set dotfiles configs to be the ones used by the system
-ln -s tmux.conf "$HOME/.tmux.conf"
-ln -s .vimrc "$HOME/.vimrc"
-ln -s .zshrc "$HOME/.zshrc"
-ln -s .alacritty.yml "$HOME/.alacritty.yml"
+ln -s "$GIT_FOLDER/.tmux.conf" "$HOME/.tmux.conf"
+ln -s "$GIT_FOLDER/.vimrc" "$HOME/.vimrc"
+ln -s "$GIT_FOLDER/.zshrc" "$HOME/.zshrc"
+ln -s "$GIT_FOLDER/.alacritty.yml" "$HOME/.alacritty.yml"
 
 # Install packages
 pkg install git zoxide bat starship tsu
@@ -17,9 +19,6 @@ apt install entr zsh openssh
 
 curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
 sudo apt-get install speedtest
-
-# Install oh my ZSH
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Git setup ssh key
 export SSH_AUTH_SOCK=$HOME/.sshagent
