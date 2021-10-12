@@ -14,10 +14,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
 
 # Set dotfiles configs to be the ones used by the system
-# ln -s .tmux.conf ~/.tmux.conf
-# ln -s .vimrc ~/.vimrc
-# ln -s .zshrc ~/.zshrc
-# ln -s .alacritty.yml ~/.alacritty.yml
+ln -s .tmux.conf ~/.tmux.conf
+ln -s .vimrc ~/.vimrc
+ln -s .zshrc ~/.zshrc
+ln -s .alacritty.yml ~/.alacritty.yml
 
 
 # Git setup ssh key
