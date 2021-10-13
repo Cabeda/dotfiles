@@ -57,6 +57,7 @@ alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image
 
 
 alias gp="git pull"
+alias gu="git push"
 alias sp="speedtest"
 alias dcd="docker compose down"
 alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
