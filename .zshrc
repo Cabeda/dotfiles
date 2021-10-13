@@ -56,7 +56,7 @@ alias write="bash $(dirname $(readlink ${(%):-%N}))/write.sh"
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
 
-alias gn="git commit --no-verify"
+alias gp="git pull"
 alias sp="speedtest"
 alias dcd="docker compose down"
 alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
@@ -78,6 +78,12 @@ bindkey "^[[1;3D" backward-word
 # autoload -Uz compinit && compinit
 # unsetopt nomatch
 
+# GIT functions
+
+function gac() {
+  git add -p 
+  git commit
+}
 # - - - - - -
 # - DOCKER  -
 # - - - - - -
