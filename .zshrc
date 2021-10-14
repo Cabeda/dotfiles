@@ -82,6 +82,9 @@ function gac() {
   git add -p 
   git commit
 }
+function gsw () {
+  git switch $(git branch | fzf)
+}
 
 # - - - - - -
 # - DOCKER  -
