@@ -5,43 +5,53 @@ if [ "$TMUX" = "" ]; then
     tmux;
 fi
 
-plugins=(web-search)
+plugins=()
 
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/jose.cabeda/.oh-my-zsh"
-export EDITOR="nano"
-
+# EXPORT configs
+export EDITOR="vi"
+export TERM=xterm-256color;
 export LC_CTYPE="en_US.UTF-8"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+export LANG=en_US.UTF-8
 ZSH_THEME="avit"
-
 DISABLE_UPDATE_PROMPT="true"
 ENABLE_CORRECTION="true"
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
 
-export LANG=en_US.UTF-8
+# Run commands specific to shell
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
 
-# Script that holds alias and tokens
-source ~/env
+  export ZSH="/Users/jose.cabeda/.oh-my-zsh"
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-alias python=python3
-alias pip=pip3
+elif [[ "$OSTYPE" == "linux-android" ]]; then
+
+else 
+  echo "Unsupported shell"
+fi
+
+source /Users/jose.cabeda/.config/broot/launcher/bash/br
+source ~/env # Script that holds alias and tokens
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Make sure pyenv version is used
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 
+eval "$(starship init zsh)"
+
+# CONFIG Zoxide
+function z() {
+    __zoxide_z "$@"
+}
+eval "$(zoxide init zsh)"
+
 # Auto complete pipx
 # eval "$(register-python-argcomplete pipx)"
 
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
-
 
 export PATH="$HOME/.npm-packages/bin:$PATH"
 
@@ -51,36 +61,30 @@ alias write="bash $(dirname $(readlink ${(%):-%N}))/write.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-alias gn="git commit --no-verify"
-
+alias gp="git pull"
+alias gs="git pull && git push"
 alias sp="speedtest"
-
 alias dcd="docker compose down"
-
 alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
-
 alias cql="~/Documents/cqlsh-astra/bin/cqlsh"
 alias trino="~/Documents/trino-cli-358-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
-
+alias python=python3
+alias pip=pip3
+alias todo="vim ~/Documents/git/pensamentos/To-Do.md"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-eval "$(starship init zsh)"
+# GIT functions
 
-# Init z command
-. $(brew --prefix)/etc/profile.d/z.sh
-
-bindkey "^[[1;3C" forward-word
-bindkey "^[[1;3D" backward-word
-
-# Allow autocompletition (i.e git)
-autoload -Uz compinit && compinit
-
-unsetopt nomatch
+function gac() {
+  git add -p 
+  git commit
+}
+function gsw () {
+  git switch $(git branch | fzf)
+}
 
 # - - - - - -
 # - DOCKER  -
@@ -147,18 +151,32 @@ function teststg() {
 if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
  export PATH="$HOME/platform-tools:$PATH"
 fi
-export PATH="~/.deta/bin:$PATH"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
 
+# Apply jenv configs if it exists
+if type "jenv" > /dev/null; 
+then 
+  eval export PATH="/Users/jose.cabeda/.jenv/shims:${PATH}"
+  export JENV_SHELL=zsh
+  export JENV_LOADED=1
+  unset JAVA_HOME
+  source '/usr/local/Cellar/jenv/0.5.4/libexec/libexec/../completions/jenv.zsh'
+  jenv rehash 2>/dev/null
+  jenv refresh-plugins
+  jenv() {
+    typeset command
+    command="$1"
+    if [ "$#" -gt 0 ]; then
+      shift
+    fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/jose.cabeda/.sdkman"
-[[ -s "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jose.cabeda/.sdkman/bin/sdkman-init.sh"
-
-
-# Created by `pipx` on 2021-06-17 13:28:23
-export PATH="$PATH:/Users/jose.cabeda/.local/bin"
-
-source /Users/jose.cabeda/.config/broot/launcher/bash/br
+    case "$command" in
+    enable-plugin|rehash|shell|shell-options)
+      eval `jenv "sh-$command" "$@"`;;
+    *)
+      command jenv "$command" "$@";;
+    esac
+  }
+fi

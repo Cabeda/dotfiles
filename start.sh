@@ -9,13 +9,14 @@ then
 
 else
     open -a spotify -g
-    # open -a notion -g
     open -a slack -g
     open -a "Visual Studio Code" -g
     open -a "Google Chrome" 
-    open -a firefox https://www.gocomics.com/random/calvinandhobbes
+    open -a "Brave browser" https://www.gocomics.com/random/calvinandhobbes
     open -a "authy desktop"
     open -a "bitwarden"
+    open -a keybase
+    open -a tunnelblick
     
     bash $(dirname $0)/write.sh
 
