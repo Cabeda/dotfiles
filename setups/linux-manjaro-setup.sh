@@ -14,7 +14,7 @@ curl -fsSL https://starship.rs/install.sh | bash
 # Update package list
 sudo pacman -Sy
 
-sudo pacman -S alacritty bitwarden tldr git \
+sudo pacman -S alacritty bitwarden tealdeer git \
                 fzf z vlc github-cli docker \
                 pwgen jq yq nodejs postgresql \
                 ripgrep steam vim tmux nodejs gnome-keyring \
