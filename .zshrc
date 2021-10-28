@@ -27,7 +27,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 elif [[ "$OSTYPE" == "linux-android" ]]; then
-
+ echo $OSTYPE
 else 
   echo "Unsupported shell"
 fi

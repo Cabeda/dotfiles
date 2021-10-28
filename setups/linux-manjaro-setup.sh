@@ -14,10 +14,11 @@ curl -fsSL https://starship.rs/install.sh | bash
 # Update package list
 sudo pacman -Sy
 
-sudo pacman -S alacritty bitwarden tldr git \
+sudo pacman -S alacritty bitwarden tealdeer git \
                 fzf z vlc github-cli docker \
                 pwgen jq yq nodejs postgresql \
-                ripgrep steam vim tmux nodejs
+                ripgrep steam vim tmux nodejs gnome-keyring \
+                zoxide flameshot
 
 curl https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz --output ~/Downloads/zoom.pkg.tar.xz
 sudo pacman -U ~/Downloads/zoom.pkg.tar.xz
@@ -32,6 +33,7 @@ git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
 sudo pacman -S snapd
 sudo snap install code --classic
 sudo snap install authy --beta
+snap install brave
 
 # Install Python poetry
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
@@ -47,7 +49,11 @@ sudo pacman -S base-devel
 ln -f .tmux.conf ~/.tmux.conf
 ln -f .vimrc ~/.vimrc
 ln -f .zshrc ~/.zshrc
-ln -f .alacritty.yml ~/.alacritty.yml
+ln -f alacritty.yml ~/alacritty.yml
+
+# Set system configs
+xset r rate 195 35 # Reduce keyboard latency
+
 
 echo
 echo_ok "Done."
