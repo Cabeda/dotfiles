@@ -41,6 +41,7 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 
 eval "$(starship init zsh)"
+eval "$(mcfly init zsh)"
 
 # CONFIG Zoxide
 function z() {
@@ -67,11 +68,12 @@ alias sp="speedtest"
 alias dcd="docker compose down"
 alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
 alias cql="~/Documents/cqlsh-astra/bin/cqlsh"
-alias trino="~/Documents/trino-cli-358-executable.jar"
+alias trino="~/Documents/trino-cli-363-executable.jar"
 alias presto="~/Documents/presto-cli-350-executable.jar"
 alias python=python3
 alias pip=pip3
 alias todo="vim ~/Documents/git/pensamentos/To-Do.md"
+alias ls=exa
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
