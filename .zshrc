@@ -12,6 +12,7 @@ export EDITOR="vi"
 export TERM=xterm-256color;
 export LC_CTYPE="en_US.UTF-8"
 export LANG=en_US.UTF-8
+export TT_LOG_FOLDER=$HOME/Documents/Git/pensamentos/Journal/2021
 ZSH_THEME="avit"
 DISABLE_UPDATE_PROMPT="true"
 ENABLE_CORRECTION="true"
