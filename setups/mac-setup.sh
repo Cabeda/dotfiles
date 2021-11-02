@@ -128,7 +128,7 @@ ln -f .tmux.conf ~/.tmux.conf
 ln -f .vimrc ~/.vimrc
 ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
-ln -f .alacritty.yml ~/.alacritty.yml
+ln -f alacritty.yml ~/alacritty.yml
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
