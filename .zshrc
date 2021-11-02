@@ -12,7 +12,7 @@ export EDITOR="vi"
 export TERM=xterm-256color;
 export LC_CTYPE="en_US.UTF-8"
 export LANG=en_US.UTF-8
-export TT_LOG_FOLDER=$HOME/Documents/Git/pensamentos/Journal/2021
+export TT_LOG_FOLDER=$HOME/Git/pensamentos/Journal/2021
 ZSH_THEME="avit"
 DISABLE_UPDATE_PROMPT="true"
 ENABLE_CORRECTION="true"
@@ -58,8 +58,8 @@ export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 export PATH="$HOME/.npm-packages/bin:$PATH"
 
 ################ Global Mac ALIAS ################
-alias start="bash $(dirname $(readlink ${(%):-%N}))/start.sh"
-alias write="bash $(dirname $(readlink ${(%):-%N}))/write.sh"
+alias start="bash $HOME/Git/dotfiles/start.sh"
+alias write="bash $HOME/Git/dotfiles/write.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
@@ -68,12 +68,12 @@ alias gs="git pull && git push"
 alias sp="speedtest"
 alias dcd="docker compose down"
 alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
-alias cql="~/Documents/cqlsh-astra/bin/cqlsh"
-alias trino="~/Documents/trino-cli-363-executable.jar"
-alias presto="~/Documents/presto-cli-350-executable.jar"
+alias cql="~/cqlsh-astra/bin/cqlsh"
+alias trino="~/trino-cli-363-executable.jar"
+alias presto="~/presto-cli-350-executable.jar"
 alias python=python3
 alias pip=pip3
-alias todo="vim ~/Documents/git/pensamentos/To-Do.md"
+alias todo="vim ~/git/pensamentos/To-Do.md"
 alias ls=exa
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
