@@ -43,6 +43,7 @@ eval "$(pyenv init -)"
 
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
+eval "$(ssh-agent -s)"
 
 # CONFIG Zoxide
 function z() {
@@ -67,7 +68,7 @@ alias gp="git pull"
 alias gs="git pull && git push"
 alias sp="speedtest"
 alias dcd="docker compose down"
-alias cb="open -a firefox https://www.gocomics.com/random/calvinandhobbes"
+alias cb="open https://www.gocomics.com/random/calvinandhobbes"
 alias cql="~/cqlsh-astra/bin/cqlsh"
 alias trino="~/trino-cli-363-executable.jar"
 alias presto="~/presto-cli-350-executable.jar"

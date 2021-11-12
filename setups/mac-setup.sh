@@ -80,10 +80,14 @@ brew install \
   go gpg entr tealdeer gh speedtest fzf freetype htop pwgen \
   jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch\
   postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
-  awscli asdf rust starship vault trash zsh-autosuggestions\
-  git-delta watch zoxide dog m-cli podman bitwarden-cli bat bandswich exa mcfly
+  awscli asdf rust starship vault trash zsh-autosuggestions \
+  git-delta watch zoxide dog m-cli bitwarden-cli bat \
+  bandwhich exa mcfly coursier/formulas/coursier
   
 brew install speedtest --force
+
+# Install scala
+cs setup
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
