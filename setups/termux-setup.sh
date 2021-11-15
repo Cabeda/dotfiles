@@ -20,7 +20,7 @@ apt install entr zsh openssh
 curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
 sudo apt-get install speedtest
 
-pip install time-tracker
+pip install time-tracker speedtest-cli
 
 # Git setup ssh key
 export SSH_AUTH_SOCK=$HOME/.sshagent
@@ -30,5 +30,5 @@ ssh-add ~/.ssh/id_rsa
 
 source ~/.zshrc
 
-echo "speedtest\n read" > ~/.shortcuts/speedtest.sh
+echo "speedtest-cli" > ~/.shortcuts/speedtest.sh
 echo "tt track" > ~/.shortcuts/pomodoro.sh

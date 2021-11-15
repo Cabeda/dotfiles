@@ -69,7 +69,6 @@ brew update && brew cask upgrade
 # brew taps
 brew tap homebrew/cask-versions
 brew tap homebrew/cask-fonts
-brew tap teamookla/speedtest
 brew tap heroku/brew
 brew tap xo/xo
 brew tap cantino/mcfly
@@ -77,14 +76,14 @@ brew tap cantino/mcfly
 # Homebrew base
 brew upgrade
 brew install \
-  go gpg entr tealdeer gh speedtest fzf freetype htop pwgen \
+  go gpg entr tealdeer gh fzf freetype htop pwgen \
   jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch\
   postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bitwarden-cli bat \
   bandwhich exa mcfly coursier/formulas/coursier
-  
-brew install speedtest --force
+
+pip install speedtest-cli
 
 # Install scala
 cs setup
