@@ -76,6 +76,8 @@ alias python=python3
 alias pip=pip3
 alias todo="vim ~/git/pensamentos/To-Do.md"
 alias ls=exa
+alias kafkacat=kcat
+alias review="open \"https://github.com/notifications?query=is%3Aissue-or-pull-request+author%3ACabeda+author%3Aricardopereira33+author%3Aricardocardante+author%3Aalicemmarques+\""
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -185,6 +187,5 @@ then
   }
 fi
 
+export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
 
-# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm

@@ -72,6 +72,7 @@ brew tap homebrew/cask-fonts
 brew tap heroku/brew
 brew tap xo/xo
 brew tap cantino/mcfly
+brew tap turbot/tap
 
 # Homebrew base
 brew upgrade
@@ -81,9 +82,11 @@ brew install \
   postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bitwarden-cli bat \
-  bandwhich exa mcfly coursier/formulas/coursier
+  bandwhich exa mcfly steampipe
 
 pip install speedtest-cli
+
+steampipe plugin install steampipe github csv googlesheets jira aws
 
 # Install scala
 cs setup
@@ -127,11 +130,13 @@ git config --global delta.side-by-side true
 gh config set pager 'delta -s'
 
 # Set dotfiles configs to be the ones used by the system
+mkdir -p ~/.config
 ln -f .tmux.conf ~/.tmux.conf
 ln -f .vimrc ~/.vimrc
 ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
 ln -f alacritty.yml ~/alacritty.yml
+ln -f starship.toml ~/.config/starship.toml
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
