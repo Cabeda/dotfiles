@@ -28,7 +28,8 @@ eval $(ssh-agent -a "$SSH_AUTH_SOCK")
 ssh-add
 ssh-add ~/.ssh/id_rsa
 
-source ~/.zshrc
+source "$HOME/.zshrc"
 
 echo "speedtest-cli" > ~/.shortcuts/speedtest.sh
 echo "tt track" > ~/.shortcuts/pomodoro.sh
+echo "bash $GIT_FOLDER/git_sync.sh" > ~/.shortcuts/git_sync.sh
