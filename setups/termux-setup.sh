@@ -32,4 +32,4 @@ source "$HOME/.zshrc"
 
 echo "speedtest-cli" > ~/.shortcuts/speedtest.sh
 echo "tt track" > ~/.shortcuts/pomodoro.sh
-echo "cd ~/storage/shared/documents/git/pensamentos && bash $GIT_FOLDER/git_sync.sh" > ~/.shortcuts/git_sync.sh
+echo "cd ~/storage/shared/documents/pensamentos && bash $GIT_FOLDER/git_sync.sh" > ~/.shortcuts/git_sync.sh
