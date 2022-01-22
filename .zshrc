@@ -187,5 +187,7 @@ then
   }
 fi
 
+export GOPATH=$HOME/golang
+export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
 

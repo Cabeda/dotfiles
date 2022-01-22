@@ -83,7 +83,7 @@ brew install \
   postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bitwarden-cli bat \
-  bandwhich exa mcfly steampipe lazydocker
+  bandwhich exa mcfly dive lazydocker
 
 pip install speedtest-cli
 
@@ -114,7 +114,8 @@ brew install --cask \
   chrome-devtools visual-studio-code dbeaver-community \
   keybase notion docker tunnelblick spectacle authy \
   scroll-reverser alt-tab openmtp protonvpn \
-  intellij-idea-ce libreoffice swiftdefaultappsprefpane raycast calibre
+  intellij-idea-ce libreoffice swiftdefaultappsprefpane raycast calibre \
+  font-jetbrains-mono handbrake
 
 # brew imagemagick
 #brew cask install inkscape
