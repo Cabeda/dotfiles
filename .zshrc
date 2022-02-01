@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 if [ "$TMUX" = "" ]; then 
-    tmux;
+    tmux new -A -s daily;
 fi
 
 plugins=()
