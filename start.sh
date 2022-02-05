@@ -1,4 +1,4 @@
-#bin/bash
+#!/bin/bash
 
 # This is a small script that I run every day to start working
 
@@ -13,10 +13,7 @@ else
     open -a "Visual Studio Code" -g
     open -a "Google Chrome" 
     open -a "Brave browser" https://www.gocomics.com/random/calvinandhobbes
-    open -a "authy desktop"
     open -a "bitwarden"
-    open -a keybase
-    open -a tunnelblick
     
     bash $(dirname $0)/write.sh
 
