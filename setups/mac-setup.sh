@@ -131,6 +131,8 @@ sdk install java
 git config --global core.pager "delta --line-numbers --dark"
 git config --global delta.side-by-side true
 gh config set pager 'delta -s'
+# Set background image
+osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/jose.cabeda/Git/dotfiles/backgrounds/clement-dartigues-scirie.jpeg"'
 
 # Set dotfiles configs to be the ones used by the system
 mkdir -p ~/.config
