@@ -2,7 +2,6 @@
 
 # A script to set up a new mac. Uses bash, homebrew, etc.
 
-
 # Settings
 node_version="14.16.1"
 ruby_versions="2.7.0"
@@ -12,7 +11,7 @@ ruby_default="2.7.0"
 # helpers
 function echo_ok { echo -e '\033[1;32m'"$1"'\033[0m'; }
 function echo_warn { echo -e '\033[1;33m'"$1"'\033[0m'; }
-function echo_error  { echo -e '\033[1;31mERROR: '"$1"'\033[0m'; }
+function echo_error { echo -e '\033[1;31mERROR: '"$1"'\033[0m'; }
 
 echo_ok "Install starting. You may be asked for your password (for sudo)."
 
@@ -24,8 +23,8 @@ cd ~
 mkdir -p tmp
 echo_warn "setting permissions..."
 for dir in "/usr/local /usr/local/bin /usr/local/include /usr/local/lib /usr/local/share"; do
-	sudo chgrp admin $dir
-	sudo chmod g+w $dir
+  sudo chgrp admin $dir
+  sudo chmod g+w $dir
 done
 
 # oh my zsh
@@ -33,34 +32,34 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 # homebrew
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-if hash brew &> /dev/null; then
-	echo_ok "Homebrew already installed"
+if hash brew &>/dev/null; then
+  echo_ok "Homebrew already installed"
 else
-    echo_warn "Installing homebrew..."
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  echo_warn "Installing homebrew..."
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # RVM
-if hash rvm &> /dev/null; then
-	echo_ok "RVM already installed"
+if hash rvm &>/dev/null; then
+  echo_ok "RVM already installed"
 else
-	echo "Installing RVM..."
-	curl -sSL https://get.rvm.io | bash -s stable --ruby
+  echo "Installing RVM..."
+  curl -sSL https://get.rvm.io | bash -s stable --ruby
 fi
 
 # add default gems to rvm
 global_gems_config="$HOME/.rvm/gemsets/global.gems"
 default_gems="bundler awesome-print lunchy rak"
 for gem in $default_gems; do
-	echo $gem >> $global_gems_config
+  echo $gem >>$global_gems_config
 done
-awk '!a[$0]++' $global_gems_config > /tmp/global.tmp
+awk '!a[$0]++' $global_gems_config >/tmp/global.tmp
 mv /tmp/global.tmp $global_gems_config
 
 # RVM ruby versions
 for version in $ruby_versions; do
-	source ~/.rvm/scripts/rvm
-	rvm install $version
+  source ~/.rvm/scripts/rvm
+  rvm install $version
 done
 
 # moar homebrew...
@@ -79,8 +78,7 @@ brew install jesseduffield/lazydocker/lazydocker
 brew upgrade
 brew install \
   go gpg entr tealdeer gh fzf freetype htop pwgen \
-  jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch\
-  postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
+  jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bitwarden-cli bat \
   bandwhich exa mcfly dive lazydocker
@@ -100,7 +98,7 @@ nvm install $node_version
 echo_warn "Installing applications..."
 
 # google
-brew install --cask google-chrome 
+brew install --cask google-chrome
 brew install --cask google-drive-file-stream
 
 # other favorites
@@ -113,8 +111,7 @@ brew install --cask \
   spotify vlc \
   chrome-devtools visual-studio-code dbeaver-community \
   keybase notion docker tunnelblick spectacle authy \
-  scroll-reverser alt-tab openmtp protonvpn \
-  intellij-idea-ce libreoffice swiftdefaultappsprefpane raycast calibre \
+  alt-tab openmtp protonvpn intellij-idea-ce libreoffice swiftdefaultappsprefpane raycast calibre \
   font-jetbrains-mono handbrake
 
 # brew imagemagick
