@@ -80,7 +80,7 @@ brew install \
   go gpg entr tealdeer gh fzf freetype htop pwgen \
   jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
-  git-delta watch zoxide dog m-cli bitwarden-cli bat \
+  git-delta watch zoxide dog m-cli bat \
   bandwhich exa mcfly dive lazydocker
 
 pip install speedtest-cli
@@ -112,7 +112,7 @@ brew install --cask \
   chrome-devtools visual-studio-code dbeaver-community \
   keybase notion docker tunnelblick spectacle authy \
   alt-tab openmtp protonvpn intellij-idea-ce libreoffice swiftdefaultappsprefpane raycast calibre \
-  font-jetbrains-mono handbrake
+  font-jetbrains-mono handbrake bitwarden
 
 # brew imagemagick
 #brew cask install inkscape
