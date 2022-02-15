@@ -133,11 +133,12 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/U
 
 # Set dotfiles configs to be the ones used by the system
 mkdir -p ~/.config
+mkdir -p ~/.config/alacritty
 ln -f .tmux.conf ~/.tmux.conf
 ln -f .vimrc ~/.vimrc
 ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
-ln -f alacritty.yml ~/alacritty.yml
+ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
 
 # Disable boot sound
