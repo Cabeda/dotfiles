@@ -42,7 +42,6 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 
 eval "$(starship init zsh)"
-eval "$(mcfly init zsh)"
 eval "$(ssh-agent -s)"
 
 # CONFIG Zoxide
@@ -91,6 +90,19 @@ function gac() {
 function gsw () {
   git switch $(git branch | fzf)
 }
+
+function glt() {
+  git pull
+  git describe --tags --abbrev=0
+}
+
+function gdp () {
+  git pull
+  main=$(basename $(git symbolic-ref --short refs/remotes/origin/HEAD) )
+  release=$(git describe --tags --abbrev=0)
+  git log $release...$main  --pretty=oneline
+}
+
 
 # - - - - - -
 # - DOCKER  -
@@ -190,4 +202,6 @@ fi
 export GOPATH=$HOME/golang
 export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
+
+eval "$(mcfly init zsh)"
 

@@ -1,0 +1,13 @@
+---
+prSections:
+  - title: My Pull Requests
+    filters: is:open author:@me
+  - title: Needs My Review
+    filters: is:open review-requested:@me
+  - title: Revert
+    filters: is:merged repo:Talkdesk/brokkr repo:Talkdesk/event-splitter repo:Talkdesk/hermes -label:"PROD READY"
+defaults:
+  prsLimit: 50
+  preview:
+    open: true
+    width: 60

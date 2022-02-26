@@ -81,7 +81,7 @@ brew install \
   jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
-  bandwhich exa mcfly dive lazydocker
+  bandwhich exa mcfly dive lazydocker jless
 
 pip install speedtest-cli
 
@@ -134,12 +134,15 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/U
 # Set dotfiles configs to be the ones used by the system
 mkdir -p ~/.config
 mkdir -p ~/.config/alacritty
+mkdir -p ~/.config/prs
+
 ln -f .tmux.conf ~/.tmux.conf
 ln -f .vimrc ~/.vimrc
 ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
 ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
+ln -f github_prs.yml ~/.config/prs/config.yml
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
