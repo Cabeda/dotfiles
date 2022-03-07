@@ -153,8 +153,10 @@ function dspa() {
 function steal() {
   git checkout staging
   git pull
-  git reset --hard $(git branch --format='%(refname:short)' | fzf)
+  branch=$(git branch --format='%(refname:short)' | fzf)
+  git reset --hard $branch
   git push -f origin staging
+  git checkout $branch
 }
 
 function teststg() {
