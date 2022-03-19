@@ -78,14 +78,17 @@ brew install jesseduffield/lazydocker/lazydocker
 brew upgrade
 brew install \
   go gpg entr tealdeer gh fzf freetype htop pwgen \
-  jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
+  jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch \
+  postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
-  bandwhich exa mcfly dive lazydocker jless
+  bandwhich exa mcfly dive lazydocker jless pyenv
 
 pip install speedtest-cli
 
-steampipe plugin install steampipe github csv googlesheets jira aws
+# Gh config
+gh extension install dlvhdr/gh-prs
+
 
 # Install scala
 cs setup
@@ -112,7 +115,7 @@ brew install --cask \
   chrome-devtools visual-studio-code dbeaver-community \
   keybase notion docker tunnelblick spectacle authy \
   alt-tab openmtp protonvpn intellij-idea-ce libreoffice swiftdefaultappsprefpane raycast calibre \
-  font-jetbrains-mono handbrake bitwarden
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden
 
 # brew imagemagick
 #brew cask install inkscape
@@ -142,7 +145,7 @@ ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
 ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
-ln -f github_prs.yml ~/.config/prs/config.yml
+ln -f github_prs.yml ~/Library/Application\ Support/prs/config.yml
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
