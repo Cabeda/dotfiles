@@ -206,4 +206,4 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
 
 eval "$(mcfly init zsh)"
-
+source ~/.bash_profile;

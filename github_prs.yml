@@ -1,0 +1,12 @@
+prSections:
+  - title: My Pull Requests
+    filters: is:open author:@me
+  - title: Needs My Review
+    filters: is:open review-requested:@me 
+  - title: Governance
+    filters: is:open author:Cabeda author:ricardopereira33 author:ricardocardante author:alicemmarques  author:anaritamarques author:Giisela author:henriquecarlos-talkdesk draft:false
+defaults:
+  preview:
+    open: true
+    width: 50
+  prsLimit: 20
