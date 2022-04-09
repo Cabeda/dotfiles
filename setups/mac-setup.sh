@@ -73,6 +73,7 @@ brew tap xo/xo
 brew tap cantino/mcfly
 brew tap turbot/tap
 brew install jesseduffield/lazydocker/lazydocker
+brew tap microsoft/git
 
 # Homebrew base
 brew upgrade
@@ -115,7 +116,7 @@ brew install --cask \
   chrome-devtools visual-studio-code dbeaver-community \
   keybase notion docker tunnelblick spectacle authy \
   alt-tab openmtp protonvpn intellij-idea-ce libreoffice swiftdefaultappsprefpane raycast calibre \
-  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden git-credential-manager-core
 
 # brew imagemagick
 #brew cask install inkscape
@@ -145,7 +146,7 @@ ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
 ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
-ln -f github_prs.yml ~/Library/Application\ Support/prs/config.yml
+ln -f github_prs.yml ~/Library/Application\ Support/gh-dash/config.yml
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
