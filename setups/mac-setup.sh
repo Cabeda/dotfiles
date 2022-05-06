@@ -63,7 +63,10 @@ for version in $ruby_versions; do
 done
 
 # moar homebrew...
-brew update && brew cask upgrade
+brew update && brew upgrade --cask
+
+# Upgrade mac
+softwareupdate --all --install --force
 
 # brew taps
 brew tap homebrew/cask-versions
@@ -72,24 +75,23 @@ brew tap heroku/brew
 brew tap xo/xo
 brew tap cantino/mcfly
 brew tap turbot/tap
-brew install jesseduffield/lazydocker/lazydocker
 brew tap microsoft/git
 
 # Homebrew base
 brew upgrade
 brew install \
   go gpg entr tealdeer gh fzf freetype htop pwgen \
-  jq yq libxml2 python heroku terraform warrensbox/tap/tfswitch \
-  postgres sqlite unrar v8 wget pipenv poetry pipx git ripgrep \
+  jq yq libxml2 python heroku warrensbox/tap/tfswitch \
+  sqlite v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
-  bandwhich exa mcfly dive lazydocker jless pyenv
+  bandwhich exa mcfly dive lazydocker jless pyenv tmux
 
-pip install speedtest-cli
+# Set file for env files
+touch ~/env
 
 # Gh config
 gh extension install dlvhdr/gh-prs
-
 
 # Install scala
 cs setup
@@ -102,21 +104,12 @@ nvm install $node_version
 echo_warn "Installing applications..."
 
 # google
-brew install --cask google-chrome
-brew install --cask google-drive-file-stream
-
-# other favorites
-brew install --cask alacritty
-brew install --cask firefox
-brew install --cask slack
-brew install --cask zoomus
 
 brew install --cask \
-  spotify vlc \
-  chrome-devtools visual-studio-code dbeaver-community \
-  keybase notion docker tunnelblick spectacle authy \
-  alt-tab openmtp protonvpn intellij-idea-ce libreoffice swiftdefaultappsprefpane raycast calibre \
-  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden git-credential-manager-core
+  spotify vlc alacritty slack zoomus google-chrome visual-studio-code \
+  notion docker alt-tab openmtp swiftdefaultappsprefpane raycast \
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden git-credential-manager-core \
+  insomnia
 
 # brew imagemagick
 #brew cask install inkscape
