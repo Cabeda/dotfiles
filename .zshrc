@@ -33,7 +33,7 @@ else
   echo "Unsupported shell"
 fi
 
-source /Users/jose.cabeda/.config/broot/launcher/bash/br
+source ~/.config/broot/launcher/bash/br
 source ~/env # Script that holds alias and tokens
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -77,6 +77,8 @@ alias todo="vim ~/git/pensamentos/To-Do.md"
 alias ls=exa
 alias kafkacat=kcat
 alias today="code ~/Git/pensamentos/Journal/$(date -u +%Y)/$(date -u +%Y%m%d).md"
+alias ip="curl ifconfig.me"
+alias k="kubectl"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -180,5 +182,16 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
+# Set asdf java to java_home
+. ~/.asdf/plugins/java/set-java-home.zsh
+
 eval "$(mcfly init zsh)"
 source ~/.bash_profile;
+
+source /Users/josecabeda/.config/broot/launcher/bash/br
+
+. /usr/local/opt/asdf/libexec/asdf.sh
+# export PATH="/usr/local/opt/node@14/bin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform

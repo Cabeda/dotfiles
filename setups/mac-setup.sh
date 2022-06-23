@@ -85,7 +85,7 @@ brew install \
   sqlite v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
-  bandwhich exa mcfly dive lazydocker jless pyenv tmux
+  bandwhich exa mcfly dive lazydocker jless pyenv tmux broot
 
 # Set file for env files
 touch ~/env
@@ -93,8 +93,14 @@ touch ~/env
 # Gh config
 gh extension install dlvhdr/gh-prs
 
-# Install scala
-cs setup
+# ASDF plugins
+asdf plugin-add java https://github.com/halcyon/asdf-java.git
+
+
+# Install java 
+. ~/.asdf/plugins/java/set-java-home.zsh
+asdf install java openjdk-11.0.2
+asdf global java openjdk-11.0.2
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
@@ -107,7 +113,7 @@ echo_warn "Installing applications..."
 
 brew install --cask \
   spotify vlc alacritty slack zoomus google-chrome visual-studio-code \
-  notion docker alt-tab openmtp swiftdefaultappsprefpane raycast \
+  notion docker openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden git-credential-manager-core \
   insomnia
 
@@ -115,11 +121,6 @@ brew install --cask \
 #brew cask install inkscape
 brew install librsvg
 brew install imagemagick
-
-# Install java through sdkman
-curl -s "https://get.sdkman.io" | bash
-source "$HOME/.sdkman/bin/sdkman-init.sh"
-sdk install java
 
 # Set one time configs
 git config --global core.pager "delta --line-numbers --dark"
