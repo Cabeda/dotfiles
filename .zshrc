@@ -50,6 +50,8 @@ function z() {
 }
 eval "$(zoxide init zsh)"
 
+eval "$(direnv export bash)"
+
 # Auto complete pipx
 # eval "$(register-python-argcomplete pipx)"
 
@@ -79,6 +81,7 @@ alias kafkacat=kcat
 alias today="code ~/Git/pensamentos/Journal/$(date -u +%Y)/$(date -u +%Y%m%d).md"
 alias ip="curl ifconfig.me"
 alias k="kubectl"
+alias tf="terraform"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"

@@ -67,6 +67,7 @@ brew update && brew upgrade --cask
 
 # Upgrade mac
 softwareupdate --all --install --force
+xcode-select --install
 
 # brew taps
 brew tap homebrew/cask-versions
@@ -85,7 +86,8 @@ brew install \
   sqlite v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
-  bandwhich exa mcfly dive lazydocker jless pyenv tmux broot
+  bandwhich exa mcfly dive lazydocker jless pyenv tmux broot \
+  GitJournal/tap/git-auto-sync direnv
 
 # Set file for env files
 touch ~/env
@@ -102,20 +104,13 @@ asdf plugin-add java https://github.com/halcyon/asdf-java.git
 asdf install java openjdk-11.0.2
 asdf global java openjdk-11.0.2
 
-# Install nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-nvm install $node_version
-
 # Apps
 echo_warn "Installing applications..."
-
-# google
 
 brew install --cask \
   spotify vlc alacritty slack zoomus google-chrome visual-studio-code \
   notion docker openmtp swiftdefaultappsprefpane raycast \
-  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden git-credential-manager-core \
-  insomnia
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ git-credential-manager-core insomnia lens
 
 # brew imagemagick
 #brew cask install inkscape
