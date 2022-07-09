@@ -3,8 +3,8 @@ prSections:
     filters: is:open author:@me
   - title: Needs My Review
     filters: is:open review-requested:@me 
-  - title: Governance
-    filters: is:open author:Cabeda author:ricardopereira33 author:ricardocardante author:alicemmarques  author:anaritamarques author:Giisela author:henriquecarlos-talkdesk draft:false
+  - title: Data Platform
+    filters: is:open author:Cabeda author:tcaxias author:Rafa-Rocha author:radames-fidel  author:lucero-f author:tadej-ostanek author:davidfortunato draft:false
 defaults:
   preview:
     open: true

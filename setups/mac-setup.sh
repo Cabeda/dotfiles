@@ -87,13 +87,13 @@ brew install \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
   bandwhich exa mcfly dive lazydocker jless pyenv tmux broot \
-  GitJournal/tap/git-auto-sync direnv
+  GitJournal/tap/git-auto-sync direnv viddy
 
 # Set file for env files
 touch ~/env
 
 # Gh config
-gh extension install dlvhdr/gh-prs
+gh extension install dlvhdr/gh-dash
 
 # ASDF plugins
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
@@ -128,6 +128,7 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/U
 mkdir -p ~/.config
 mkdir -p ~/.config/alacritty
 mkdir -p ~/.config/prs
+mkdir -p ~/.config/gh-dash
 
 ln -f .tmux.conf ~/.tmux.conf
 ln -f .vimrc ~/.vimrc
@@ -135,7 +136,7 @@ ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
 ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
-ln -f github_prs.yml ~/Library/Application\ Support/gh-dash/config.yml
+ln -f github_prs.yml ~~/.config/gh-dash/config.yml
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
