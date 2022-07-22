@@ -120,6 +120,7 @@ brew install imagemagick
 # Set one time configs
 git config --global core.pager "delta --line-numbers --dark"
 git config --global delta.side-by-side true
+git config --global --add --bool push.autoSetupRemote true
 gh config set pager 'delta -s'
 # Set background image
 osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/jose.cabeda/Git/dotfiles/backgrounds/clement-dartigues-scirie.jpeg"'

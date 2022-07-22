@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 if [ "$TMUX" = "" ]; then 
-    tmux new -A -s daily;
+    # tmux new -A -s daily;
 fi
 
 plugins=()
@@ -50,8 +50,6 @@ function z() {
 }
 eval "$(zoxide init zsh)"
 
-eval "$(direnv export bash)"
-
 # Auto complete pipx
 # eval "$(register-python-argcomplete pipx)"
 
@@ -93,7 +91,7 @@ function gac() {
   git commit
 }
 function gsw () {
-  git switch $(git branch | fzf)
+  git checkout -t $(git branch -r | fzf)
 }
 
 function glt() {
@@ -198,3 +196,5 @@ source /Users/josecabeda/.config/broot/launcher/bash/br
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
+
+eval "$(direnv export bash)"
