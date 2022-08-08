@@ -135,6 +135,7 @@ ln -f .tmux.conf ~/.tmux.conf
 ln -f .vimrc ~/.vimrc
 ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
+ln -f .gitconfig ~/.gitconfig
 ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
 ln -f github_prs.yml ~~/.config/gh-dash/config.yml
