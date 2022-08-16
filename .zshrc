@@ -20,12 +20,14 @@ ENABLE_CORRECTION="true"
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
+export PATH=/opt/homebrew/bin:$PATH
+
 # Run commands specific to shell
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
   export ZSH="/Users/jose.cabeda/.oh-my-zsh"
-  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  # source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 elif [[ "$OSTYPE" == "linux-android" ]]; then
  echo $OSTYPE
@@ -36,10 +38,6 @@ fi
 source ~/.config/broot/launcher/bash/br
 source ~/env # Script that holds alias and tokens
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Make sure pyenv version is used
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
 
 eval "$(starship init zsh)"
 eval "$(ssh-agent -s)"

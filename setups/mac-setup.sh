@@ -86,7 +86,7 @@ brew install \
   sqlite v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
-  bandwhich exa mcfly dive lazydocker jless pyenv tmux broot \
+  bandwhich exa mcfly dive lazydocker jless tmux broot \
   GitJournal/tap/git-auto-sync direnv viddy
 
 # Set file for env files
@@ -97,6 +97,7 @@ gh extension install dlvhdr/gh-dash
 
 # ASDF plugins
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
+asdf plugin-add python # https://github.com/danhper/asdf-python
 
 
 # Install java 
@@ -139,6 +140,7 @@ ln -f .gitconfig ~/.gitconfig
 ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
 ln -f github_prs.yml ~~/.config/gh-dash/config.yml
+ln -f .tool-versions ~/.tool-versions
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
