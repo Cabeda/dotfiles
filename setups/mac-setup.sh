@@ -3,7 +3,6 @@
 # A script to set up a new mac. Uses bash, homebrew, etc.
 
 # Settings
-node_version="14.16.1"
 ruby_versions="2.7.0"
 python="3.8.1"
 ruby_default="2.7.0"

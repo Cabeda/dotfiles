@@ -189,10 +189,9 @@ source ~/.bash_profile;
 
 source /Users/josecabeda/.config/broot/launcher/bash/br
 
-. /usr/local/opt/asdf/libexec/asdf.sh
-# export PATH="/usr/local/opt/node@14/bin:$PATH"
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
 eval "$(direnv export bash)"
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
