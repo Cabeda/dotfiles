@@ -85,8 +85,8 @@ brew install \
   sqlite v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
-  bandwhich exa mcfly dive lazydocker jless tmux broot \
-  GitJournal/tap/git-auto-sync direnv viddy
+  exa mcfly dive lazydocker jless tmux broot \
+  direnv thefuck jc lazygit
 
 # Set file for env files
 touch ~/env

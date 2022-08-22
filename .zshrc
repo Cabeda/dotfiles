@@ -192,6 +192,7 @@ source /Users/josecabeda/.config/broot/launcher/bash/br
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
-eval "$(direnv export bash)"
+eval "$(direnv hook zsh)"
+# . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+eval $(thefuck --alias)
