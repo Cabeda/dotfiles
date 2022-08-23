@@ -189,7 +189,6 @@ export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 # Set asdf java to java_home
 . ~/.asdf/plugins/java/set-java-home.zsh
 
-eval "$(mcfly init zsh)"
 source ~/.bash_profile
 
 source /Users/josecabeda/.config/broot/launcher/bash/br
@@ -197,6 +196,10 @@ source /Users/josecabeda/.config/broot/launcher/bash/br
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
+
 eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+# Make sure it's the last command
+eval "$(mcfly init zsh)"
