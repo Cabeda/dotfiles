@@ -1,15 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-if [ "$TMUX" = "" ]; then 
-    # tmux new -A -s daily;
+if [ "$TMUX" = "" ]; then
+  # tmux new -A -s daily;
 fi
 
 plugins=()
 
 # EXPORT configs
 export EDITOR="vi"
-export TERM=xterm-256color;
+export TERM=xterm-256color
 export LC_CTYPE="en_US.UTF-8"
 export LANG=en_US.UTF-8
 export TT_LOG_FOLDER=$HOME/Git/pensamentos/Journal/2021
@@ -30,8 +30,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   # source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 elif [[ "$OSTYPE" == "linux-android" ]]; then
- echo $OSTYPE
-else 
+  echo $OSTYPE
+else
   echo "Unsupported shell"
 fi
 
@@ -44,7 +44,7 @@ eval "$(ssh-agent -s)"
 
 # CONFIG Zoxide
 function z() {
-    __zoxide_z "$@"
+  __zoxide_z "$@"
 }
 eval "$(zoxide init zsh)"
 
@@ -85,10 +85,16 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # GIT functions
 
 function gac() {
-  git add -p 
+  git add -p
   git commit
 }
-function gsw () {
+
+function gacq() {
+  git add -p
+  git commit -m "Auto Update"
+}
+
+function gsw() {
   git checkout -t $(git branch -r | fzf)
 }
 
@@ -97,30 +103,29 @@ function glt() {
   git describe --tags --abbrev=0
 }
 
-function gdp () {
+function gdp() {
   git pull
-  main=$(basename $(git symbolic-ref --short refs/remotes/origin/HEAD) )
+  main=$(basename $(git symbolic-ref --short refs/remotes/origin/HEAD))
   release=$(git describe --tags --abbrev=0)
-  git log $release...$main  --pretty=oneline
+  git log $release...$main --pretty=oneline
 }
-
 
 # - - - - - -
 # - DOCKER  -
 # - - - - - -
 function docker-selector-containers() {
-  docker ps -a --format="{{.ID}}\t\t{{.Names}}" | \
-    fzf -0 -1 --delimiter="\t" --with-nth="-1" | \
+  docker ps -a --format="{{.ID}}\t\t{{.Names}}" |
+    fzf -0 -1 --delimiter="\t" --with-nth="-1" |
     cut -f1
 }
 function docker-selector-running-containers() {
-  docker ps --format="{{.ID}}\t\t{{.Names}}" | \
-    fzf -0 -1 --delimiter="\t" --with-nth="-1" | \
+  docker ps --format="{{.ID}}\t\t{{.Names}}" |
+    fzf -0 -1 --delimiter="\t" --with-nth="-1" |
     cut -f1
 }
 function docker-selector-images() {
-  docker images --format="{{.ID}}\t\t{{.Repository}}" | \
-    fzf -0 -1 --delimiter="\t" --with-nth="-1" | \
+  docker images --format="{{.ID}}\t\t{{.Repository}}" |
+    fzf -0 -1 --delimiter="\t" --with-nth="-1" |
     cut -f1
 }
 function din() {
@@ -169,8 +174,8 @@ function teststg() {
   git checkout $branch
 }
 
-if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
- export PATH="$HOME/platform-tools:$PATH"
+if [ -d "$HOME/adb-fastboot/platform-tools" ]; then
+  export PATH="$HOME/platform-tools:$PATH"
 fi
 
 zstyle ':completion:*' menu select
@@ -185,7 +190,7 @@ export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 . ~/.asdf/plugins/java/set-java-home.zsh
 
 eval "$(mcfly init zsh)"
-source ~/.bash_profile;
+source ~/.bash_profile
 
 source /Users/josecabeda/.config/broot/launcher/bash/br
 
@@ -195,4 +200,3 @@ complete -o nospace -C /usr/local/bin/terraform terraform
 eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
-
