@@ -1,0 +1,12 @@
+prSections:
+  - title: Data Platform
+    filters: is:open author:Cabeda author:Rafa-Rocha author:radames-fidel  author:lucero-f author:tadej-ostanek author:davidfortunato author:daniel-tav draft:false
+  - title: My Pull Requests
+    filters: is:open author:@me
+  - title: Needs My Review
+    filters: is:open review-requested:@me
+defaults:
+  preview:
+    open: true
+    width: 50
+  prsLimit: 20
