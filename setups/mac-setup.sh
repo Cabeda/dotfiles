@@ -86,7 +86,7 @@ brew install \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
   exa mcfly dive lazydocker jless tmux broot \
-  direnv thefuck jc lazygit
+  direnv thefuck jc lazygit deno chezmoi
 
 # Set file for env files
 touch ~/env
