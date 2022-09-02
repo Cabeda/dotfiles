@@ -1,0 +1,2 @@
+gocomics.com#$#.item-comic-link-disabled{ pointer-events: auto!important;}
+

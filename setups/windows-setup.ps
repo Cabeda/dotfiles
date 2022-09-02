@@ -1,0 +1,26 @@
+# Script to install on Windows 10
+# Requires Microsoft Package Manager from microsoft https://github.com/microsoft/winget-cli
+
+
+winget install vlc -h
+winget install calibre
+winget install firefox -h -e
+winget install --Id Spotify.Spotify -h
+winget install authy -h
+winget install notion -h
+winget install --id  Microsoft.WindowsTerminal -e -h
+winget install --id Microsoft.VisualStudioCode -h -e
+winget install steam -h
+winget install EpicGames.EpicGamesLauncher -h
+winget install git -h -e
+winget install OpenJS.Nodejs -h 
+winget install WebTorrent -h
+winget install "Docker Desktop" -h -e
+winget install bitwarden -h
+winget install alacritty
+winget install "WhatsApp Desktop"
+
+wsl --install
+
+
+cp alacritty.yml %APPDATA%\alacritty\alacritty.yml

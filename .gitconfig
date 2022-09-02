@@ -1,0 +1,23 @@
+[core]
+	pager = delta --line-numbers --dark
+[delta]
+	side-by-side = true
+[user]
+	name = José Cabeda
+	email = jecabeda@gmail.com
+[pull]
+	rebase = false
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager-core
+	helper = manager-core
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[gpg]
+	program = /usr/local/bin/gpg
+[push]
+	autoSetupRemote = true
+[merge]
+  tool = code-insiders
+[mergetool "code-insiders"]
+  cmd = code-insiders --wait --merge $REMOTE $LOCAL $BASE $MERGED
