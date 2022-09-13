@@ -76,6 +76,8 @@ brew tap xo/xo
 brew tap cantino/mcfly
 brew tap turbot/tap
 brew tap microsoft/git
+brew tap hashicorp/tap
+brew tap espanso/espanso
 
 # Homebrew base
 brew upgrade
@@ -86,7 +88,8 @@ brew install \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
   exa mcfly dive lazydocker jless tmux broot \
-  direnv thefuck jc lazygit
+  direnv thefuck jc lazygit deno chezmoi hashicorp/tap/terraform \
+  espanso
 
 # Set file for env files
 touch ~/env
@@ -94,7 +97,7 @@ touch ~/env
 # Gh config
 gh extension install dlvhdr/gh-dash
 
-# ASDF plugins
+# ASDF pluginsq
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
 asdf plugin-add python # https://github.com/danhper/asdf-python
 

@@ -78,6 +78,7 @@ alias today="code ~/Git/pensamentos/Journal/$(date -u +%Y)/$(date -u +%Y%m%d).md
 alias ip="curl ifconfig.me"
 alias k="kubectl"
 alias tf="terraform"
+alias cr="while true ; do streamlink https://www.twitch.tv/criticalrole BEST -o crit_$( date +"%s" ).ts; sleep 540; done"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -203,3 +204,4 @@ eval "$(direnv hook zsh)"
 
 # Make sure it's the last command
 eval "$(mcfly init zsh)"
+export PATH=$PATH:/Users/josecabeda/.spicetify
