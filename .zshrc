@@ -205,3 +205,6 @@ eval "$(direnv hook zsh)"
 # Make sure it's the last command
 eval "$(mcfly init zsh)"
 export PATH=$PATH:/Users/josecabeda/.spicetify
+
+# Created by `pipx` on 2022-10-03 12:07:30
+export PATH="$PATH:/Users/josecabeda/.local/bin"

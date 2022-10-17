@@ -12,7 +12,7 @@ else
     open -a slack -g
     open -a "Visual Studio Code" -g
     open -a "Google Chrome" 
-    open -a "Brave browser" https://www.gocomics.com/random/calvinandhobbes
+    open -a "Firefox" https://www.gocomics.com/random/calvinandhobbes
     open -a "bitwarden"
     
     bash $(dirname $0)/write.sh
