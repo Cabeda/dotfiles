@@ -208,3 +208,8 @@ export PATH=$PATH:/Users/josecabeda/.spicetify
 
 # Created by `pipx` on 2022-10-03 12:07:30
 export PATH="$PATH:/Users/josecabeda/.local/bin"
+
+export PATH="/Users/josecabeda/.deta/bin:$PATH"
+
+export PATH="/Users/josecabeda/.deta/bin:$PATH"
+source /opt/homebrew/opt/spaceship/spaceship.zsh
