@@ -5,7 +5,10 @@ if [ "$TMUX" = "" ]; then
   # tmux new -A -s daily;
 fi
 
-plugins=()
+plugins=(
+  git
+  zsh-autosuggestions
+)
 
 # EXPORT configs
 export EDITOR="vi"
@@ -27,7 +30,6 @@ export PATH=/opt/homebrew/bin:$PATH
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
   export ZSH="/Users/jose.cabeda/.oh-my-zsh"
-  # source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 elif [[ "$OSTYPE" == "linux-android" ]]; then
   echo $OSTYPE
@@ -78,7 +80,7 @@ alias today="code ~/Git/pensamentos/Journal/$(date -u +%Y)/$(date -u +%Y%m%d).md
 alias ip="curl ifconfig.me"
 alias k="kubectl"
 alias tf="terraform"
-alias cr="while true ; do streamlink https://www.twitch.tv/criticalrole BEST -o crit_$( date +"%s" ).ts; sleep 540; done"
+alias cr="while true ; do streamlink https://www.twitch.tv/criticalrole BEST -o crit_$(date +"%s").ts; sleep 540; done"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -197,7 +199,6 @@ source /Users/josecabeda/.config/broot/launcher/bash/br
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
-
 eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
@@ -211,5 +212,4 @@ export PATH="$PATH:/Users/josecabeda/.local/bin"
 
 export PATH="/Users/josecabeda/.deta/bin:$PATH"
 
-export PATH="/Users/josecabeda/.deta/bin:$PATH"
-source /opt/homebrew/opt/spaceship/spaceship.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
