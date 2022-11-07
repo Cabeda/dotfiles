@@ -8,6 +8,7 @@ fi
 plugins=(
   git
   zsh-autosuggestions
+  tmux
 )
 
 # EXPORT configs
