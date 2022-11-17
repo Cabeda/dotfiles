@@ -112,7 +112,7 @@ echo_warn "Installing applications..."
 brew install --cask \
   spotify vlc alacritty slack zoomus google-chrome visual-studio-code \
   notion docker openmtp swiftdefaultappsprefpane raycast \
-  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ git-credential-manager-core insomnia lens
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ git-credential-manager-core insomnia lens dbeaver-community
 
 # brew imagemagick
 #brew cask install inkscape
