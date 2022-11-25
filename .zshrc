@@ -99,7 +99,7 @@ function gacq() {
 }
 
 function gsw() {
-  git checkout -t $(git branch -r | fzf)
+  git switch $(git branch | fzf)
 }
 
 function glt() {
