@@ -21,8 +21,12 @@ ZSH_THEME="avit"
 DISABLE_UPDATE_PROMPT="true"
 ENABLE_CORRECTION="true"
 
-bindkey "^[[1;3C" forward-word
-bindkey "^[[1;3D" backward-word
+set -o emacs
+
+bindkey "\e[1;3D" backward-word     # ⌥←
+bindkey "\e[1;3C" forward-word      # ⌥→
+bindkey "^[[1;9D" beginning-of-line # cmd+←
+bindkey "^[[1;9C" end-of-line       # cmd+→
 
 export PATH=/opt/homebrew/bin:$PATH
 
@@ -214,3 +218,10 @@ export PATH="$PATH:/Users/josecabeda/.local/bin"
 export PATH="/Users/josecabeda/.deta/bin:$PATH"
 
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# bun completions
+[ -s "/Users/josecabeda/.bun/_bun" ] && source "/Users/josecabeda/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

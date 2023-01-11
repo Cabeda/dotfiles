@@ -1,6 +1,8 @@
 prSections:
   - title: Transactions
-    filters: is:open team-review-requested:FidelLimited/be-transactions draft:false
+    filters: is:open team-review-requested:FidelLimited/be-transactions draft:false repo:FidelLimited/service-sftp-amex repo:FidelLimited/service-sftp-mastercard
+  - title: Transactions-Red
+    filters: is:open org:FidelLimited author:ricardo-onodera-fidel draft:false author:acoelhosantos author:asargento
   - title: My Pull Requests
     filters: is:open author:@me
   - title: Needs My Review
