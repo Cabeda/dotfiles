@@ -88,7 +88,7 @@ brew install \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
   exa mcfly dive lazydocker jless tmux broot \
-  direnv thefuck jc lazygit deno chezmoi hashicorp/tap/terraform \
+  direnv thefuck jc lazygit deno hashicorp/tap/terraform
 
 # Set file for env files
 touch ~/env
@@ -100,8 +100,7 @@ gh extension install dlvhdr/gh-dash
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
 asdf plugin-add python # https://github.com/danhper/asdf-python
 
-
-# Install java 
+# Install java
 . ~/.asdf/plugins/java/set-java-home.zsh
 asdf install java openjdk-11.0.2
 asdf global java openjdk-11.0.2
@@ -112,7 +111,7 @@ echo_warn "Installing applications..."
 brew install --cask \
   spotify vlc alacritty slack zoomus google-chrome visual-studio-code \
   notion docker openmtp swiftdefaultappsprefpane raycast \
-  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ git-credential-manager-core insomnia lens dbeaver-community
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ git-credential-manager-core insomnia lens dbeaver-community alt-tab
 
 # brew imagemagick
 #brew cask install inkscape
@@ -142,6 +141,7 @@ ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
 ln -f github_prs.yml ~~/.config/gh-dash/config.yml
 ln -f .tool-versions ~/.tool-versions
+ln -f gpg-agent.conf ~/.gnupg/gpg-agent.conf # Needed to change the passphrase TTL
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
