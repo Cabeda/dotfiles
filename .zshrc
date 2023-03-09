@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:
 
 if [ "$TMUX" = "" ]; then
   # tmux new -A -s daily;
@@ -86,6 +86,7 @@ alias ip="curl ifconfig.me"
 alias k="kubectl"
 alias tf="terraform"
 alias cr="while true ; do streamlink https://www.twitch.tv/criticalrole BEST -o crit_$(date +"%s").ts; sleep 540; done"
+alias caw="code ~/.aws/credentials"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -225,3 +226,5 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export GPG_TTY=$(tty)
+export PATH="/opt/homebrew/sbin:$PATH"

@@ -4,8 +4,6 @@
 
 # Settings
 ruby_versions="2.7.0"
-python="3.8.1"
-ruby_default="2.7.0"
 
 # helpers
 function echo_ok { echo -e '\033[1;32m'"$1"'\033[0m'; }
@@ -111,7 +109,9 @@ echo_warn "Installing applications..."
 brew install --cask \
   spotify vlc alacritty slack zoomus google-chrome visual-studio-code \
   notion docker openmtp swiftdefaultappsprefpane raycast \
-  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ git-credential-manager-core insomnia lens dbeaver-community alt-tab
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \
+  git-credential-manager-core insomnia dbeaver-community alt-tab \
+  warp
 
 # brew imagemagick
 #brew cask install inkscape
@@ -142,6 +142,7 @@ ln -f starship.toml ~/.config/starship.toml
 ln -f github_prs.yml ~~/.config/gh-dash/config.yml
 ln -f .tool-versions ~/.tool-versions
 ln -f gpg-agent.conf ~/.gnupg/gpg-agent.conf # Needed to change the passphrase TTL
+ln -f warp_config.yaml ~/.warp/launch_configuration~"s/launch_config.yaml
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
