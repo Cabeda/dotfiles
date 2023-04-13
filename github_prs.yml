@@ -1,8 +1,8 @@
 prSections:
-  - title: Transactions
-    filters: is:open team-review-requested:FidelLimited/be-transactions draft:false repo:FidelLimited/service-sftp-amex repo:FidelLimited/service-sftp-mastercard
-  - title: Transactions-Red
-    filters: is:open org:FidelLimited author:ricardo-onodera-fidel draft:false author:acoelhosantos author:asargento
+  - title: MO-team
+    filters: is:open team-review-requested:FidelLimited/be-merchant-onboarding team-review-requested:FidelLimited/merchant-onboarding draft:false
+  - title: MO-elements
+    filters: is:open org:FidelLimited author:duartemendes author:diogogvhenriques author:jaguiar-fidel author:lucia-fidel draft:false
   - title: My Pull Requests
     filters: is:open author:@me
   - title: Needs My Review
