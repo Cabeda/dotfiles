@@ -54,6 +54,7 @@ function z() {
     __zoxide_z "$@"
 }
 eval "$(zoxide init zsh)"
+# eval "$(github-copilot-cli alias -- "$0")" # Enables copilot cli alias
 
 # Auto complete pipx
 # eval "$(register-python-argcomplete pipx)"
@@ -85,6 +86,7 @@ alias tf="terraform"
 alias cr="while true ; do streamlink https://www.twitch.tv/criticalrole BEST -o crit_$(date +"%s").ts; sleep 540; done"
 alias caw="code ~/.aws/credentials"
 alias lofi="streamlink https://www.youtube.com/live/jfKfPfyJRdk best"
+alias synth="streamlink https://www.youtube.com/live/MVPTGNGiI-4 best"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
