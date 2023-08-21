@@ -12,7 +12,7 @@ plugins=(
 )
 
 # EXPORT configs
-export EDITOR="vi"
+export EDITOR="code"
 export TERM=xterm-256color
 export LC_CTYPE="en_US.UTF-8"
 export LANG=en_US.UTF-8
@@ -87,6 +87,8 @@ alias cr="while true ; do streamlink https://www.twitch.tv/criticalrole BEST -o 
 alias caw="code ~/.aws/credentials"
 alias lofi="streamlink https://www.youtube.com/live/jfKfPfyJRdk best"
 alias synth="streamlink https://www.youtube.com/live/MVPTGNGiI-4 best"
+alias rain="bash ~/Git/dotfiles/sounds/sounds.sh"
+alias gauto='git ls-files -cdmo --exclude-standard | entr ~/Git/dotfiles/git_sync_auto.sh'
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -228,3 +230,8 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export GPG_TTY=$(tty)
 export PATH="/opt/homebrew/sbin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/josecabeda/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end

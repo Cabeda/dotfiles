@@ -11,9 +11,7 @@ else
     open -a "Google Chrome"
     open -a "bitwarden"
     open -a "Firefox" https://www.gocomics.com/random/calvinandhobbes
-    #    open -a "Brave Browser" --args --app=https://web.whatsapp.com
-
-    bash $(dirname $0)/write.sh
+    open -a "Brave Browser" --args --app=https://web.whatsapp.com
 
     echo "Good work and have a nice dev day!"
 fi
