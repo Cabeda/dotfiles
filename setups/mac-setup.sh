@@ -85,8 +85,8 @@ brew install \
   sqlite v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
-  exa mcfly dive lazydocker jless tmux broot \
-  direnv thefuck jc lazygit deno hashicorp/tap/terraform
+  eza mcfly dive lazydocker jless tmux broot \
+  direnv thefuck jc lazygit deno hashicorp/tap/terraform vale
 
 # Set file for env files
 touch ~/env
