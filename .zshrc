@@ -85,8 +85,8 @@ alias k="kubectl"
 alias tf="terraform"
 alias cr="while true ; do streamlink https://www.twitch.tv/criticalrole BEST -o crit_$(date +"%s").ts; sleep 540; done"
 alias caw="code ~/.aws/credentials"
-alias lofi="streamlink https://www.youtube.com/live/jfKfPfyJRdk best"
-alias synth="streamlink https://www.youtube.com/live/MVPTGNGiI-4 best"
+alias lofi='streamlink -a "--intf dummy" https://www.youtube.com/live/jfKfPfyJRdk best'
+alias synth='streamlink -a "--intf dummy" https://www.youtube.com/live/MVPTGNGiI-4 best'
 alias rain="bash ~/Git/dotfiles/sounds/sounds.sh"
 alias gauto='git ls-files -cdmo --exclude-standard | entr ~/Git/dotfiles/git_sync_auto.sh'
 
