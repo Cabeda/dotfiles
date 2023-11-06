@@ -11,7 +11,7 @@ else
     open -a "Google Chrome"
     open -a "bitwarden"
     open -a "Firefox" https://www.gocomics.com/random/calvinandhobbes
-    open -a "Brave Browser" --args --app=https://web.whatsapp.com
+    open -a "Spotify"
 
     echo "Good work and have a nice dev day!"
 fi
