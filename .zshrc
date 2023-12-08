@@ -1,10 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-if [ "$TMUX" = "" ]; then
-  # tmux new -A -s daily;
-fi
-
 plugins=()
 
 # EXPORT configs
