@@ -2,7 +2,7 @@ prSections:
   - title: Fidel-team
     filters: is:open team-review-requested:FidelLimited/cl-lambda draft:false
   - title: Fidel-elements
-    filters: is:open org:FidelLimited author:duartemendes author:diogogvhenriques author:jaguiar-fidel author:lucia-fidel author:migueldbmartins author:artur-nogueira
+    filters: is:open org:FidelLimited author:artur-nogueira
   - title: My Pull Requests
     filters: is:open author:@me
   - title: Needs My Review
