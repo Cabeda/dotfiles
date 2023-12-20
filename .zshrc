@@ -31,7 +31,7 @@ else
   echo "Unsupported shell"
 fi
 
-source ~/.config/broot/launcher/bash/br
+
 source ~/env # Script that holds alias and tokens
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -70,7 +70,6 @@ alias pip=pip3
 alias todo="vim ~/git/pensamentos/To-Do.md"
 alias ls=exa
 alias kafkacat=kcat
-alias today="code ~/Git/pensamentos/Journal/$(date -u +%Y)/$(date -u +%Y%m%d).md"
 alias ip="curl ifconfig.me"
 alias k="kubectl"
 alias tf="terraform"
