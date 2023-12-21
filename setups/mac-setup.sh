@@ -86,7 +86,7 @@ brew install \
   awscli asdf rust starship vault trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
   exa mcfly dive lazydocker jless tmux broot \
-  direnv thefuck jc lazygit deno chezmoi
+  direnv thefuck jc lazygit deno chezmoi duckdb
 
 # Set file for env files
 touch ~/env
@@ -97,7 +97,13 @@ gh extension install dlvhdr/gh-dash
 # ASDF plugins
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
 asdf plugin-add python # https://github.com/danhper/asdf-python
+asdf plugin add nodejs
 
+asdf install nodejs latest
+asdf install python latest
+
+asdf global nodejs latest
+asdf global python latest
 
 # Install java 
 . ~/.asdf/plugins/java/set-java-home.zsh
@@ -108,9 +114,9 @@ asdf global java openjdk-11.0.2
 echo_warn "Installing applications..."
 
 brew install --cask \
-  spotify vlc alacritty slack zoomus google-chrome visual-studio-code \
+   vlc  slack zoomus google-chrome visual-studio-code \
   notion docker openmtp swiftdefaultappsprefpane raycast \
-  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ git-credential-manager-core insomnia lens
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ git-credential-manager-core insomnia
 
 # brew imagemagick
 #brew cask install inkscape

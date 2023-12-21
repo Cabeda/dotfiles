@@ -9,6 +9,8 @@ sudo apt install snapd
 sudo apt install zsh
 sudo apt install zoxide
 
+# Set file for env files
+touch ~/env
 
 
 #Install asdf
