@@ -83,10 +83,11 @@ brew install \
   go gpg entr tealdeer gh fzf freetype htop pwgen \
   jq yq libxml2 python heroku warrensbox/tap/tfswitch \
   sqlite v8 wget pipenv poetry pipx git ripgrep \
-  awscli asdf rust starship vault trash zsh-autosuggestions \
+  awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
   exa mcfly dive lazydocker jless tmux broot \
-  direnv thefuck jc lazygit deno chezmoi duckdb
+  direnv thefuck jc lazygit deno chezmoi duckdb vale
+
 
 # Set file for env files
 touch ~/env
