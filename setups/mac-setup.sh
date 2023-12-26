@@ -147,6 +147,7 @@ ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
 ln -f github_prs.yml ~~/.config/gh-dash/config.yml
 ln -f .tool-versions ~/.tool-versions
+ln -f vale.ini ~/.vale.ini
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
