@@ -86,7 +86,8 @@ brew install \
   awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide dog m-cli bat \
   exa mcfly dive lazydocker jless tmux broot \
-  direnv thefuck jc lazygit deno chezmoi duckdb vale
+  direnv jc lazygit deno chezmoi duckdb vale \
+  ffmpeg
 
 
 # Set file for env files
@@ -117,7 +118,8 @@ echo_warn "Installing applications..."
 brew install --cask \
    vlc  slack zoomus google-chrome visual-studio-code \
   notion docker openmtp swiftdefaultappsprefpane raycast \
-  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ git-credential-manager-core insomnia
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ 
+  git-credential-manager-core insomnia httpie
 
 # brew imagemagick
 #brew cask install inkscape
