@@ -17,6 +17,8 @@ bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
 export PATH=/opt/homebrew/bin:$PATH
+export PATH="/usr/local/sbin:$PATH"
+export PATH="~.deno/bin:$PATH"
 
 # Run commands specific to shell
 
@@ -68,7 +70,6 @@ alias presto="~/presto-cli-350-executable.jar"
 alias python=python3
 alias pip=pip3
 alias todo="vim ~/git/pensamentos/To-Do.md"
-alias ls=exa
 alias kafkacat=kcat
 alias ip="curl ifconfig.me"
 alias k="kubectl"
@@ -186,15 +187,10 @@ export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
 source ~/.bash_profile
 
-source /Users/josecabeda/.config/broot/launcher/bash/br
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
-
-eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # Make sure it's the last command
 eval "$(mcfly init zsh)"

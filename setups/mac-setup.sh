@@ -132,6 +132,11 @@ gh config set pager 'delta -s'
 # Set background image
 osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/jose.cabeda/Git/dotfiles/backgrounds/clement-dartigues-scirie.jpeg"'
 
+## Install omnivore tool
+
+deno install -A scripts/omnivore.ts 
+
+
 # Set dotfiles configs to be the ones used by the system
 mkdir -p ~/.config
 mkdir -p ~/.config/alacritty
