@@ -1,3 +1,4 @@
+import { parseArgs } from "https://deno.land/std@0.207.0/cli/parse_args.ts";
 interface Article {
     id: string;
     title: string;
@@ -94,7 +95,7 @@ interface Article {
     console.log("Articles archived");
   }
   
-  async function getTotalArticles() {
+  async function getTotalArticles(query = "in:inbox no:label") {
     try {
       const graphql = `query Search($after: String, $first: Int, $query: String) {
         search(first: $first, after: $after, query: $query) {
@@ -124,7 +125,7 @@ interface Article {
         body: JSON.stringify({
           query: graphql,
           variables: {
-            query: "in:inbox no:label",
+            query,
           },
         }),
       });
@@ -187,13 +188,17 @@ interface Article {
     console.error("Missing OMNIVORE_API_KEY");
     Deno.exit(1);
   }
+  const flags = parseArgs(Deno.args, {
+    boolean: ["total", "archive"],
+    string: ["query"],
+  });
+
+
   
-  const args = Deno.args;
-  
-  if (args.includes("--total")) {
-    const total = await getTotalArticles();
+  if (flags.total) {
+    console.log(flags.query);
+    const total = await getTotalArticles(flags.query);
     console.log(`${total.data.search.pageInfo.totalCount} articles found`);
-  
     Deno.exit(0);
   }
   
@@ -205,7 +210,7 @@ interface Article {
   }
   console.log(await convertToMarkdown(articles));
   
-  if (args.includes("--archive")) {
+  if (flags.archive) {
     archiveNewsletters(articles);
   }
   
