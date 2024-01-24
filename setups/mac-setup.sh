@@ -87,7 +87,7 @@ brew install \
   git-delta watch zoxide dog m-cli bat \
   exa mcfly dive lazydocker jless tmux broot \
   direnv jc lazygit deno chezmoi duckdb vale \
-  ffmpeg
+  ffmpeg zlib python@3.12 python@3.11
 
 
 # Set file for env files
@@ -131,8 +131,13 @@ git config --global core.pager "delta --line-numbers --dark"
 git config --global delta.side-by-side true
 git config --global --add --bool push.autoSetupRemote true
 gh config set pager 'delta -s'
+
+# Disable hor corner
+defaults write com.apple.dock wvous-br-corner -int 0
+killall Dock
+
 # Set background image
-osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/jose.cabeda/Git/dotfiles/backgrounds/clement-dartigues-scirie.jpeg"'
+osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/jose.cabeda/Git/dotfiles/backgrounds/black.jpeg"'
 
 ## Install omnivore tool
 
@@ -152,7 +157,7 @@ ln -f .zshrc ~/.zshrc
 ln -f .gitconfig ~/.gitconfig
 ln -f alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -f starship.toml ~/.config/starship.toml
-ln -f github_prs.yml ~~/.config/gh-dash/config.yml
+ln -f github_prs.yml ~/.config/gh-dash/config.yml
 ln -f .tool-versions ~/.tool-versions
 ln -f vale.ini ~/.vale.ini
 

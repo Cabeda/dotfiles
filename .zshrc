@@ -4,24 +4,22 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 plugins=()
 
 # EXPORT configs
-export EDITOR="vi"
 export TERM=xterm-256color
 export LC_CTYPE="en_US.UTF-8"
 export LANG=en_US.UTF-8
 export TT_LOG_FOLDER=$HOME/Git/pensamentos/Journal/2021
-ZSH_THEME="avit"
-DISABLE_UPDATE_PROMPT="true"
-ENABLE_CORRECTION="true"
-
-bindkey "^[[1;3C" forward-word
-bindkey "^[[1;3D" backward-word
-
+export ZSH_THEME="avit"
+export DISABLE_UPDATE_PROMPT="true"
+export ENABLE_CORRECTION="true"
+export MCFLY_FUZZY=2
+export LDFLAGS="-L/opt/homebrew/opt/zlib/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/zlib/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
-export PATH="~.deno/bin:$PATH"
+export PATH="/Users/jose.cabeda/.deno/bin:$PATH"
 
 # Run commands specific to shell
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
   export ZSH="/Users/jose.cabeda/.oh-my-zsh"
@@ -32,7 +30,6 @@ elif [[ "$OSTYPE" == "linux-android" ]]; then
 else
   echo "Unsupported shell"
 fi
-
 
 source ~/env # Script that holds alias and tokens
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -67,8 +64,8 @@ alias cb="open https://www.gocomics.com/random/calvinandhobbes"
 alias cql="~/cqlsh-astra/bin/cqlsh"
 alias trino="~/trino-cli-363-executable.jar"
 alias presto="~/presto-cli-350-executable.jar"
-alias python=python3
-alias pip=pip3
+alias python=python3.11
+alias pip=pip3.11
 alias todo="vim ~/git/pensamentos/To-Do.md"
 alias kafkacat=kcat
 alias ip="curl ifconfig.me"
@@ -182,13 +179,16 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
-# Set asdf java to java_home
-. ~/.asdf/plugins/java/set-java-home.zsh
+# Setup asdf
+# . $(brew --prefix asdf)/libexec/asdf.sh
+# . ~/.asdf/plugins/java/set-java-home.zsh
+
+# Makes sure gpg is running
+gpg-agent
 
 source ~/.bash_profile
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/terraform terraform
 
 eval "$(direnv hook zsh)"
 

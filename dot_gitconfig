@@ -18,6 +18,6 @@
 [push]
 	autoSetupRemote = true
 [merge]
-  tool = code-insiders
-[mergetool "code-insiders"]
-  cmd = code-insiders --wait --merge $REMOTE $LOCAL $BASE $MERGED
+  tool = code
+[mergetool "code"]
+  cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
