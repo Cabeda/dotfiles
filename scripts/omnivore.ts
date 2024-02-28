@@ -175,7 +175,7 @@ interface Article {
         }),
       });
   
-      console.log(await result.json());
+      await result.json();
     } catch (error) {
       console.error(error.message);
       throw new Error(error);
@@ -196,7 +196,7 @@ interface Article {
 
   
   if (flags.total) {
-    console.log(flags.query);
+    if (flags.query) console.log(flags.query);
     const total = await getTotalArticles(flags.query);
     console.log(`${total.data.search.pageInfo.totalCount} articles found`);
     Deno.exit(0);
