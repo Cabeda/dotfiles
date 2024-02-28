@@ -1,7 +1,15 @@
 #!/bin/bash
 
-# This is a small script that I run every day to start working
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title start
+# @raycast.mode compact
 
+# Optional parameters:
+# @raycast.icon 🤖
+
+# Documentation:
+# @raycast.author José cabeda
 
 if [ ${1-"mac"} == "windows" ] 
 then
