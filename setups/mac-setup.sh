@@ -80,14 +80,13 @@ brew tap microsoft/git
 # Homebrew base
 brew upgrade
 brew install \
-  go gpg entr tealdeer gh fzf freetype htop pwgen \
-  jq yq libxml2 python heroku warrensbox/tap/tfswitch \
+  gpg entr tealdeer gh fzf freetype htop pwgen \
+  jq yq libxml2 heroku ffmpeg zlib mpv \
   sqlite v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship trash zsh-autosuggestions \
-  git-delta watch zoxide dog m-cli bat \
-  exa mcfly dive lazydocker jless tmux broot \
-  direnv jc lazygit deno chezmoi duckdb vale \
-  ffmpeg zlib python@3.12 python@3.11
+  git-delta watch zoxide m-cli bat \
+  exa mcfly dive lazydocker jless broot \
+  direnv jc lazygit deno duckdb vale
 
 
 # Set file for env files
@@ -119,7 +118,7 @@ brew install --cask \
    vlc  slack zoomus google-chrome visual-studio-code \
   notion docker openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ 
-  git-credential-manager-core insomnia httpie
+  git-credential-manager-core insomnia httpie 
 
 # brew imagemagick
 #brew cask install inkscape

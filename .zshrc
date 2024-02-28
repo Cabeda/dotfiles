@@ -12,8 +12,8 @@ export ZSH_THEME="avit"
 export DISABLE_UPDATE_PROMPT="true"
 export ENABLE_CORRECTION="true"
 export MCFLY_FUZZY=2
-export LDFLAGS="-L/opt/homebrew/opt/zlib/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/zlib/include"
+export LDFLAGS="-L $(xcrun --show-sdk-path)/usr/lib -L brew --prefix bzip2/lib"
+export CFLAGS="-L $(xcrun --show-sdk-path)/usr/include -L brew --prefix bzip2/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
@@ -36,6 +36,7 @@ source ~/env # Script that holds alias and tokens
 
 eval "$(starship init zsh)"
 eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/maid_ed25519
 
 # CONFIG Zoxide
 function z() {
@@ -64,14 +65,15 @@ alias cb="open https://www.gocomics.com/random/calvinandhobbes"
 alias cql="~/cqlsh-astra/bin/cqlsh"
 alias trino="~/trino-cli-363-executable.jar"
 alias presto="~/presto-cli-350-executable.jar"
-alias python=python3.11
-alias pip=pip3.11
 alias todo="vim ~/git/pensamentos/To-Do.md"
 alias kafkacat=kcat
 alias ip="curl ifconfig.me"
 alias k="kubectl"
 alias tf="terraform"
-
+alias caws="code ~/.aws/credentials"
+alias rc="code ~/.zshrc"
+alias lofi="mpv https://www.youtube.com/live/jfKfPfyJRdk --no-video"
+alias synth="mpv https://www.youtube.com/live/4xDzrJKXOOY --no-video"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -194,3 +196,7 @@ eval "$(direnv hook zsh)"
 
 # Make sure it's the last command
 eval "$(mcfly init zsh)"
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
