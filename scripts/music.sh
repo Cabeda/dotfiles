@@ -3,7 +3,7 @@
 # Required parameters:
 # @raycast.schemaVersion 1
 # @raycast.title music
-# @raycast.mode silent
+# @raycast.mode compact
 
 # Optional parameters:
 # @raycast.icon 🎧
