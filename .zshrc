@@ -52,8 +52,8 @@ export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 export PATH="$HOME/.npm-packages/bin:$PATH"
 
 ################ Global Mac ALIAS ################
-alias start="bash $HOME/Git/dotfiles/start.sh"
-alias write="bash $HOME/Git/dotfiles/write.sh"
+alias start="bash $HOME/Git/dotfiles/scripts/start.sh"
+alias write="bash $HOME/Git/dotfiles/scripts/write.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
@@ -190,13 +190,18 @@ gpg-agent
 
 source ~/.bash_profile
 
-autoload -U +X bashcompinit && bashcompinit
+# autoload -U +X bashcompinit && bashcompinit
 
 eval "$(direnv hook zsh)"
 
-# Make sure it's the last command
-eval "$(mcfly init zsh)"
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Make sure it's the last command
+eval "$(mcfly init zsh)"
