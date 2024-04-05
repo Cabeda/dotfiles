@@ -85,8 +85,8 @@ brew install \
   sqlite v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide m-cli bat \
-  exa mcfly dive lazydocker jless broot \
-  direnv jc lazygit deno duckdb vale
+  exa mcfly dive docker lazydocker colima jless broot \
+  direnv jc lazygit deno duckdb 
 
 
 # Set file for env files
@@ -106,6 +106,10 @@ asdf install python latest
 asdf global nodejs latest
 asdf global python latest
 
+## Start colima on boot
+brew services start colima
+
+
 # Install java 
 . ~/.asdf/plugins/java/set-java-home.zsh
 asdf install java openjdk-11.0.2
@@ -116,7 +120,7 @@ echo_warn "Installing applications..."
 
 brew install --cask \
    vlc  slack zoomus google-chrome visual-studio-code \
-  notion docker openmtp swiftdefaultappsprefpane raycast \
+  notion openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ 
   git-credential-manager-core insomnia httpie 
 
