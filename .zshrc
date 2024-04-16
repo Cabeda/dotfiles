@@ -74,6 +74,9 @@ alias caws="code ~/.aws/credentials"
 alias rc="code ~/.zshrc"
 alias lofi="mpv https://www.youtube.com/live/jfKfPfyJRdk --no-video"
 alias synth="mpv https://www.youtube.com/live/4xDzrJKXOOY --no-video"
+
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -206,7 +209,9 @@ export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 # . ~/.asdf/plugins/java/set-java-home.zsh
 
 # Makes sure gpg is running
-gpg-agent
+GPG_TTY=$(tty)
+export GPG_TTY
+eval $(gpg-agent --daemon)
 
 source ~/.bash_profile
 
@@ -221,8 +226,14 @@ eval "$(pyenv init -)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#Copilot
+eval "$(gh copilot alias -- zsh)"
+
 
 eval "$(fzf --zsh)"
+
 # Make sure it's the last command
 eval "$(mcfly init zsh)"
+
