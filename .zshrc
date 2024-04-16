@@ -78,7 +78,6 @@ alias synth="mpv https://www.youtube.com/live/4xDzrJKXOOY --no-video"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # GIT functions
-
 function gac() {
   git add -p
   git commit
@@ -151,6 +150,13 @@ function dspa() {
   docker stop $(docker ps -a | grep Up | cut -d ' ' -f 1)
 }
 
+# Function to run glue notebook locally
+function glue() {
+  JUPYTER_WORKSPACE_LOCATION=$PWD
+  PROFILE_NAME="mania-dev"
+  podman run -it -v ~/.aws:/home/glue_user/.aws -v $JUPYTER_WORKSPACE_LOCATION:/home/glue_user/workspace/jupyter_workspace/ -e AWS_PROFILE=$PROFILE_NAME -e DISABLE_SSL=true --rm -p 4040:4040 -p 18080:18080 -p 8998:8998 -p 8888:8888 --name glue_jupyter_lab amazon/aws-glue-libs:glue_libs_4.0.0_image_01 /home/glue_user/jupyter/jupyter_start.sh
+}
+
 function steal() {
   git checkout staging
   git pull
@@ -167,6 +173,20 @@ function teststg() {
   git pull origin $branch
   git push
   git checkout $branch
+}
+
+# List step functions and run
+function steprun() {
+  aws stepfunctions list-state-machines --query "stateMachines[].stateMachineArn" | fzf | xargs aws stepfunctions start-execution --state-machine-arn
+}
+
+# List step functions and tail logs of the last execution
+function steplogs() {
+  step=$(aws stepfunctions list-state-machines --query "stateMachines[].stateMachineArn" | fzf)
+
+  last_execution=$(aws stepfunctions get-execution-history --execution-arn $execution | jq -r '.events[] | select(.type == "ExecutionStarted") | .executionStartedEventDetails.input')
+
+  aws stepfunctions get-execution-history --execution-arn $last_execution | jq -r '.events[] | select(.type == "LambdaFunctionFailed" or .type == "LambdaFunctionTimedOut") | .lambdaFunctionFailedEventDetails.cause'
 }
 
 if [ -d "$HOME/adb-fastboot/platform-tools" ]; then
@@ -203,5 +223,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+eval "$(fzf --zsh)"
 # Make sure it's the last command
 eval "$(mcfly init zsh)"

@@ -85,9 +85,8 @@ brew install \
   sqlite v8 wget pipenv poetry pipx git ripgrep \
   awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide m-cli bat \
-  exa mcfly dive docker lazydocker colima jless broot \
-  direnv jc lazygit deno duckdb 
-
+  exa mcfly dive podman lazydocker colima jless broot \
+  direnv jc lazygit deno duckdb
 
 # Set file for env files
 touch ~/env
@@ -109,8 +108,7 @@ asdf global python latest
 ## Start colima on boot
 brew services start colima
 
-
-# Install java 
+# Install java
 . ~/.asdf/plugins/java/set-java-home.zsh
 asdf install java openjdk-11.0.2
 asdf global java openjdk-11.0.2
@@ -119,10 +117,10 @@ asdf global java openjdk-11.0.2
 echo_warn "Installing applications..."
 
 brew install --cask \
-   vlc  slack zoomus google-chrome visual-studio-code \
+  vlc slack zoomus google-chrome firefox visual-studio-code \
   notion openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ 
-  git-credential-manager-core insomnia httpie 
+git-credential-manager-core bruno httpie podman-desktop
 
 # brew imagemagick
 #brew cask install inkscape
@@ -144,8 +142,7 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/U
 
 ## Install omnivore tool
 
-deno install -A scripts/omnivore.ts 
-
+deno install -A scripts/omnivore.ts
 
 # Set dotfiles configs to be the ones used by the system
 mkdir -p ~/.config
