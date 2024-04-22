@@ -7,7 +7,7 @@ plugins=()
 export TERM=xterm-256color
 export LC_CTYPE="en_US.UTF-8"
 export LANG=en_US.UTF-8
-export TT_LOG_FOLDER=$HOME/Git/pensamentos/Journal/2021
+
 export ZSH_THEME="avit"
 export DISABLE_UPDATE_PROMPT="true"
 export ENABLE_CORRECTION="true"
