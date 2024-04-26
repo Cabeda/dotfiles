@@ -76,6 +76,7 @@ alias lofi="mpv https://www.youtube.com/live/jfKfPfyJRdk --no-video"
 alias synth="mpv https://www.youtube.com/live/4xDzrJKXOOY --no-video"
 
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+alias ttt="tt thought -t"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
