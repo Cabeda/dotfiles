@@ -18,6 +18,7 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/Users/jose.cabeda/.deno/bin:$PATH"
+ZSH_DISABLE_COMPFIX="true"
 
 # Run commands specific to shell
 if [[ "$OSTYPE" == "darwin"* ]]; then
