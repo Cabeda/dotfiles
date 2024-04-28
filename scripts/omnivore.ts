@@ -79,9 +79,9 @@ async function retrieveNewsletter(): Promise<Article[] | undefined> {
 function convertToMarkdown(articles: Article[]): string {
   const markdown = articles
     .map((article) => {
-      const author = article.author ? ` by ${article.author}` : "";
-      return `- [${article.title}${author}](${article.url}) ${
-        article.highlights ? ": " + article.highlights[0]?.annotation : ""
+      const author = article.author ? ` by ${article.author}`: "";
+      return `- [${article.title}${author}](${article.url})${
+        article.highlights[0]?.annotation ? ": " + article.highlights[0]?.annotation : ""
       }`;
     })
     .join("\n");
