@@ -20,7 +20,7 @@ else
     open -a "Visual Studio Code" -g
     open -a "Safari" 
     open -a "Microsoft Outlook"
-    open -a "Microsoft Teams" 
+    open -a "Microsoft Teams (work or school)"
     open -a "Firefox" https://www.music.youtube.com
     open -a "Firefox" https://www.gocomics.com/random/calvinandhobbes
     open -a "bitwarden"
