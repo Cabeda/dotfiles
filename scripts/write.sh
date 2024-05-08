@@ -1,7 +1,8 @@
 #!/bin/bash
 
-WIKI_DIR="$HOME/Git/Pensamentos"
+WIKI_DIR="$HOME/Nextcloud2/Pensamentos"
 GIT_SYNC_PATH="$HOME/Git/dotfiles"
+
 
 if [ ${1-"mac"} == "windows" ] 
 then
