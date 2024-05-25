@@ -11,6 +11,8 @@
 # Documentation:
 # @raycast.author José cabeda
 
+set -e 
+
 if [ ${1-"mac"} == "windows" ] 
 then
     echo "Starting windows"
