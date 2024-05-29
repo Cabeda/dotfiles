@@ -26,6 +26,7 @@ else
     open -a "Firefox" https://www.music.youtube.com
     open -a "Firefox" https://www.gocomics.com/random/calvinandhobbes
     open -a "bitwarden"
+    open -a "Microsoft To Do"
     
     bash $(dirname $0)/write.sh
 
