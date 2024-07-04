@@ -18,9 +18,10 @@ then
     echo "Starting windows"
 
 else
+    open -a warp
     open -a slack -g
     open -a "Visual Studio Code" -g
-    open -a "Safari" 
+    open -a "Google Chrome" 
     open -a "Microsoft Outlook"
     open -a "Microsoft Teams"
     open -a "Firefox" https://www.music.youtube.com

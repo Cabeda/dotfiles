@@ -186,8 +186,6 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
-# Set asdf java to java_home
-. ~/.asdf/plugins/java/set-java-home.zsh
 
 source ~/.bash_profile
 

@@ -206,10 +206,6 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
-# Setup asdf
-# . $(brew --prefix asdf)/libexec/asdf.sh
-# . ~/.asdf/plugins/java/set-java-home.zsh
-
 # Makes sure gpg is running
 GPG_TTY=$(tty)
 export GPG_TTY
