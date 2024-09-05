@@ -82,10 +82,10 @@ brew upgrade
 brew install \
   gpg entr tealdeer gh fzf freetype htop pwgen \
   jq yq libxml2 heroku ffmpeg zlib mpv \
-  sqlite v8 wget pipenv poetry pipx git ripgrep \
+  sqlite v8 wget poetry uv git ripgrep \
   awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide m-cli bat \
-  exa mcfly dive podman lazydocker colima jless broot \
+  exa mcfly dive colima lazydocker jless broot \
   direnv jc lazygit deno duckdb
 
 # Set file for env files
@@ -96,14 +96,8 @@ gh extension install dlvhdr/gh-dash
 
 # ASDF plugins
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
-asdf plugin-add python # https://github.com/danhper/asdf-python
-asdf plugin add nodejs
-
 asdf install nodejs latest
-asdf install python latest
-
 asdf global nodejs latest
-asdf global python latest
 
 ## Start colima on boot
 brew services start colima
@@ -120,7 +114,7 @@ brew install --cask \
   vlc slack zoomus google-chrome firefox visual-studio-code \
   notion openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ 
-git-credential-manager-core bruno httpie podman-desktop
+git-credential-manager-core bruno httpie
 
 # brew imagemagick
 #brew cask install inkscape

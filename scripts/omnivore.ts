@@ -82,25 +82,18 @@ async function retrieveNewsletter(query = "in:inbox label:newsletter"): Promise<
   }
 }
 
+function generateArticleMarkdown(article: Article, summary: boolean): string {
+  const { title, author, url, highlights } = article;
+  const authorText = author ? ` by ${author}` : "";
+  const highlightsText = highlights.filter(highlight => highlight.annotation).map((highlight) => `\n- ${highlight.annotation}`);
+  return `### [${title}${authorText}](${url})
+  ${highlightsText}\n`;
+}
+
 function convertToMarkdown(articles: Article[], summary: boolean = true): string {
-  let markdown = articles
-    .map((article) => {
-      const author = article.author ? ` by ${article.author}` : "";
-      let highlights = "";
-      if (summary) {
-        highlights = article.highlights[0]?.annotation ? ": " + article.highlights[0]?.annotation : "";
-      } else {
-        highlights = article.highlights.map((highlight) => highlight.annotation).join(", ");
-      }
-      return `- [${article.title}${author}](${article.url})${highlights}`;
-    })
-    .join("\n");
-
+  let markdown = articles.map(article => generateArticleMarkdown(article, summary)).join("\n");
   markdown += `\n\nTotal articles: ${articles.length}`;
-
-  // Add total word count and time to read in hours and minutes given the word count
   markdown = markdown_total_times(articles, markdown);
-
   return markdown;
 }
 
