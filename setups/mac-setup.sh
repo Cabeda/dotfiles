@@ -86,7 +86,7 @@ brew install \
   awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide m-cli bat \
   exa mcfly dive colima lazydocker jless broot \
-  direnv jc lazygit deno duckdb
+  direnv jc lazygit deno duckdb docker-credential-helpers
 
 # Set file for env files
 touch ~/env
