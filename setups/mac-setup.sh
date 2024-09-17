@@ -2,11 +2,6 @@
 
 # A script to set up a new mac. Uses bash, homebrew, etc.
 
-# Settings
-ruby_versions="2.7.0"
-python="3.8.1"
-ruby_default="2.7.0"
-
 # helpers
 function echo_ok { echo -e '\033[1;32m'"$1"'\033[0m'; }
 function echo_warn { echo -e '\033[1;33m'"$1"'\033[0m'; }
@@ -18,7 +13,7 @@ echo_ok "Install starting. You may be asked for your password (for sudo)."
 xcode-select -p || exit "XCode must be installed! (use the app store)"
 
 # requirements
-cd ~
+cd ~ || exit
 mkdir -p tmp
 echo_warn "setting permissions..."
 for dir in "/usr/local /usr/local/bin /usr/local/include /usr/local/lib /usr/local/share"; do
@@ -86,7 +81,12 @@ brew install \
   awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide m-cli bat \
   exa mcfly dive colima lazydocker jless broot \
-  direnv jc lazygit deno duckdb docker-credential-helpers
+  direnv jc lazygit deno duckdb \ docker-credential-helpers docker-buildx \
+  pearcleaner bottom 
+
+# Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
+mkdir -p ~/.docker/cli-plugins
+ln -sfn $HOMEBREW_PREFIX/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
 
 # Set file for env files
 touch ~/env
@@ -111,7 +111,7 @@ asdf global java openjdk-11.0.2
 echo_warn "Installing applications..."
 
 brew install --cask \
-  vlc slack zoomus google-chrome firefox visual-studio-code \
+  vlc iina overkill slack zoomus google-chrome firefox visual-studio-code \
   notion openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ 
 git-credential-manager-core bruno httpie

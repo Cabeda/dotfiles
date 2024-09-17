@@ -14,4 +14,4 @@
 
 
 
-mpv $1 --loop
+mpv "$1" --loop
