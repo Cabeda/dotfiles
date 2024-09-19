@@ -5,7 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "awswrangler>=3.9.1",
     "boto3>=1.35.10",
+    "ibis-framework[duckdb]>=9.4.0",
+    "s3fs>=2024.9.0",
 ]
 
 [build-system]
