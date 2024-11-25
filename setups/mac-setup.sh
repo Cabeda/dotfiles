@@ -71,6 +71,7 @@ brew tap xo/xo
 brew tap cantino/mcfly
 brew tap turbot/tap
 brew tap microsoft/git
+brew tap localsend/localsend
 
 # Homebrew base
 brew upgrade
@@ -82,7 +83,7 @@ brew install \
   git-delta watch zoxide m-cli bat \
   exa mcfly dive colima lazydocker jless broot \
   direnv jc lazygit deno duckdb \ docker-credential-helpers docker-buildx \
-  pearcleaner bottom 
+  pearcleaner bottom localsend
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
 mkdir -p ~/.docker/cli-plugins

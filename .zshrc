@@ -19,6 +19,7 @@ export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/Users/jose.cabeda/.deno/bin:$PATH"
 ZSH_DISABLE_COMPFIX="true"
+export DOCKER_HOST=unix://$HOME/.colima/docker.sock
 
 # Run commands specific to shell
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -75,6 +76,7 @@ alias caws="code ~/.aws/credentials"
 alias rc="code ~/.zshrc"
 alias lofi="mpv https://www.youtube.com/live/jfKfPfyJRdk --no-video"
 alias synth="mpv https://www.youtube.com/live/4xDzrJKXOOY --no-video"
+alias sba="source .venv/bin/activate"
 
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias ttt="tt thought -t"
@@ -94,7 +96,7 @@ function gacq() {
 }
 
 function gsw() {
-  git checkout -t $(git branch -r | fzf)
+  git switch $(git branch | fzf)
 }
 
 function glt() {
@@ -218,10 +220,6 @@ source ~/.bash_profile
 eval "$(direnv hook zsh)"
 
 
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -235,3 +233,8 @@ eval "$(fzf --zsh)"
 # Make sure it's the last command
 eval "$(mcfly init zsh)"
 
+eval "$(gh copilot alias -- zsh)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
