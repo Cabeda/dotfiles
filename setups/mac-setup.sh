@@ -83,7 +83,9 @@ brew install \
   git-delta watch zoxide m-cli bat \
   exa mcfly dive colima lazydocker jless broot \
   direnv jc lazygit deno duckdb \ docker-credential-helpers docker-buildx \
-  pearcleaner bottom localsend
+  pearcleaner bottom localsend ghostty \
+  mise
+
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
 mkdir -p ~/.docker/cli-plugins
@@ -115,7 +117,7 @@ brew install --cask \
   vlc iina overkill slack zoomus google-chrome firefox visual-studio-code \
   notion openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ 
-git-credential-manager-core bruno httpie
+git-credential-manager-core bruno httpie android-platform-tools
 
 # brew imagemagick
 #brew cask install inkscape
@@ -135,10 +137,6 @@ killall Dock
 # Set background image
 osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/jose.cabeda/Git/dotfiles/backgrounds/black.jpeg"'
 
-## Install omnivore tool
-
-deno install -A scripts/omnivore.ts
-
 # Set dotfiles configs to be the ones used by the system
 mkdir -p ~/.config
 mkdir -p ~/.config/alacritty
@@ -155,6 +153,7 @@ ln -f starship.toml ~/.config/starship.toml
 ln -f github_prs.yml ~/.config/gh-dash/config.yml
 ln -f .tool-versions ~/.tool-versions
 ln -f vale.ini ~/.vale.ini
+ln -f mise.toml ~/.config/mise/config.toml
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
