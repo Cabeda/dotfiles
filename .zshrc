@@ -1,15 +1,10 @@
-# TO DEBUG time to load
-# zmload zsh/zprof # beginning
-# zprof # end
-# time zsh -i -c exit # Run
-
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-plugins=(
-)
+plugins=()
 
 # EXPORT configs
+export TERM=xterm-256color
 export LC_CTYPE="en_US.UTF-8"
 export LANG=en_US.UTF-8
 
@@ -23,17 +18,40 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/Users/jose.cabeda/.deno/bin:$PATH"
+ZSH_DISABLE_COMPFIX="true"
 export DOCKER_HOST=unix://$HOME/.colima/docker.sock
-export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec
-export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
+
+# Run commands specific to shell
+if [[ "$OSTYPE" == "darwin"* ]]; then
+
+  export ZSH="/Users/jose.cabeda/.oh-my-zsh"
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+elif [[ "$OSTYPE" == "linux-android" ]]; then
+  echo $OSTYPE
+else
+  echo "Unsupported shell"
+fi
 
 source ~/env # Script that holds alias and tokens
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+eval "$(starship init zsh)"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/maid_ed25519
 
-# eval "$(ssh-agent -s)"
-# ssh-add ~/.ssh/maid_ed25519
+# CONFIG Zoxide
+function z() {
+  __zoxide_z "$@"
+}
+eval "$(zoxide init zsh)"
 
+# Auto complete pipx
+# eval "$(register-python-argcomplete pipx)"
+
+export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
+
+export PATH="$HOME/.npm-packages/bin:$PATH"
 
 ################ Global Mac ALIAS ################
 alias start="bash $HOME/Git/dotfiles/scripts/start.sh"
@@ -41,20 +59,31 @@ alias write="bash $HOME/Git/dotfiles/scripts/write.sh"
 
 alias dkill='docker stop $(docker ps -qa) && docker volume prune && docker image prune && docker rm -f $(docker ps -aq) && docker system prune'
 
-alias g="git"
 alias gp="git pull"
 alias gs="git pull && git push"
 alias sp="speedtest"
 alias dcd="docker compose down"
 alias cb="open https://www.gocomics.com/random/calvinandhobbes"
+alias cql="~/cqlsh-astra/bin/cqlsh"
+alias trino="~/trino-cli-363-executable.jar"
+alias presto="~/presto-cli-350-executable.jar"
 alias todo="vim ~/git/pensamentos/To-Do.md"
+alias kafkacat=kcat
 alias ip="curl ifconfig.me"
+alias k="kubectl"
+alias tf="terraform"
 alias caws="code ~/.aws/credentials"
 alias rc="code ~/.zshrc"
-alias sva="source .venv/bin/activate"
+alias lofi="mpv https://www.youtube.com/live/jfKfPfyJRdk --no-video"
+alias synth="mpv https://www.youtube.com/live/4xDzrJKXOOY --no-video"
+alias sba="source .venv/bin/activate"
 
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias ttt="tt thought -t"
+alias y="yazi"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
 
 # GIT functions
 function gac() {
@@ -176,22 +205,63 @@ function steprun() {
   aws stepfunctions list-state-machines --query "stateMachines[].stateMachineArn" | fzf | xargs aws stepfunctions start-execution --state-machine-arn
 }
 
+# List step functions and tail logs of the last execution
+function steplogs() {
+  step=$(aws stepfunctions list-state-machines --query "stateMachines[].stateMachineArn" | fzf)
+
+  last_execution=$(aws stepfunctions get-execution-history --execution-arn $execution | jq -r '.events[] | select(.type == "ExecutionStarted") | .executionStartedEventDetails.input')
+
+  aws stepfunctions get-execution-history --execution-arn $last_execution | jq -r '.events[] | select(.type == "LambdaFunctionFailed" or .type == "LambdaFunctionTimedOut") | .lambdaFunctionFailedEventDetails.cause'
+}
+
 if [ -d "$HOME/adb-fastboot/platform-tools" ]; then
   export PATH="$HOME/platform-tools:$PATH"
 fi
 
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
+
+export GOPATH=$HOME/golang
+export GOROOT=/usr/local/opt/go/libexec
+export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
 # Makes sure gpg is running
-# GPG_TTY=$(tty)
-# export GPG_TTY
-# eval $(gpg-agent --daemon)
+GPG_TTY=$(tty)
+export GPG_TTY
+eval $(gpg-agent --daemon)
 
-# source $ZSH/oh-my-zsh.sh
+source ~/.bash_profile
 
-eval "$(starship init zsh)"
+# autoload -U +X bashcompinit && bashcompinit
+
 eval "$(direnv hook zsh)"
-eval "$(fzf --zsh)"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#Copilot
 eval "$(gh copilot alias -- zsh)"
+
+# Enable natural text editing
+bindkey "^[[1;3C" forward-word # Alt + Right
+bindkey "^[[1;3D" backward-word # Alt + Left
+bindkey "^[[1;2C" forward-word # Shift + Right
+bindkey "^[[1;2D" backward-word # Shift + Left
+bindkey "^[[1;5C" forward-word # Ctrl + Right
+bindkey "^[[1;5D" backward-word # Ctrl + Left
+bindkey "^H" backward-delete-char # Backspace
+bindkey "^[[3~" delete-char # Delete
+bindkey '^[[H' beginning-of-line # Home
+bindkey '^[[F' end-of-line # End
+
+eval "$(fzf --zsh)"
+
+# Make sure it's the last command
 eval "$(mcfly init zsh)"
-eval "$(zoxide init zsh)"
-eval "$(/opt/homebrew/bin/mise activate zsh)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
