@@ -12,8 +12,8 @@ export ZSH_THEME="avit"
 export DISABLE_UPDATE_PROMPT="true"
 export ENABLE_CORRECTION="true"
 export MCFLY_FUZZY=2
-export LDFLAGS="-L $(xcrun --show-sdk-path)/usr/lib -L brew --prefix bzip2/lib"
-export CFLAGS="-L $(xcrun --show-sdk-path)/usr/include -L brew --prefix bzip2/include"
+export LDFLAGS="-L $(xcrun --show-sdk-path)/usr/lib -L $(brew --prefix bzip2)/lib"
+export CFLAGS="-L $(xcrun --show-sdk-path)/usr/include -L $(brew --prefix bzip2)/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
@@ -38,7 +38,6 @@ source ~/env # Script that holds alias and tokens
 
 eval "$(starship init zsh)"
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/maid_ed25519
 
 # CONFIG Zoxide
 function z() {
@@ -114,18 +113,15 @@ function gdp() {
 
 
 function mdev() {
-    export AWS_DEFAULT_PROFILE=mania-dev
-    aws sso login
+    export AWS_PROFILE=mania-dev
 }
 
 function mint() {
-    export AWS_DEFAULT_PROFILE=mania-int
-    aws sso login
+    export AWS_PROFILE=mania-int
 }
 
 function fidv() {
-    export AWS_DEFAULT_PROFILE=fidv-dev
-    aws sso login
+    export AWS_PROFILE=fidv-dev
 }
 
 
