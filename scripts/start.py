@@ -25,9 +25,8 @@ def open_mac_apps():
         ("Visual Studio Code", ["-g"]),
         ("Microsoft Outlook", []),
         ("Microsoft Teams", []),
-        ("Zen Browser", ["https://www.gocomics.com/random/calvinandhobbes"]),
+        ("Zen Browser", []),
         ("Microsoft To Do", []),
-        ("bitwarden", []),
     ]
 
     for app, args in apps:

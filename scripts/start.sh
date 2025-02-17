@@ -16,4 +16,4 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")" || exit
 
-../start.sh
+./start.py
