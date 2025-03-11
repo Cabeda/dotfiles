@@ -131,16 +131,24 @@ git config --global delta.side-by-side true
 git config --global --add --bool push.autoSetupRemote true
 gh config set pager 'delta -s'
 
-# Disable hot corner
-defaults write com.apple.dock wvous-br-corner -int 0
-# Set dock position to the left
-defaults write com.apple.dock orientation left
-# Set system appearance to dark mode
-defaults write -g AppleInterfaceStyle Dark
-killall Dock
+# Mac System Preferences
+echo_warn "Applying Mac system preferences..."
 
-# Set background image
-osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/jose.cabeda/Git/dotfiles/backgrounds/black.jpeg"'
+# Dock preferences
+defaults write com.apple.dock wvous-br-corner -int 0 # Disable hot corner
+defaults write com.apple.dock orientation left # Set dock position to the left
+defaults write com.apple.spaces spans-displays -bool false # Disable separate spaces for displays
+killall Dock # Apply dock settings
+
+# System appearance
+defaults write -g AppleInterfaceStyle Dark # Set system appearance to dark mode
+killall SystemUIServer # Apply appearance settings
+
+# Desktop background (using absolute path for reliability)
+osascript -e 'tell application "System Events" to set picture of current desktop to "'"$HOME/Git/dotfiles/backgrounds/black.jpeg"'"'
+
+# Disable boot sound
+sudo nvram SystemAudioVolume=%80
 
 # Set dotfiles configs to be the ones used by the system
 mkdir -p ~/.config
