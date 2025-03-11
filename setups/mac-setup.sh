@@ -64,27 +64,23 @@ softwareupdate --all --install --force
 xcode-select --install
 
 # brew taps
-brew tap homebrew/cask-versions
-brew tap homebrew/cask-fonts
-brew tap heroku/brew
 brew tap xo/xo
-brew tap cantino/mcfly
 brew tap turbot/tap
 brew tap microsoft/git
-brew tap localsend/localsend
 
 # Homebrew base
 brew upgrade
 brew install \
   gpg entr tealdeer gh fzf freetype htop pwgen \
-  jq yq libxml2 heroku ffmpeg zlib mpv \
+  jq yq libxml2 heroku ffmpeg zlib \
   sqlite v8 wget poetry uv git ripgrep \
   awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide m-cli bat \
-  exa mcfly dive colima lazydocker jless broot \
-  direnv jc lazygit deno duckdb \ docker-credential-helpers docker-buildx \
+  eza mcfly dive colima lazydocker jless broot \
+  direnv jc lazygit deno duckdb \
+  docker-credential-helper docker-buildx \
   pearcleaner bottom localsend ghostty \
-  mise
+  mise jordanbaird-ice
 
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
@@ -95,7 +91,9 @@ ln -sfn $HOMEBREW_PREFIX/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugi
 touch ~/env
 
 # Gh config
+gh auth login
 gh extension install dlvhdr/gh-dash
+gh extension install github/gh-copilot
 
 # ASDF plugins
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
@@ -114,10 +112,10 @@ asdf global java openjdk-11.0.2
 echo_warn "Installing applications..."
 
 brew install --cask \
-  vlc iina overkill slack zoomus google-chrome firefox visual-studio-code \
-  notion openmtp swiftdefaultappsprefpane raycast \
-  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden \ 
-git-credential-manager-core bruno httpie android-platform-tools
+  vlc iina overkill slack zoom google-chrome zen-browser visual-studio-code \
+  anytype openmtp swiftdefaultappsprefpane raycast \
+  font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden  git-credential-manager-core bruno \
+  httpie android-platform-tools
 
 # brew imagemagick
 #brew cask install inkscape
@@ -139,11 +137,14 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/U
 
 # Set dotfiles configs to be the ones used by the system
 mkdir -p ~/.config
+mkdir -p ~/.config/mise
 mkdir -p ~/.config/alacritty
 mkdir -p ~/.config/prs
 mkdir -p ~/.config/gh-dash
 
-ln -f .tmux.conf ~/.tmux.conf
+cd ~/Git/dotfiles || exit
+
+ln -f tmux.conf ~/.tmux.conf
 ln -f .vimrc ~/.vimrc
 ln -f .nanorc ~/.nanorc
 ln -f .zshrc ~/.zshrc
@@ -161,7 +162,4 @@ sudo nvram SystemAudioVolume=%80
 echo
 echo_ok "Done."
 echo
-echo
-echo "You may want to add the following settings to your .bashrc:"
-echo_warn '  export HOMEBREW_CASK_OPTS="--appdir=/Applications"'
-echo
+
