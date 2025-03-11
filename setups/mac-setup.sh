@@ -87,6 +87,9 @@ brew install \
 mkdir -p ~/.docker/cli-plugins
 ln -sfn $HOMEBREW_PREFIX/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
 
+# Deno install tools 
+npm i -g --global @bitwarden/cli
+
 # Set file for env files
 touch ~/env
 
@@ -155,6 +158,11 @@ ln -f github_prs.yml ~/.config/gh-dash/config.yml
 ln -f .tool-versions ~/.tool-versions
 ln -f vale.ini ~/.vale.ini
 ln -f mise.toml ~/.config/mise/config.toml
+
+
+# Set confidential files from bitwarden
+
+bw login
 
 # Disable boot sound
 sudo nvram SystemAudioVolume=%80
