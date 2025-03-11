@@ -131,8 +131,12 @@ git config --global delta.side-by-side true
 git config --global --add --bool push.autoSetupRemote true
 gh config set pager 'delta -s'
 
-# Disable hor corner
+# Disable hot corner
 defaults write com.apple.dock wvous-br-corner -int 0
+# Set dock position to the left
+defaults write com.apple.dock orientation left
+# Set system appearance to dark mode
+defaults write -g AppleInterfaceStyle Dark
 killall Dock
 
 # Set background image
