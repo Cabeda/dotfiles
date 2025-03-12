@@ -156,6 +156,7 @@ mkdir -p ~/.config/mise
 mkdir -p ~/.config/alacritty
 mkdir -p ~/.config/prs
 mkdir -p ~/.config/gh-dash
+mkdir -p ~/.config/direnv
 
 cd ~/Git/dotfiles || exit
 
@@ -170,6 +171,7 @@ ln -f github_prs.yml ~/.config/gh-dash/config.yml
 ln -f .tool-versions ~/.tool-versions
 ln -f vale.ini ~/.vale.ini
 ln -f mise.toml ~/.config/mise/config.toml
+ln -f direnv.toml ~/.config/direnv/direnv.toml
 
 
 # Set confidential files from bitwarden
