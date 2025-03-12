@@ -72,7 +72,7 @@ brew tap microsoft/git
 brew upgrade
 brew install \
   gpg entr tealdeer gh fzf freetype htop pwgen \
-  jq yq libxml2 heroku ffmpeg zlib \
+  jq yq libxml2 ffmpeg zlib \
   sqlite v8 wget poetry uv git ripgrep \
   awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide m-cli bat \
@@ -115,10 +115,10 @@ asdf global java openjdk-11.0.2
 echo_warn "Installing applications..."
 
 brew install --cask \
-  vlc iina overkill slack zoom google-chrome zen-browser visual-studio-code \
+  vlc iina overkill slack zoom zen-browser visual-studio-code \
   anytype openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden  git-credential-manager-core bruno \
-  httpie android-platform-tools
+  httpie android-platform-tools ollama
 
 # brew imagemagick
 #brew cask install inkscape
