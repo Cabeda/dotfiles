@@ -76,7 +76,7 @@ brew install \
   sqlite v8 wget poetry uv git ripgrep \
   awscli asdf rust starship trash zsh-autosuggestions \
   git-delta watch zoxide m-cli bat \
-  eza mcfly dive colima lazydocker jless broot \
+  eza mcfly dive colima docker jless broot \
   direnv jc lazygit deno duckdb \
   docker-credential-helper docker-buildx \
   pearcleaner bottom localsend ghostty \
