@@ -87,7 +87,7 @@ brew install \
 mkdir -p ~/.docker/cli-plugins
 ln -sfn $HOMEBREW_PREFIX/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
 
-# Deno install tools 
+# Node install tools 
 npm i -g --global @bitwarden/cli
 
 # Set file for env files
