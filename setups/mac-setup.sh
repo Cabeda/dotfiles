@@ -118,10 +118,8 @@ brew install --cask \
   vlc iina overkill slack zoom zen-browser visual-studio-code \
   anytype openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden  git-credential-manager-core bruno \
-  httpie android-platform-tools ollama
+  httpie android-platform-tools ollama nvidia-geforce-now steam
 
-# brew imagemagick
-#brew cask install inkscape
 brew install librsvg
 brew install imagemagick
 
