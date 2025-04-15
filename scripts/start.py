@@ -25,6 +25,7 @@ def open_mac_apps():
         ("Visual Studio Code", ["-g"]),
         ("Microsoft Outlook", []),
         ("Microsoft Teams", []),
+        ("todoist", []),
         ("zen", []),
     ]
 
