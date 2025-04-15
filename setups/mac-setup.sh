@@ -85,7 +85,7 @@ brew install \
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
 mkdir -p ~/.docker/cli-plugins
-ln -sfn $HOMEBREW_PREFIX/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
+ln -sfn $(which docker-buildx) ~/.docker/cli-plugins.
 
 # Node install tools 
 npm i -g --global @bitwarden/cli
@@ -118,7 +118,8 @@ brew install --cask \
   vlc iina overkill slack zoom zen-browser visual-studio-code \
   anytype openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden  git-credential-manager-core bruno \
-  httpie android-platform-tools ollama nvidia-geforce-now steam
+  httpie android-platform-tools ollama nvidia-geforce-now steam \
+  calibre
 
 brew install librsvg
 brew install imagemagick
