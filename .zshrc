@@ -113,11 +113,15 @@ function gdp() {
 
 
 function mdev() {
-    export AWS_PROFILE=mania-dev
+    export AWS_PROFILE="mania-dev"
+    export AWS_DEPLOYMENT_STAGE=dev
+    export AWS_DEFAULT_PROFILE="mania-dev"
 }
 
 function mint() {
-    export AWS_PROFILE=mania-int
+    export AWS_PROFILE="mania-int"
+    export AWS_DEPLOYMENT_STAGE=INT
+    export AWS_DEFAULT_PROFILE="mania-int"
 }
 
 function fidv() {
@@ -229,7 +233,7 @@ eval $(gpg-agent --daemon)
 
 source ~/.bash_profile
 
-# autoload -U +X bashcompinit && bashcompinit
+autoload -U +X bashcompinit && bashcompinit
 
 eval "$(direnv hook zsh)"
 
@@ -261,3 +265,7 @@ eval "$(mcfly init zsh)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/node@22/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/node@22/include"
