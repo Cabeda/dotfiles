@@ -119,7 +119,7 @@ brew install --cask \
   anytype openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden  git-credential-manager-core bruno \
   httpie android-platform-tools ollama nvidia-geforce-now steam \
-  calibre
+  calibre anythinllm
 
 brew install librsvg
 brew install imagemagick
