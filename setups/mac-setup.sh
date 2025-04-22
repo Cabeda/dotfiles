@@ -85,8 +85,7 @@ brew install \
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
 mkdir -p ~/.docker/cli-plugins
-ln -sfn $(which docker-buildx) ~/.docker/cli-plugins.
-
+ln -sfn $(which docker-buildx) ~/.docker/cli-plugins/docker-buildx
 # Node install tools 
 npm i -g --global @bitwarden/cli
 
