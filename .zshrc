@@ -21,6 +21,8 @@ export PATH="/Users/jose.cabeda/.deno/bin:$PATH"
 ZSH_DISABLE_COMPFIX="true"
 export DOCKER_HOST=unix://$HOME/.colima/docker.sock
 
+export GENERATIVE_AI_TELEMETRY_ENABLED=FALSE
+
 # Run commands specific to shell
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
@@ -109,6 +111,11 @@ function gdp() {
   main=$(basename $(git symbolic-ref --short refs/remotes/origin/HEAD))
   release=$(git describe --tags --abbrev=0)
   git log $release...$main --pretty=oneline
+}
+
+function secret() {
+  local secret_name=${1:-""}
+  aws secretsmanager list-secrets --query "SecretList[?contains(Name, '$secret_name')]" --output json | jq -r '.[].Name' | xargs -I {} aws secretsmanager get-secret-value --secret-id {} --query SecretString --output text
 }
 
 
