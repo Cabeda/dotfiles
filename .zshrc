@@ -228,8 +228,6 @@ fi
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 
-export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:/Users/jose.cabeda/Library/Application Support/Coursier/bin"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
