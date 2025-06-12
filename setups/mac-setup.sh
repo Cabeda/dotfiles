@@ -80,12 +80,12 @@ brew install \
   direnv jc lazygit deno duckdb \
   docker-credential-helper docker-buildx \
   pearcleaner bottom localsend ghostty \
-  mise jordanbaird-ice
+  mise jordanbaird-ice speedtest-cli
 
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
 mkdir -p ~/.docker/cli-plugins
-ln -sfn $(which docker-buildx) ~/.docker/cli-plugins/docker-buildx
+ln -sfn "$(which docker-buildx)" ~/.docker/cli-plugins/docker-buildx
 # Node install tools 
 npm i -g --global @bitwarden/cli
 
@@ -170,6 +170,7 @@ ln -f .tool-versions ~/.tool-versions
 ln -f vale.ini ~/.vale.ini
 ln -f mise.toml ~/.config/mise/config.toml
 ln -f direnv.toml ~/.config/direnv/direnv.toml
+ln -f amazonq/mcp.json ~/.aws/amazonq/mcp.json
 
 
 # Set confidential files from bitwarden
