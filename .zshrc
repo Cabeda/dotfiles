@@ -12,8 +12,8 @@ export ZSH_THEME="avit"
 export DISABLE_UPDATE_PROMPT="true"
 export ENABLE_CORRECTION="true"
 export MCFLY_FUZZY=2
-export LDFLAGS="-L $(xcrun --show-sdk-path)/usr/lib -L $(brew --prefix bzip2)/lib"
-export CFLAGS="-L $(xcrun --show-sdk-path)/usr/include -L $(brew --prefix bzip2)/include"
+# export LDFLAGS="-L $(xcrun --show-sdk-path)/usr/lib -L $(brew --prefix bzip2)/lib"
+# export CFLAGS="-L $(xcrun --show-sdk-path)/usr/include -L $(brew --prefix bzip2)/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
@@ -114,8 +114,13 @@ function gdp() {
 }
 
 function secret() {
-  local secret_name=${1:-""}
-  aws secretsmanager list-secrets --query "SecretList[?contains(Name, '$secret_name')]" --output json | jq -r '.[].Name' | xargs -I {} aws secretsmanager get-secret-value --secret-id {} --query SecretString --output text
+  local secret_name
+  secret_name=$(aws secretsmanager list-secrets --query "SecretList[].Name" --output text | tr '\t' '\n' | fzf)
+  if [[ -n "$secret_name" ]]; then
+    aws secretsmanager get-secret-value --secret-id "$secret_name" --query SecretString --output text
+  else
+    echo "No secret selected."
+  fi
 }
 
 
@@ -131,8 +136,10 @@ function mint() {
     export AWS_DEFAULT_PROFILE="mania-int"
 }
 
-function fidv() {
-    export AWS_PROFILE=fidv-dev
+function main() {
+    export AWS_PROFILE="maintenance"
+    export AWS_DEPLOYMENT_STAGE="maintenance"
+    export AWS_DEFAULT_PROFILE="maintenance"
 }
 
 
@@ -272,5 +279,17 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/node@22/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/node@22/include"
+# pnpm
+export PNPM_HOME="/Users/jose.cabeda/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# bun completions
+[ -s "/Users/jose.cabeda/.bun/_bun" ] && source "/Users/jose.cabeda/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
