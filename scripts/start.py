@@ -27,6 +27,7 @@ def open_mac_apps():
         ("Microsoft Teams", []),
         ("todoist", []),
         ("zen", []),
+        ("anytype", []),
     ]
 
     for app, args in apps:
