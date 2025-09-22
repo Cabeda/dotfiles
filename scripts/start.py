@@ -35,6 +35,9 @@ def open_mac_apps():
 
     print("Good work and have a nice dev day!")
 
+def open_links(links: List[str]):
+    for link in links:
+        subprocess.run(["open", link])
 
 def main():
     platform = sys.argv[1] if len(sys.argv) > 1 else "mac"
@@ -43,6 +46,15 @@ def main():
         print("Starting windows")
     else:
         open_mac_apps()
+
+        links = [
+            "https://gitlab.cicd.man/dashboard/merge_requests?reviewer_username=jose.cabeda",
+            "https://jira.collaboration-man.com/secure/RapidBoard.jspa?rapidView=2470&projectKey=MANAI&quickFilter=12285#",
+            "https://mail.google.com",
+            "https://mail.proton.me"
+        ]
+
+        open_links(links)
 
 
 if __name__ == "__main__":
