@@ -80,7 +80,8 @@ brew install \
   direnv jc lazygit deno duckdb \
   docker-credential-helper docker-buildx \
   pearcleaner bottom localsend ghostty \
-  mise jordanbaird-ice speedtest-cli
+  mise jordanbaird-ice speedtest-cli \
+  sst/tap/opencode
 
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
