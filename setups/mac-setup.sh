@@ -172,6 +172,7 @@ ln -f vale.ini ~/.vale.ini
 ln -f mise.toml ~/.config/mise/config.toml
 ln -f direnv.toml ~/.config/direnv/direnv.toml
 ln -f amazonq/mcp.json ~/.aws/amazonq/mcp.json
+ln -f opencode.json ~/.config/opencode/opencode.json
 
 
 # Set confidential files from bitwarden
