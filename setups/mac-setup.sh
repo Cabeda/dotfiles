@@ -81,7 +81,7 @@ brew install \
   docker-credential-helper docker-buildx \
   pearcleaner bottom localsend ghostty \
   mise jordanbaird-ice speedtest-cli \
-  sst/tap/opencode
+  sst/tap/opencode act
 
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
@@ -119,7 +119,7 @@ brew install --cask \
   anytype openmtp swiftdefaultappsprefpane raycast \
   font-jetbrains-mono font-jetbrains-mono-nerd-font handbrake bitwarden  git-credential-manager-core bruno \
   httpie android-platform-tools ollama nvidia-geforce-now steam \
-  calibre anythinllm
+  calibre anythinllm 
 
 brew install librsvg
 brew install imagemagick
@@ -173,6 +173,7 @@ ln -f mise.toml ~/.config/mise/config.toml
 ln -f direnv.toml ~/.config/direnv/direnv.toml
 ln -f amazonq/mcp.json ~/.aws/amazonq/mcp.json
 ln -f opencode.json ~/.config/opencode/opencode.json
+ln -f jiratui_config.yaml ~/.config/jiratui/config.yaml
 
 
 # Set confidential files from bitwarden

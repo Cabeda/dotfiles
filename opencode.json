@@ -3,6 +3,7 @@
   "permission": {
     "edit": "ask"
   },
+  "mcp": {},
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
