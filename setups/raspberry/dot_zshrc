@@ -1,0 +1,13 @@
+if [ -f "$HOME/env" ]; then
+  set -a
+  . "$HOME/env"
+  set +a
+fi
+
+source ~/env
+
+# opencode
+export PATH=/home/admin/.opencode/bin:$PATH
+
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"

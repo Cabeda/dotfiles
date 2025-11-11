@@ -275,6 +275,17 @@ eval "$(fzf --zsh)"
 # Make sure it's the last command
 eval "$(mcfly init zsh)"
 
+# Prefer fzf for Ctrl+R history search (override other bindings like mcfly)
+if type -p fzf >/dev/null 2>&1; then
+  if [ -f ~/.fzf.zsh ]; then
+    source ~/.fzf.zsh
+  elif [ -f /usr/share/fzf/key-bindings.zsh ]; then
+    source /usr/share/fzf/key-bindings.zsh
+  fi
+  # Explicitly bind Ctrl-R to fzf history widget
+  bindkey '^R' fzf-history-widget
+fi
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
