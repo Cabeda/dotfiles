@@ -82,6 +82,7 @@ alias sba="source .venv/bin/activate"
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias ttt="tt thought -t"
 alias y="yazi"
+alias npm="pnpm"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
