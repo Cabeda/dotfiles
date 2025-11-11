@@ -67,6 +67,7 @@ xcode-select --install
 brew tap xo/xo
 brew tap turbot/tap
 brew tap microsoft/git
+brew tap atlassian/homebrew-acli
 
 # Homebrew base
 brew upgrade
@@ -81,7 +82,7 @@ brew install \
   docker-credential-helper docker-buildx \
   pearcleaner bottom localsend ghostty \
   mise jordanbaird-ice speedtest-cli \
-  sst/tap/opencode act
+  sst/tap/opencode act helix acli
 
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
