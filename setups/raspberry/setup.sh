@@ -18,3 +18,14 @@ eval "$(mcfly init zsh)"
 
 sudo apt install podman podman-docker podman-compose
 sudo systemctl enable --now podman.socket
+
+# Ensure ~/env exists (create if missing)
+if [ ! -e "$HOME/env" ]; then
+  touch "$HOME/env"
+  echo "Created $HOME/env"
+fi
+
+# Create a forced symlink from the repository's dot_zshrc to the user's ~/.zshrc
+# Uses the script directory as the source so the script can be run from anywhere
+DIR="$(cd "$(dirname "$0")" && pwd)"
+ln -sf "$DIR/dot_zshrc" "$HOME/.zshrc"
