@@ -82,7 +82,7 @@ brew install \
   docker-credential-helper docker-buildx \
   pearcleaner bottom localsend ghostty \
   mise jordanbaird-ice speedtest-cli \
-  sst/tap/opencode act helix acli
+  sst/tap/opencode act helix acli typst
 
 
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
