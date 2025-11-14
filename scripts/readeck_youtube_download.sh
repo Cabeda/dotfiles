@@ -77,11 +77,11 @@ ensure_archive_file() {
 # Fetch items from Readeck
 fetch_readeck_items() {
     log_info "Fetching items from Readeck..."
-    log_info "URL: ${READECK_URL}/api/items?archived=false&limit=${MAX_ITEMS}"
+    log_info "URL: ${READECK_URL}/api/bookmarks?is_archived=false&limit=${MAX_ITEMS}"
 
     local response
     response=$(curl -s -H "Authorization: Bearer $READECK_API_KEY" \
-        "${READECK_URL}/api/items?archived=false&limit=${MAX_ITEMS}")
+        "${READECK_URL}/api/bookmarks?is_archived=false&limit=${MAX_ITEMS}")
 
     local curl_exit=$?
     if [ $curl_exit -ne 0 ]; then
@@ -111,7 +111,7 @@ extract_video_urls() {
     local data="$1"
     # Extract possible URLs from 'url' and 'content' fields if present
     local urls
-    urls=$(echo "$data" | jq -r '.items[]? | .url, .content' 2>/dev/null || echo "")
+    urls=$(echo "$data" | jq -r '.[]? | .url, .content' 2>/dev/null || echo "")
 
     if [ -z "$urls" ]; then
         log_warn "No items found"

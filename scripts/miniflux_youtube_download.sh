@@ -10,6 +10,8 @@ set -euo pipefail
 MINIFLUX_URL="${MINIFLUX_URL:-https://feed.cabeda.dev}"
 MINIFLUX_API_KEY="${MINIFLUX_API_KEY:-}"
 DOWNLOAD_DIR="${MINIFLUX_DOWNLOAD_DIR:-$HOME/Downloads/miniflux-videos}"
+# Path to yt-dlp download archive file (keeps track of downloaded IDs)
+ARCHIVE_FILE="${MINIFLUX_ARCHIVE_FILE:-$DOWNLOAD_DIR/.yt-dlp-archive.txt}"
 # Maximum number of entries to fetch (optional)
 MAX_ENTRIES="${MAX_ENTRIES:-100}"
 
@@ -64,6 +66,13 @@ create_download_dir() {
     if [ ! -d "$DOWNLOAD_DIR" ]; then
         log_info "Creating download directory: $DOWNLOAD_DIR"
         mkdir -p "$DOWNLOAD_DIR"
+    fi
+}
+
+# Ensure archive file exists and is writable
+ensure_archive_file() {
+    if [ ! -f "$ARCHIVE_FILE" ]; then
+        touch "$ARCHIVE_FILE" || log_warn "Could not create archive file: $ARCHIVE_FILE"
     fi
 }
 
@@ -164,6 +173,7 @@ download_video() {
         --no-playlist \
         --write-thumbnail \
         --embed-metadata \
+        --download-archive "$ARCHIVE_FILE" \
         "$url"
     
     if [ $? -eq 0 ]; then
@@ -197,6 +207,7 @@ main() {
     check_dependencies
     check_config
     create_download_dir
+    ensure_archive_file
     
     # Fetch entries
     local entries
