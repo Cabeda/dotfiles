@@ -25,7 +25,7 @@ MAX_ITEMS="${MAX_ITEMS:-100}"
 DRY_RUN="${DRY_RUN:-false}"
 # Host filter: a regex of hosts to match for typical video providers.
 # Can be overridden by setting READECK_VIDEO_HOSTS env var.
-VIDEO_HOSTS="${READECK_VIDEO_HOSTS:-youtube\.com|youtu\.be|vimeo\.com|twitch\.tv|dailymotion\.com|rutube\.ru|soundcloud\.com|podcasters\.org|nebula\.tv|omny\.fm}"
+VIDEO_HOSTS="${READECK_VIDEO_HOSTS:-youtube\.com|youtu\.be|vimeo\.com|twitch\.tv|dailymotion\.com|rutube\.ru|soundcloud\.com|podcasters\.org|omny\.fm}"
 # If set to true, do not filter by host (all discovered URLs will be considered).
 ALLOW_ALL_HOSTS="${ALLOW_ALL_HOSTS:-false}"
 
