@@ -1,10 +1,10 @@
 [Unit]
-Description=Run miniflux_youtube_download script
+Description=Run readeck_youtube_download script
 
 [Service]
 Type=oneshot
 EnvironmentFile=%h/env
-ExecStart=/bin/bash -c '/home/admin/Git/dotfiles/scripts/miniflux_youtube_download.sh'
+ExecStart=/bin/bash -c '/home/admin/Git/dotfiles/scripts/readeck_youtube_download.sh'
 Environment=PATH=/usr/local/bin:/usr/bin:/bin
 Nice=10
 

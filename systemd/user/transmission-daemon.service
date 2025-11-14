@@ -1,0 +1,11 @@
+[Unit]
+Description=Transmission BitTorrent Daemon (user)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/transmission-daemon --foreground --config-dir %h/.config/transmission-daemon
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

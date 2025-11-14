@@ -1,0 +1,22 @@
+[Unit]
+Description=copyparty (user)
+After=network.target
+
+[Service]
+Type=notify
+SyslogIdentifier=copyparty
+Environment=PYTHONUNBUFFERED=x
+EnvironmentFile=%h/env
+ExecReload=/bin/kill -s USR1 $MAINPID
+PermissionsStartOnly=true
+
+# Run the copyparty script from Downloads (user-installed)
+WorkingDirectory=%h/.local/share/copyparty
+
+# Start the script using python3 from the user's Downloads
+ExecStart=/usr/bin/python3 /usr/local/bin/copyparty-sfx.py -c %h/Downloads/copyparty.conf
+
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

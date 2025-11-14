@@ -11,3 +11,4 @@ export PATH=/home/admin/.opencode/bin:$PATH
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
+eval "$(mcfly init zsh)"
