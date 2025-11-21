@@ -85,6 +85,10 @@ brew install \
   sst/tap/opencode act helix acli typst
 
 
+## Uv tool install
+
+uv tool install browsr
+
 # Docker buildx hotfix https://github.com/abiosoft/colima/discussions/273
 mkdir -p ~/.docker/cli-plugins
 ln -sfn "$(which docker-buildx)" ~/.docker/cli-plugins/docker-buildx
