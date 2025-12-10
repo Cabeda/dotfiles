@@ -23,6 +23,15 @@ MAX_ITEMS="${MAX_ITEMS:-100}"
 # Dry run mode: when true, the script will only print discovered URLs
 # and won't invoke yt-dlp.
 DRY_RUN="${DRY_RUN:-false}"
+# Subtitle options
+# Set to true to download subtitles (provided or auto-generated)
+READECK_DOWNLOAD_SUBS="${READECK_DOWNLOAD_SUBS:-true}"
+# Comma-separated list of subtitle languages to request (yt-dlp format)
+READECK_SUB_LANGS="${READECK_SUB_LANGS:-en,pt}"
+# Convert subtitles to SRT after download (true/false)
+READECK_CONVERT_SUBS="${READECK_CONVERT_SUBS:-true}"
+# Embed subtitles into the final video file (may not be supported for all containers)
+READECK_EMBED_SUBS="${READECK_EMBED_SUBS:-false}"
 # Host filter: a regex of hosts to match for typical video providers.
 # Can be overridden by setting READECK_VIDEO_HOSTS env var.
 VIDEO_HOSTS="${READECK_VIDEO_HOSTS:-youtube\.com|youtu\.be|vimeo\.com|twitch\.tv|dailymotion\.com|rutube\.ru|soundcloud\.com|podcasters\.org|omny\.fm}"
@@ -171,16 +180,30 @@ download_video() {
     #  - return 2: skipped because already in archive
     #  - return 1: failure
     local out
-    if out=$(yt-dlp \
-        -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' \
-        --merge-output-format mp4 \
-        -o "$out_template" \
-        --no-playlist \
-        --write-thumbnail \
-        --embed-metadata \
-        --no-overwrites \
-        --download-archive "$ARCHIVE_FILE" \
-        "$url" < /dev/null 2>&1); then
+    # Build yt-dlp args so we can optionally add subtitle flags
+    local -a YTDLP_ARGS
+    YTDLP_ARGS=( -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' )
+    YTDLP_ARGS+=( --merge-output-format mp4 )
+    YTDLP_ARGS+=( -o "$out_template" )
+    YTDLP_ARGS+=( --no-playlist --write-thumbnail --embed-metadata --no-overwrites )
+    YTDLP_ARGS+=( --download-archive "$ARCHIVE_FILE" )
+
+    # Subtitle handling: request provided and auto-generated subs for configured langs
+    if [ "${READECK_DOWNLOAD_SUBS:-true}" = "true" ]; then
+        YTDLP_ARGS+=( --write-subs --write-auto-sub )
+        # pass LANGS as a single argument
+        YTDLP_ARGS+=( --sub-lang "${READECK_SUB_LANGS:-en,pt}" )
+        if [ "${READECK_CONVERT_SUBS:-true}" = "true" ]; then
+            YTDLP_ARGS+=( --convert-subs srt )
+        fi
+        if [ "${READECK_EMBED_SUBS:-false}" = "true" ]; then
+            YTDLP_ARGS+=( --embed-subs )
+        fi
+    fi
+
+    log_info "yt-dlp args: ${YTDLP_ARGS[*]}"
+
+    if out=$(yt-dlp "${YTDLP_ARGS[@]}" "$url" < /dev/null 2>&1); then
         # Check for common yt-dlp message that indicates the URL
         # was already recorded in the archive and therefore skipped.
         if echo "$out" | grep -qi "has already been recorded in the archive"; then

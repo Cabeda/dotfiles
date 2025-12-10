@@ -49,7 +49,7 @@ def main():
 
         links = [
             "https://gitlab.cicd.man/dashboard/merge_requests?reviewer_username=jose.cabeda",
-            "https://jira.collaboration-man.com/secure/RapidBoard.jspa?rapidView=2470&projectKey=MANAI&quickFilter=12285#",
+            "https://jira.collaboration-man.com/secure/RapidBoard.jspa?rapidView=2470&projectKey=MANAI&quickFilter=12286#"
             "https://mail.google.com",
             "https://mail.proton.me"
         ]
