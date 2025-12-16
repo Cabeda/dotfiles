@@ -39,6 +39,9 @@ def open_links(links: List[str]):
     for link in links:
         subprocess.run(["open", link])
 
+def aws_login():
+    subprocess.run(["aws", "sso", "login"])  # type: ignore
+
 def main():
     platform = sys.argv[1] if len(sys.argv) > 1 else "mac"
     
@@ -56,6 +59,7 @@ def main():
 
         open_links(links)
 
+        aws_login()
 
 if __name__ == "__main__":
     main()
