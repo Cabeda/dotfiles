@@ -4,19 +4,22 @@
 # Compatible with macOS and Raspberry Pi OS (Linux)
 
 usage() {
-    echo "Usage: $0 [-r] [directory]"
+    echo "Usage: $0 [-r] [-s] [directory]"
     echo "  -r: Replace original files (deletes original after successful conversion)"
+    echo "  -s: Search recursively in subdirectories"
     echo "  directory: Target directory (defaults to current directory)"
     exit 1
 }
 
 REPLACE_ORIGINAL=false
+RECURSIVE=false
 TARGET_DIR="."
 
 # Parse flags
-while getopts "r" opt; do
+while getopts "rs" opt; do
     case $opt in
         r) REPLACE_ORIGINAL=true ;;
+        s) RECURSIVE=true ;;
         *) usage ;;
     esac
 done
@@ -67,17 +70,31 @@ else
 fi
 
 echo "Scanning for MKV files in: $TARGET_DIR"
+if [ "$RECURSIVE" = true ]; then
+    echo "Search mode: Recursive"
+else
+    echo "Search mode: Current directory only"
+fi
 echo "Using encoder: $ENCODER"
 echo "--------------------------------------------------"
 
 # Use find with -print0 and read -d '' to handle filenames with spaces/special characters
-find "$TARGET_DIR" -maxdepth 1 -iname "*.mkv" -type f -print0 | while IFS= read -r -d '' file; do
+FIND_OPTS="-maxdepth 1"
+if [ "$RECURSIVE" = true ]; then
+    FIND_OPTS=""
+fi
+
+find "$TARGET_DIR" $FIND_OPTS -iname "*.mkv" -type f -print0 | while IFS= read -r -d '' file; do
     filename=$(basename "$file")
     
     if [ "$REPLACE_ORIGINAL" = true ]; then
         output_file="${file}.tmp.mkv"
     else
-        output_file="$OUTPUT_DIR/$filename"
+        # Mirror directory structure in output folder to avoid collisions
+        rel_path="${file#$TARGET_DIR}"
+        rel_path="${rel_path#/}"
+        output_file="$OUTPUT_DIR/$rel_path"
+        mkdir -p "$(dirname "$output_file")"
     fi
     
     echo "Processing: $filename"
