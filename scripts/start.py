@@ -51,7 +51,7 @@ def main():
         open_mac_apps()
 
         links = [
-            "https://gitlab.cicd.man/dashboard/merge_requests?reviewer_username=jose.cabeda",
+            "https://gitlab.cicd.man/dashboard/merge_requests"
             "https://jira.collaboration-man.com/secure/RapidBoard.jspa?rapidView=2470&projectKey=MANAI&quickFilter=12286#"
             "https://mail.google.com",
             "https://mail.proton.me"
