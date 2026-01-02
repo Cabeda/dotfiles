@@ -34,10 +34,13 @@ To get your Notion API key:
 
 import argparse
 import base64
+import concurrent.futures
+import hashlib
 import os
 import re
 import sys
 import tempfile
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -87,22 +90,87 @@ class PageContent:
 class NotionToPDF:
     """Converts Notion pages to a PDF book."""
 
-    def __init__(self, notion_token: str, verbose: bool = False, recursive: bool = False):
-        self.notion = Client(auth=notion_token)
+    def __init__(
+        self,
+        notion_token: str,
+        verbose: bool = False,
+        recursive: bool = False,
+        max_depth: Optional[int] = None,
+        log_level: str = "info",
+        include_toc: bool = True,
+        no_images: bool = False,
+        css_path: Optional[str] = None,
+        font_family: Optional[str] = None,
+        author: Optional[str] = None,
+        source_url: Optional[str] = None,
+        notion_client: Optional[Client] = None,
+        image_cache_dir: Optional[str] = None,
+        image_workers: int = 1,
+    ):
+        self.notion = notion_client or Client(auth=notion_token)
         self.image_cache: dict[str, str] = {}
+        self.image_futures: dict[str, concurrent.futures.Future[tuple[Optional[bytes], str]]] = {}
+        self.image_cache_dir = Path(image_cache_dir) if image_cache_dir else None
+        if self.image_cache_dir:
+            self.image_cache_dir.mkdir(parents=True, exist_ok=True)
+        self.image_workers = max(1, image_workers)
+        self.executor = None
+        if self.image_workers > 1:
+            self.executor = concurrent.futures.ThreadPoolExecutor(
+                max_workers=self.image_workers,
+                thread_name_prefix="notion-img",
+            )
         self.temp_dir = tempfile.mkdtemp()
         self.verbose = verbose
+        self.log_level = "debug" if verbose else log_level.lower()
         self.recursive = recursive
+        self.max_depth = max_depth
+        self.include_toc = include_toc
+        self.no_images = no_images
+        self.css_path = css_path
+        self.font_family = font_family
+        self.author = author
+        self.source_url = source_url
+        self.page_ids: set[str] = set()
 
-    def log(self, message: str) -> None:
-        """Emit verbose logs when enabled."""
-        if self.verbose:
-            print(message, file=sys.stderr)
+    def log(self, message: str, level: str = "info") -> None:
+        """Emit logs filtered by level."""
+        order = {"error": 0, "warn": 1, "info": 2, "debug": 3}
+        current = order.get(self.log_level, 2)
+        target = order.get(level, 2)
+        if target <= current:
+            print(f"[{level.upper()}] {message}", file=sys.stderr)
+
+    def _with_retry(self, fn, *, desc: str, max_attempts: int = 3, sleep_base: float = 0.5):
+        """Execute fn with basic retry/backoff on transient errors."""
+        attempt = 0
+        while True:
+            try:
+                return fn()
+            except APIResponseError as e:
+                if e.status in (429, 500, 502, 503, 504) and attempt < max_attempts - 1:
+                    delay = sleep_base * (2 ** attempt)
+                    self.log(f"Retrying {desc} after {delay:.1f}s due to {e.status}", "warn")
+                    time.sleep(delay)
+                    attempt += 1
+                    continue
+                raise
+            except requests.RequestException as e:
+                if attempt < max_attempts - 1:
+                    delay = sleep_base * (2 ** attempt)
+                    self.log(f"Retrying {desc} after {delay:.1f}s due to network error {e}", "warn")
+                    time.sleep(delay)
+                    attempt += 1
+                    continue
+                raise
 
     def get_page_title(self, page_id: str) -> str:
         """Get the title of a Notion page."""
         self.log(f"Fetching title for page {page_id}")
-        page = self.notion.pages.retrieve(page_id=page_id)
+        page = self._with_retry(
+            lambda: self.notion.pages.retrieve(page_id=page_id),
+            desc=f"page title for {page_id}",
+        )
         properties = page.get("properties", {})
         
         # Try different title property names
@@ -124,42 +192,111 @@ class NotionToPDF:
         """Get all child page IDs of a page."""
         child_pages = []
         self.log(f"Listing child pages for {page_id}")
-        
-        # Get blocks that are child_page type
-        blocks = self.notion.blocks.children.list(block_id=page_id)
-        
-        for block in blocks.get("results", []):
-            if block.get("type") == "child_page":
-                child_pages.append(block["id"])
-            elif block.get("type") == "child_database":
-                # Skip databases for now
-                pass
+        start_cursor = None
+        has_more = True
+        while has_more:
+            response = self._with_retry(
+                lambda: self.notion.blocks.children.list(
+                    block_id=page_id, start_cursor=start_cursor
+                ),
+                desc=f"child pages for {page_id}",
+            )
+            for block in response.get("results", []):
+                if block.get("type") == "child_page":
+                    child_pages.append(block["id"])
+                elif block.get("type") == "child_database":
+                    # Skip databases for now
+                    pass
+            has_more = response.get("has_more", False)
+            start_cursor = response.get("next_cursor")
         
         return child_pages
 
     def download_image(self, url: str) -> Optional[str]:
         """Download an image and return its base64 data URI."""
+        if self.no_images:
+            self.log(f"Skipping image (disabled): {url}", "debug")
+            return None
+        # Honor pre-embedded data URLs without fetching.
+        if url.startswith("data:"):
+            self.log("Image already embedded as data URI; skipping download", "debug")
+            return url
         if url in self.image_cache:
             return self.image_cache[url]
-        
+
+        cache_hit = self._load_image_from_disk(url)
+        if cache_hit:
+            self.image_cache[url] = cache_hit
+            return cache_hit
+
         try:
-            response = requests.get(url, timeout=30)
-            response.raise_for_status()
-            
-            # Determine content type
-            content_type = response.headers.get("content-type", "image/png")
-            if ";" in content_type:
-                content_type = content_type.split(";")[0]
-            
-            # Convert to base64
-            b64_data = base64.b64encode(response.content).decode("utf-8")
-            data_uri = f"data:{content_type};base64,{b64_data}"
-            
+            if self.executor:
+                future = self.image_futures.get(url)
+                if not future:
+                    future = self.executor.submit(self._download_image_bytes, url)
+                    self.image_futures[url] = future
+                content, content_type = future.result()
+            else:
+                content, content_type = self._download_image_bytes(url)
+
+            if content is None or not isinstance(content, (bytes, bytearray)):
+                return None
+
+            data_uri = self._encode_image(bytes(content), str(content_type))
             self.image_cache[url] = data_uri
+            self._save_image_to_disk(url, bytes(content), str(content_type))
             return data_uri
         except Exception as e:
-            print(f"Warning: Failed to download image {url}: {e}", file=sys.stderr)
+            self.log(f"Warning: Failed to download image {url}: {e}", "warn")
             return None
+
+    def _download_image_bytes(self, url: str) -> tuple[Optional[bytes], str]:
+        response = self._with_retry(
+            lambda: requests.get(url, timeout=30),
+            desc=f"image {url}",
+        )
+        response.raise_for_status()
+        content_type = response.headers.get("content-type", "image/png")
+        if ";" in content_type:
+            content_type = content_type.split(";")[0]
+        return response.content, content_type
+
+    def _encode_image(self, content: bytes, content_type: str) -> str:
+        b64_data = base64.b64encode(content).decode("utf-8")
+        return f"data:{content_type};base64,{b64_data}"
+
+    def _cache_paths(self, url: str) -> tuple[Optional[Path], Optional[Path]]:
+        if not self.image_cache_dir:
+            return None, None
+        digest = hashlib.sha256(url.encode("utf-8")).hexdigest()
+        return (
+            self.image_cache_dir / f"{digest}.bin",
+            self.image_cache_dir / f"{digest}.ct",
+        )
+
+    def _load_image_from_disk(self, url: str) -> Optional[str]:
+        data_path, ct_path = self._cache_paths(url)
+        if not data_path or not data_path.exists():
+            return None
+        try:
+            content = data_path.read_bytes()
+            content_type = "image/png"
+            if ct_path and ct_path.exists():
+                content_type = ct_path.read_text(encoding="utf-8").strip() or content_type
+            return self._encode_image(content, content_type)
+        except OSError:
+            return None
+
+    def _save_image_to_disk(self, url: str, content: bytes, content_type: str) -> None:
+        data_path, ct_path = self._cache_paths(url)
+        if not data_path:
+            return
+        try:
+            data_path.write_bytes(content)
+            if ct_path:
+                ct_path.write_text(content_type, encoding="utf-8")
+        except OSError:
+            self.log(f"Could not persist image cache for {url}", "debug")
 
     def rich_text_to_markdown(self, rich_text: list) -> str:
         """Convert Notion rich text to Markdown."""
@@ -182,7 +319,8 @@ class NotionToPDF:
             
             # Handle links
             if text.get("href"):
-                content = f"[{content}]({text['href']})"
+                href = self.normalize_link(text["href"])
+                content = f"[{content}]({href})"
             
             result.append(content)
         
@@ -272,8 +410,7 @@ class NotionToPDF:
             return f"{indent_str}[Embedded content]({url})\n\n"
         
         elif block_type == "table":
-            # Tables need special handling
-            return ""  # Will be handled separately
+            return self.render_table(block["id"], block_data, indent)
         
         elif block_type == "table_row":
             cells = block_data.get("cells", [])
@@ -289,6 +426,65 @@ class NotionToPDF:
         
         return ""
 
+    def normalize_link(self, href: str) -> str:
+        """Map internal Notion links to local anchors when possible."""
+        if "notion.so" in href or "notion.site" in href:
+            page_id = clean_page_id(href)
+            cleaned = page_id.replace("-", "")
+            if cleaned in self.page_ids:
+                return f"#page-{page_id}"
+        return href
+
+    def render_table(self, block_id: str, table_data: dict, indent: int = 0) -> str:
+        """Render a Notion table block (excluding databases)."""
+        rows: list[list[str]] = []
+        indent_str = "    " * indent
+        start_cursor = None
+        has_more = True
+        while has_more:
+            response = self._with_retry(
+                lambda: self.notion.blocks.children.list(
+                    block_id=block_id, start_cursor=start_cursor
+                ),
+                desc=f"table rows for {block_id}",
+            )
+            for row_block in response.get("results", []):
+                if row_block.get("type") != "table_row":
+                    continue
+                cells = row_block.get("table_row", {}).get("cells", [])
+                row = []
+                for cell in cells:
+                    row.append(self.rich_text_to_markdown(cell))
+                rows.append(row)
+            has_more = response.get("has_more", False)
+            start_cursor = response.get("next_cursor")
+
+        if not rows:
+            return ""
+
+        has_col_header = table_data.get("has_column_header", False)
+        has_row_header = table_data.get("has_row_header", False)
+
+        def format_row(row: list[str]) -> str:
+            cells = row.copy()
+            if has_row_header and cells:
+                cells[0] = f"**{cells[0]}**"
+            return f"| {' | '.join(cells)} |"
+
+        lines = []
+        header_row = rows[0] if has_col_header else None
+        body_rows = rows[1:] if has_col_header else rows
+
+        if header_row:
+            lines.append(indent_str + format_row(header_row))
+            sep = " | ".join(["---"] * len(header_row))
+            lines.append(indent_str + f"| {sep} |")
+
+        for row in body_rows:
+            lines.append(indent_str + format_row(row))
+
+        return "\n".join(lines) + "\n\n"
+
     def get_page_content(self, page_id: str) -> str:
         """Get all content from a Notion page as Markdown."""
         content_parts = []
@@ -300,11 +496,17 @@ class NotionToPDF:
             
             while has_more:
                 if cursor:
-                    response = self.notion.blocks.children.list(
-                        block_id=block_id, start_cursor=cursor
+                    response = self._with_retry(
+                        lambda: self.notion.blocks.children.list(
+                            block_id=block_id, start_cursor=cursor
+                        ),
+                        desc=f"blocks for {block_id}",
                     )
                 else:
-                    response = self.notion.blocks.children.list(block_id=block_id)
+                    response = self._with_retry(
+                        lambda: self.notion.blocks.children.list(block_id=block_id),
+                        desc=f"blocks for {block_id}",
+                    )
                 self.log(
                     f"Fetched {len(response.get('results', []))} blocks"
                     f" (has_more={response.get('has_more', False)}) for {block_id}"
@@ -314,6 +516,9 @@ class NotionToPDF:
                     md = self.block_to_markdown(block, indent)
                     if md:
                         content_parts.append(md)
+                    if block.get("type") == "table":
+                        # Table children already rendered
+                        continue
                     
                     # Handle nested blocks
                     if block.get("has_children") and block.get("type") != "child_page":
@@ -343,6 +548,12 @@ class NotionToPDF:
         )
         
         if self.recursive:
+            if self.max_depth is not None and level >= self.max_depth:
+                self.log(
+                    f"Max depth {self.max_depth} reached at {page_id}; not descending",
+                    "debug",
+                )
+                return page
             # Get child pages
             child_page_ids = self.get_child_pages(page_id)
             self.log(f"Found {len(child_page_ids)} child pages for {page_id}")
@@ -383,9 +594,22 @@ class NotionToPDF:
     def generate_html(self, root_page: PageContent) -> str:
         """Generate the full HTML document."""
         pages = self.flatten_pages(root_page)
+        self.page_ids = {p.id.replace("-", "") for p in pages}
         
         # Generate TOC
-        toc_html = self.generate_toc(pages)
+        toc_html = self.generate_toc(pages) if self.include_toc else ""
+
+        # Front matter (optional)
+        front_matter_parts = []
+        if self.author or self.source_url:
+            front_matter_parts.append("<section class=\"front-matter\">")
+            front_matter_parts.append("<h2>Document Info</h2><ul>")
+            if self.author:
+                front_matter_parts.append(f"<li><strong>Author:</strong> {self.author}</li>")
+            if self.source_url:
+                front_matter_parts.append(f"<li><strong>Source:</strong> <a href=\"{self.source_url}\">{self.source_url}</a></li>")
+            front_matter_parts.append("</ul></section>")
+        front_matter_html = "".join(front_matter_parts)
         
         # Generate content for each page
         content_parts = []
@@ -423,6 +647,7 @@ class NotionToPDF:
                 <h1>{root_page.title}</h1>
             </header>
             
+            {front_matter_html}
             {toc_html}
             
             <main class="book-content">
@@ -436,7 +661,14 @@ class NotionToPDF:
 
     def get_css(self) -> str:
         """Get the CSS for the PDF."""
-        return """
+        if self.css_path:
+            try:
+                return Path(self.css_path).read_text(encoding="utf-8")
+            except OSError as e:
+                self.log(f"Failed to read CSS override {self.css_path}: {e}", "warn")
+
+        font_family = self.font_family or "'Georgia', 'Times New Roman', serif"
+        css_template = """
         @page {
             size: A4;
             margin: 2cm 2cm 3cm 2cm;
@@ -468,10 +700,22 @@ class NotionToPDF:
         }
         
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: {FONT_FAMILY};
             font-size: 11pt;
             line-height: 1.6;
             color: #333;
+        }
+
+        .front-matter {
+            margin: 1em 0 2em 0;
+            padding: 1em;
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+        }
+
+        .front-matter h2 {
+            margin-top: 0;
         }
         
         .book-title {
@@ -662,10 +906,14 @@ class NotionToPDF:
         }
         """
 
+        return css_template.replace("{FONT_FAMILY}", font_family)
+
     def generate_pdf(self, page_id: str, output_path: str) -> None:
         """Generate a PDF from a Notion page."""
         print(f"Fetching page tree from Notion...", file=sys.stderr)
         root_page = self.build_page_tree(page_id)
+
+        output_path = self._resolve_output_path(output_path, root_page.title)
         
         print(f"Generating HTML...", file=sys.stderr)
         html_content = self.generate_html(root_page)
@@ -677,6 +925,14 @@ class NotionToPDF:
         
         html.write_pdf(output_path, stylesheets=[css])
         print(f"PDF saved to: {output_path}", file=sys.stderr)
+
+    def _resolve_output_path(self, output_path: str, title: str) -> str:
+        """If output is a directory, derive filename from title."""
+        path_obj = Path(output_path)
+        if output_path.endswith(os.sep) or path_obj.is_dir():
+            slug = re.sub(r"[^a-zA-Z0-9_-]+", "-", title).strip("-") or "notion-book"
+            return str(path_obj / f"{slug}.pdf") if path_obj.is_dir() else str(Path(output_path) / f"{slug}.pdf")
+        return output_path
 
 
 def clean_page_id(page_id: str) -> str:
@@ -752,9 +1008,57 @@ Environment Variables:
         help="Enable verbose logging",
     )
     parser.add_argument(
+        "--log-level",
+        choices=["error", "warn", "info", "debug"],
+        default="info",
+        help="Log level (overridden by --verbose)",
+    )
+    parser.add_argument(
         "-r", "--recursive",
         action="store_true",
         help="Include all subpages recursively",
+    )
+    parser.add_argument(
+        "--max-depth",
+        type=int,
+        help="Maximum depth for recursive traversal (root = 0)",
+    )
+    parser.add_argument(
+        "--no-toc",
+        action="store_true",
+        help="Do not include table of contents",
+    )
+    parser.add_argument(
+        "--no-images",
+        action="store_true",
+        help="Skip downloading/embedding images",
+    )
+    parser.add_argument(
+        "--css",
+        dest="css_path",
+        help="Path to custom CSS file",
+    )
+    parser.add_argument(
+        "--font-family",
+        help="Override base font family (e.g., 'Inter, sans-serif')",
+    )
+    parser.add_argument(
+        "--author",
+        help="Author name for front matter",
+    )
+    parser.add_argument(
+        "--source-url",
+        help="Source URL to display in front matter",
+    )
+    parser.add_argument(
+        "--image-cache-dir",
+        help="Directory to cache downloaded images",
+    )
+    parser.add_argument(
+        "--image-workers",
+        type=int,
+        default=1,
+        help="Parallel image download workers (default: 1)",
     )
     
     args = parser.parse_args()
@@ -783,6 +1087,16 @@ Environment Variables:
         notion_token,
         verbose=args.verbose,
         recursive=args.recursive,
+        max_depth=args.max_depth if args.recursive else None,
+        log_level=args.log_level,
+        include_toc=not args.no_toc,
+        no_images=args.no_images,
+        css_path=args.css_path,
+        font_family=args.font_family,
+        author=args.author,
+        source_url=args.source_url,
+        image_cache_dir=args.image_cache_dir,
+        image_workers=args.image_workers,
     )
     try:
         converter.generate_pdf(page_id, args.output)
