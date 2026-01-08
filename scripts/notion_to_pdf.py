@@ -40,6 +40,7 @@ import os
 import re
 import sys
 import tempfile
+import threading
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -76,6 +77,26 @@ def _import_weasyprint():
     return HTML, CSS
 
 
+class RateLimiter:
+    """Rate limiter to respect Notion's 3 requests/second limit."""
+
+    def __init__(self, max_requests_per_second: float = 3.0):
+        self.max_requests_per_second = max_requests_per_second
+        self.min_interval = 1.0 / max_requests_per_second
+        self.last_request_time = 0.0
+        self.lock = threading.Lock()
+
+    def wait_if_needed(self) -> None:
+        """Block if necessary to respect rate limit."""
+        with self.lock:
+            current_time = time.time()
+            time_since_last = current_time - self.last_request_time
+            if time_since_last < self.min_interval:
+                sleep_time = self.min_interval - time_since_last
+                time.sleep(sleep_time)
+            self.last_request_time = time.time()
+
+
 @dataclass
 class PageContent:
     """Represents a Notion page with its content and children."""
@@ -106,8 +127,11 @@ class NotionToPDF:
         notion_client: Optional[Client] = None,
         image_cache_dir: Optional[str] = None,
         image_workers: int = 1,
+        split_files: bool = False,
+        max_workers: int = 4,
     ):
         self.notion = notion_client or Client(auth=notion_token)
+        self.rate_limiter = RateLimiter(max_requests_per_second=3.0)
         self.image_cache: dict[str, str] = {}
         self.image_futures: dict[str, concurrent.futures.Future[tuple[Optional[bytes], str]]] = {}
         self.image_cache_dir = Path(image_cache_dir) if image_cache_dir else None
@@ -120,6 +144,11 @@ class NotionToPDF:
                 max_workers=self.image_workers,
                 thread_name_prefix="notion-img",
             )
+        self.max_workers = max(1, min(max_workers, 10))  # Cap at 10 to respect rate limits
+        self.page_executor = concurrent.futures.ThreadPoolExecutor(
+            max_workers=self.max_workers,
+            thread_name_prefix="notion-page",
+        )
         self.temp_dir = tempfile.mkdtemp()
         self.verbose = verbose
         self.log_level = "debug" if verbose else log_level.lower()
@@ -132,6 +161,7 @@ class NotionToPDF:
         self.author = author
         self.source_url = source_url
         self.page_ids: set[str] = set()
+        self.split_files = split_files
 
     def log(self, message: str, level: str = "info") -> None:
         """Emit logs filtered by level."""
@@ -146,6 +176,7 @@ class NotionToPDF:
         attempt = 0
         while True:
             try:
+                self.rate_limiter.wait_if_needed()
                 return fn()
             except APIResponseError as e:
                 if e.status in (429, 500, 502, 503, 504) and attempt < max_attempts - 1:
@@ -557,9 +588,26 @@ class NotionToPDF:
             # Get child pages
             child_page_ids = self.get_child_pages(page_id)
             self.log(f"Found {len(child_page_ids)} child pages for {page_id}")
-            for child_id in child_page_ids:
-                child_page = self.build_page_tree(child_id, level + 1)
-                page.children.append(child_page)
+            
+            # Fetch children in parallel
+            if child_page_ids and self.max_workers > 1:
+                with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+                    futures = {
+                        executor.submit(self.build_page_tree, child_id, level + 1): child_id
+                        for child_id in child_page_ids
+                    }
+                    for future in concurrent.futures.as_completed(futures):
+                        try:
+                            child_page = future.result()
+                            page.children.append(child_page)
+                        except Exception as e:
+                            child_id = futures[future]
+                            self.log(f"Failed to fetch child page {child_id}: {e}", "error")
+            else:
+                # Sequential fallback
+                for child_id in child_page_ids:
+                    child_page = self.build_page_tree(child_id, level + 1)
+                    page.children.append(child_page)
         else:
             self.log(f"Recursion disabled; skipping child pages for {page_id}")
         
@@ -909,22 +957,34 @@ class NotionToPDF:
         return css_template.replace("{FONT_FAMILY}", font_family)
 
     def generate_pdf(self, page_id: str, output_path: str) -> None:
-        """Generate a PDF from a Notion page."""
-        print(f"Fetching page tree from Notion...", file=sys.stderr)
-        root_page = self.build_page_tree(page_id)
+        """Generate PDF(s) from a Notion page."""
 
-        output_path = self._resolve_output_path(output_path, root_page.title)
-        
-        print(f"Generating HTML...", file=sys.stderr)
-        html_content = self.generate_html(root_page)
-        
-        print(f"Converting to PDF...", file=sys.stderr)
-        HTML, CSS = _import_weasyprint()
-        html = HTML(string=html_content)
-        css = CSS(string=self.get_css())
-        
-        html.write_pdf(output_path, stylesheets=[css])
-        print(f"PDF saved to: {output_path}", file=sys.stderr)
+        if self.split_files:
+            # Multi-file mode: fetch and generate PDFs immediately as we traverse
+            output_dir = Path(output_path)
+            if not output_path.endswith(os.sep) and not output_dir.is_dir() and output_dir.suffix == ".pdf":
+                # User provided a .pdf filename, use its parent directory
+                output_dir = output_dir.parent
+            output_dir.mkdir(parents=True, exist_ok=True)
+            print(f"Generating individual PDFs in: {output_dir}", file=sys.stderr)
+            self.generate_page_pdfs_streaming(page_id, output_dir)
+            print(f"\n✅ PDFs saved to: {output_dir}", file=sys.stderr)
+        else:
+            # Single-file mode: build tree then combine all into one PDF
+            print(f"Fetching page tree from Notion...", file=sys.stderr)
+            root_page = self.build_page_tree(page_id)
+            output_path = self._resolve_output_path(output_path, root_page.title)
+            
+            print(f"Generating HTML...", file=sys.stderr)
+            html_content = self.generate_html(root_page)
+            
+            print(f"Converting to PDF...", file=sys.stderr)
+            HTML, CSS = _import_weasyprint()
+            html = HTML(string=html_content)
+            css = CSS(string=self.get_css())
+            
+            html.write_pdf(output_path, stylesheets=[css])
+            print(f"PDF saved to: {output_path}", file=sys.stderr)
 
     def _resolve_output_path(self, output_path: str, title: str) -> str:
         """If output is a directory, derive filename from title."""
@@ -933,6 +993,217 @@ class NotionToPDF:
             slug = re.sub(r"[^a-zA-Z0-9_-]+", "-", title).strip("-") or "notion-book"
             return str(path_obj / f"{slug}.pdf") if path_obj.is_dir() else str(Path(output_path) / f"{slug}.pdf")
         return output_path
+
+    def _sanitize_filename(self, title: str) -> str:
+        """Sanitize a page title for use as a filename."""
+        # Replace problematic characters with dashes
+        sanitized = re.sub(r'[<>:"/\\|?*]', "-", title)
+        # Collapse multiple dashes
+        sanitized = re.sub(r"-+", "-", sanitized)
+        # Remove leading/trailing dashes and whitespace
+        sanitized = sanitized.strip(" -")
+        # Fallback if empty
+        return sanitized or "untitled"
+
+    def generate_page_pdfs_streaming(self, page_id: str, output_dir: Path, parent_path: Optional[Path] = None, level: int = 0) -> None:
+        """Fetch page and generate PDF immediately, then recurse to children."""
+        # Fetch page data
+        print(f"Fetching page {page_id}...", file=sys.stderr)
+        title = self.get_page_title(page_id)
+        content = self.get_page_content(page_id)
+        
+        # Determine the directory for this page's PDF
+        if parent_path is None:
+            # Root page goes directly in output_dir
+            page_dir = output_dir
+        else:
+            # Child pages go in a subdirectory named after their parent
+            page_dir = parent_path
+        
+        # Generate filename from page title
+        filename = self._sanitize_filename(title) + ".pdf"
+        pdf_path = page_dir / filename
+        
+        # Generate HTML for this single page
+        html_content = self._generate_single_page_html_from_content(title, content)
+        
+        # Convert to PDF immediately
+        print(f"✓ Generating {pdf_path}", file=sys.stderr)
+        HTML, CSS = _import_weasyprint()
+        html = HTML(string=html_content)
+        css = CSS(string=self.get_css())
+        html.write_pdf(str(pdf_path), stylesheets=[css])
+        
+        # Check if we should recurse to children
+        if self.recursive:
+            if self.max_depth is not None and level >= self.max_depth:
+                self.log(
+                    f"Max depth {self.max_depth} reached at {page_id}; not descending",
+                    "debug",
+                )
+                return
+            
+            # Get child pages
+            child_page_ids = self.get_child_pages(page_id)
+            
+            if child_page_ids:
+                # Create subdirectory for children
+                child_dir_name = self._sanitize_filename(title)
+                child_dir = page_dir / child_dir_name
+                child_dir.mkdir(parents=True, exist_ok=True)
+                
+                # Process children in parallel for better performance
+                if len(child_page_ids) > 1 and self.max_workers > 1:
+                    with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+                        futures = [
+                            executor.submit(
+                                self.generate_page_pdfs_streaming,
+                                child_id,
+                                output_dir,
+                                child_dir,
+                                level + 1,
+                            )
+                            for child_id in child_page_ids
+                        ]
+                        for future in concurrent.futures.as_completed(futures):
+                            try:
+                                future.result()
+                            except Exception as e:
+                                self.log(f"Failed to generate PDF for child: {e}", "error")
+                else:
+                    # Sequential fallback for single child or disabled parallelization
+                    for child_id in child_page_ids:
+                        self.generate_page_pdfs_streaming(child_id, output_dir, child_dir, level + 1)
+
+    def _generate_single_page_html_from_content(self, title: str, content: str) -> str:
+        """Generate HTML for a single page from title and markdown content."""
+        # Convert markdown to HTML
+        md_converter = markdown.Markdown(
+            extensions=["tables", "fenced_code", "toc", "nl2br"]
+        )
+        page_html = md_converter.convert(content)
+        
+        # Build front matter if configured
+        front_matter_parts = []
+        if self.author or self.source_url:
+            front_matter_parts.append('<section class="front-matter">')
+            front_matter_parts.append("<h2>Document Info</h2><ul>")
+            if self.author:
+                front_matter_parts.append(f"<li><strong>Author:</strong> {self.author}</li>")
+            if self.source_url:
+                front_matter_parts.append(f'<li><strong>Source:</strong> <a href="{self.source_url}">{self.source_url}</a></li>')
+            front_matter_parts.append("</ul></section>")
+        front_matter_html = "".join(front_matter_parts)
+        
+        # Full HTML document
+        html = f"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>{title}</title>
+        </head>
+        <body>
+            <header class="book-title">
+                <h1>{title}</h1>
+            </header>
+            
+            {front_matter_html}
+            
+            <main class="book-content">
+                <section class="chapter">
+                    <div class="chapter-content">
+                        {page_html}
+                    </div>
+                </section>
+            </main>
+        </body>
+        </html>
+        """
+        
+        return html
+
+    def generate_page_pdfs(self, page: PageContent, output_dir: Path, parent_path: Optional[Path] = None) -> None:
+        """Generate individual PDF files for each page in the tree."""
+        # Determine the directory for this page
+        if parent_path is None:
+            # Root page goes directly in output_dir
+            page_dir = output_dir
+        else:
+            # Child pages go in a subdirectory named after their parent
+            page_dir = parent_path
+        
+        # Generate filename from page title
+        filename = self._sanitize_filename(page.title) + ".pdf"
+        pdf_path = page_dir / filename
+        
+        # Generate HTML for this single page (without children)
+        html_content = self._generate_single_page_html(page)
+        
+        # Convert to PDF
+        self.log(f"Writing {pdf_path}", "info")
+        HTML, CSS = _import_weasyprint()
+        html = HTML(string=html_content)
+        css = CSS(string=self.get_css())
+        html.write_pdf(str(pdf_path), stylesheets=[css])
+        
+        # Process children in subdirectories
+        if page.children:
+            # Create subdirectory for children
+            child_dir_name = self._sanitize_filename(page.title)
+            child_dir = page_dir / child_dir_name
+            child_dir.mkdir(parents=True, exist_ok=True)
+            
+            for child in page.children:
+                self.generate_page_pdfs(child, output_dir, child_dir)
+
+    def _generate_single_page_html(self, page: PageContent) -> str:
+        """Generate HTML for a single page without children."""
+        # Convert markdown to HTML
+        md_converter = markdown.Markdown(
+            extensions=["tables", "fenced_code", "toc", "nl2br"]
+        )
+        page_html = md_converter.convert(page.content)
+        
+        # Build front matter if configured
+        front_matter_parts = []
+        if self.author or self.source_url:
+            front_matter_parts.append('<section class="front-matter">')
+            front_matter_parts.append("<h2>Document Info</h2><ul>")
+            if self.author:
+                front_matter_parts.append(f"<li><strong>Author:</strong> {self.author}</li>")
+            if self.source_url:
+                front_matter_parts.append(f'<li><strong>Source:</strong> <a href="{self.source_url}">{self.source_url}</a></li>')
+            front_matter_parts.append("</ul></section>")
+        front_matter_html = "".join(front_matter_parts)
+        
+        # Full HTML document
+        html = f"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>{page.title}</title>
+        </head>
+        <body>
+            <header class="book-title">
+                <h1>{page.title}</h1>
+            </header>
+            
+            {front_matter_html}
+            
+            <main class="book-content">
+                <section class="chapter">
+                    <div class="chapter-content">
+                        {page_html}
+                    </div>
+                </section>
+            </main>
+        </body>
+        </html>
+        """
+        
+        return html
 
 
 def clean_page_id(page_id: str) -> str:
@@ -1060,6 +1331,17 @@ Environment Variables:
         default=1,
         help="Parallel image download workers (default: 1)",
     )
+    parser.add_argument(
+        "--split-files",
+        action="store_true",
+        help="Generate one PDF per page with subpages in subdirectories",
+    )
+    parser.add_argument(
+        "--max-workers",
+        type=int,
+        default=4,
+        help="Maximum parallel workers for fetching pages (default: 4, respects Notion's 3 req/s limit)",
+    )
     
     args = parser.parse_args()
     
@@ -1097,6 +1379,8 @@ Environment Variables:
         source_url=args.source_url,
         image_cache_dir=args.image_cache_dir,
         image_workers=args.image_workers,
+        split_files=args.split_files,
+        max_workers=args.max_workers,
     )
     try:
         converter.generate_pdf(page_id, args.output)
